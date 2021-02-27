@@ -3,13 +3,104 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AD55D4F425E990E20069A6CE /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD55D4F225E990E20069A6CE /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AD55D4FE25E991260069A6CE /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* AbstractView.swift */; };
+		AD55D50225E991390069A6CE /* KmlObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KmlObject.swift */; };
+		AD55D50325E991390069A6CE /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* Feature.swift */; };
+		AD55D50425E991390069A6CE /* LookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* LookAt.swift */; };
+		AD55D50525E991390069A6CE /* Lod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* Lod.swift */; };
+		AD55D50625E991390069A6CE /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* Region.swift */; };
+		AD55D50725E991390069A6CE /* UpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* UpdateOption.swift */; };
+		AD55D50825E991390069A6CE /* KmlColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KmlColor.swift */; };
+		AD55D50925E991390069A6CE /* AltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* AltitudeMode.swift */; };
+		AD55D50A25E991390069A6CE /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLDocument.swift */; };
+		AD55D50B25E991390069A6CE /* Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* Snippet.swift */; };
+		AD55D50C25E991390069A6CE /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* Camera.swift */; };
+		AD55D50D25E991390069A6CE /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* Author.swift */; };
+		AD55D50E25E991390069A6CE /* LatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */; };
+		AD55D50F25E991390069A6CE /* AddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* AddressDetails.swift */; };
+		AD55D51125E991390069A6CE /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* Tour.swift */; };
+		AD55D51225E991390069A6CE /* NetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */; };
+		AD55D51325E991390069A6CE /* TourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* TourPrimitive.swift */; };
+		AD55D51425E991390069A6CE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* Link.swift */; };
+		AD55D51525E991390069A6CE /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* Style.swift */; };
+		AD55D51625E991390069A6CE /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* Placemark.swift */; };
+		AD55D51725E991390069A6CE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* Container.swift */; };
+		AD55D51925E991390069A6CE /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* Geometry.swift */; };
+		AD55D51A25E991390069A6CE /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* Overlay.swift */; };
+		AD55D51B25E991390069A6CE /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* Orientation.swift */; };
+		AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
+		AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1965025E7F58500935306 /* ParsingError.swift */; };
+		AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1972125E9652100935306 /* KMLWriter.swift */; };
+		AD55D52825E991780069A6CE /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AD55D52725E991780069A6CE /* ZIPFoundation */; };
+		AD55D54025E997200069A6CE /* KmlColorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D53F25E997200069A6CE /* KmlColorTest.swift */; };
+		AD55D56025E9CD600069A6CE /* stylemap_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54425E9CD5F0069A6CE /* stylemap_example.kml */; };
+		AD55D56125E9CD600069A6CE /* liststyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54525E9CD5F0069A6CE /* liststyle_example.kml */; };
+		AD55D56225E9CD600069A6CE /* altitudemode_reference.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54625E9CD5F0069A6CE /* altitudemode_reference.kml */; };
+		AD55D56325E9CD600069A6CE /* linestyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54725E9CD5F0069A6CE /* linestyle_example.kml */; };
+		AD55D56425E9CD600069A6CE /* iconstyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54825E9CD5F0069A6CE /* iconstyle_example.kml */; };
+		AD55D56525E9CD600069A6CE /* latlonquad_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54925E9CD5F0069A6CE /* latlonquad_example.kml */; };
+		AD55D56625E9CD600069A6CE /* polygon_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54A25E9CD5F0069A6CE /* polygon_example.kml */; };
+		AD55D56725E9CD600069A6CE /* linearring_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54B25E9CD5F0069A6CE /* linearring_example.kml */; };
+		AD55D56825E9CD600069A6CE /* animatedupdate_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54C25E9CD5F0069A6CE /* animatedupdate_example.kml */; };
+		AD55D56925E9CD600069A6CE /* embedded_video_sample.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54D25E9CD5F0069A6CE /* embedded_video_sample.kml */; };
+		AD55D56A25E9CD600069A6CE /* networklinkcontrol_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54E25E9CD5F0069A6CE /* networklinkcontrol_example.kml */; };
+		AD55D56B25E9CD600069A6CE /* balloonvisibility_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54F25E9CD5F0069A6CE /* balloonvisibility_example.kml */; };
+		AD55D56C25E9CD600069A6CE /* folder_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55025E9CD5F0069A6CE /* folder_example.kml */; };
+		AD55D56D25E9CD600069A6CE /* balloonstyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55125E9CD5F0069A6CE /* balloonstyle_example.kml */; };
+		AD55D56E25E9CD600069A6CE /* groundoverlay_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55225E9CD5F0069A6CE /* groundoverlay_example.kml */; };
+		AD55D56F25E9CD600069A6CE /* polystyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55325E9CD5F0069A6CE /* polystyle_example.kml */; };
+		AD55D57025E9CD600069A6CE /* lookat_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55425E9CD5F0069A6CE /* lookat_example.kml */; };
+		AD55D57125E9CD600069A6CE /* tourprimitive_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55525E9CD5F0069A6CE /* tourprimitive_example.kml */; };
+		AD55D57225E9CD600069A6CE /* document_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55625E9CD5F0069A6CE /* document_example.kml */; };
+		AD55D57325E9CD600069A6CE /* track_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55725E9CD600069A6CE /* track_example.kml */; };
+		AD55D57425E9CD600069A6CE /* simplefield_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55825E9CD600069A6CE /* simplefield_example.kml */; };
+		AD55D57525E9CD600069A6CE /* author_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55925E9CD600069A6CE /* author_example.kml */; };
+		AD55D57625E9CD600069A6CE /* placemark_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55A25E9CD600069A6CE /* placemark_example.kml */; };
+		AD55D57725E9CD600069A6CE /* timespan_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55B25E9CD600069A6CE /* timespan_example.kml */; };
+		AD55D57825E9CD600069A6CE /* balloonvisibility_tourexample.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55C25E9CD600069A6CE /* balloonvisibility_tourexample.kml */; };
+		AD55D57925E9CD600069A6CE /* labelstyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55D25E9CD600069A6CE /* labelstyle_example.kml */; };
+		AD55D57A25E9CD600069A6CE /* track_extended_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55E25E9CD600069A6CE /* track_extended_example.kml */; };
+		AD55D57B25E9CD600069A6CE /* linestring_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55F25E9CD600069A6CE /* linestring_example.kml */; };
 		ADE1962925E7F2CB00935306 /* KMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE1961F25E7F2CB00935306 /* KMLKit.framework */; };
-		ADE1962E25E7F2CB00935306 /* KMLKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1962D25E7F2CB00935306 /* KMLKitTests.swift */; };
 		ADE1963025E7F2CB00935306 /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE1962225E7F2CB00935306 /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
+		ADE1964625E7F4E400935306 /* KMLParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1964425E7F4E400935306 /* KMLParserTest.swift */; };
+		ADE1964D25E7F54C00935306 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = ADE1964C25E7F54C00935306 /* ZIPFoundation */; };
+		ADE1965125E7F58500935306 /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1965025E7F58500935306 /* ParsingError.swift */; };
+		ADE1965A25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml in Resources */ = {isa = PBXBuildFile; fileRef = ADE1965825E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml */; };
+		ADE1965B25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz in Resources */ = {isa = PBXBuildFile; fileRef = ADE1965925E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz */; };
+		ADE1966125E7F84100935306 /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLDocument.swift */; };
+		ADE1966625E7FA6D00935306 /* NetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */; };
+		ADE1966E25E7FC0F00935306 /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* AbstractView.swift */; };
+		ADE1967225E7FD3E00935306 /* KmlObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KmlObject.swift */; };
+		ADE1967625E8031D00935306 /* UpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* UpdateOption.swift */; };
+		ADE1968025E8043100935306 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* Feature.swift */; };
+		ADE1968425E8048000935306 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* Author.swift */; };
+		ADE1968825E804FF00935306 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* Link.swift */; };
+		ADE1968C25E8058D00935306 /* AddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* AddressDetails.swift */; };
+		ADE1969025E8073A00935306 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* Style.swift */; };
+		ADE1969425E8076100935306 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* Region.swift */; };
+		ADE1969825E807CE00935306 /* Lod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* Lod.swift */; };
+		ADE196A225E809F700935306 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* Container.swift */; };
+		ADE196AA25E80D4F00935306 /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* Tour.swift */; };
+		ADE196B225E80E2D00935306 /* TourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* TourPrimitive.swift */; };
+		ADE196B825E8112100935306 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* Overlay.swift */; };
+		ADE196CE25E8167B00935306 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* Geometry.swift */; };
+		ADE196D425E8178100935306 /* AltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* AltitudeMode.swift */; };
+		ADE196DE25E829CE00935306 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* Orientation.swift */; };
+		ADE196EA25E8304800935306 /* KmlColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KmlColor.swift */; };
+		ADE196F025E8373200935306 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* Camera.swift */; };
+		ADE196F425E8380900935306 /* LookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* LookAt.swift */; };
+		ADE196FE25E84A3F00935306 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* Placemark.swift */; };
+		ADE1970225E84DCC00935306 /* Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* Snippet.swift */; };
+		ADE1970625E8601300935306 /* KML_Samples.kml in Resources */ = {isa = PBXBuildFile; fileRef = ADE1970525E8601300935306 /* KML_Samples.kml */; };
+		ADE1970C25E91E7D00935306 /* LatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */; };
+		ADE1972225E9652100935306 /* KMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1972125E9652100935306 /* KMLWriter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,19 +114,91 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AD55D4F025E990E20069A6CE /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AD55D4F225E990E20069A6CE /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
+		AD55D4F325E990E20069A6CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AD55D53F25E997200069A6CE /* KmlColorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KmlColorTest.swift; sourceTree = "<group>"; };
+		AD55D54425E9CD5F0069A6CE /* stylemap_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = stylemap_example.kml; sourceTree = "<group>"; };
+		AD55D54525E9CD5F0069A6CE /* liststyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = liststyle_example.kml; sourceTree = "<group>"; };
+		AD55D54625E9CD5F0069A6CE /* altitudemode_reference.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = altitudemode_reference.kml; sourceTree = "<group>"; };
+		AD55D54725E9CD5F0069A6CE /* linestyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linestyle_example.kml; sourceTree = "<group>"; };
+		AD55D54825E9CD5F0069A6CE /* iconstyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = iconstyle_example.kml; sourceTree = "<group>"; };
+		AD55D54925E9CD5F0069A6CE /* latlonquad_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = latlonquad_example.kml; sourceTree = "<group>"; };
+		AD55D54A25E9CD5F0069A6CE /* polygon_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polygon_example.kml; sourceTree = "<group>"; };
+		AD55D54B25E9CD5F0069A6CE /* linearring_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linearring_example.kml; sourceTree = "<group>"; };
+		AD55D54C25E9CD5F0069A6CE /* animatedupdate_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = animatedupdate_example.kml; sourceTree = "<group>"; };
+		AD55D54D25E9CD5F0069A6CE /* embedded_video_sample.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = embedded_video_sample.kml; sourceTree = "<group>"; };
+		AD55D54E25E9CD5F0069A6CE /* networklinkcontrol_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = networklinkcontrol_example.kml; sourceTree = "<group>"; };
+		AD55D54F25E9CD5F0069A6CE /* balloonvisibility_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = balloonvisibility_example.kml; sourceTree = "<group>"; };
+		AD55D55025E9CD5F0069A6CE /* folder_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = folder_example.kml; sourceTree = "<group>"; };
+		AD55D55125E9CD5F0069A6CE /* balloonstyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = balloonstyle_example.kml; sourceTree = "<group>"; };
+		AD55D55225E9CD5F0069A6CE /* groundoverlay_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = groundoverlay_example.kml; sourceTree = "<group>"; };
+		AD55D55325E9CD5F0069A6CE /* polystyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = polystyle_example.kml; sourceTree = "<group>"; };
+		AD55D55425E9CD5F0069A6CE /* lookat_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = lookat_example.kml; sourceTree = "<group>"; };
+		AD55D55525E9CD5F0069A6CE /* tourprimitive_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = tourprimitive_example.kml; sourceTree = "<group>"; };
+		AD55D55625E9CD5F0069A6CE /* document_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = document_example.kml; sourceTree = "<group>"; };
+		AD55D55725E9CD600069A6CE /* track_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = track_example.kml; sourceTree = "<group>"; };
+		AD55D55825E9CD600069A6CE /* simplefield_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = simplefield_example.kml; sourceTree = "<group>"; };
+		AD55D55925E9CD600069A6CE /* author_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = author_example.kml; sourceTree = "<group>"; };
+		AD55D55A25E9CD600069A6CE /* placemark_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = placemark_example.kml; sourceTree = "<group>"; };
+		AD55D55B25E9CD600069A6CE /* timespan_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = timespan_example.kml; sourceTree = "<group>"; };
+		AD55D55C25E9CD600069A6CE /* balloonvisibility_tourexample.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = balloonvisibility_tourexample.kml; sourceTree = "<group>"; };
+		AD55D55D25E9CD600069A6CE /* labelstyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = labelstyle_example.kml; sourceTree = "<group>"; };
+		AD55D55E25E9CD600069A6CE /* track_extended_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = track_extended_example.kml; sourceTree = "<group>"; };
+		AD55D55F25E9CD600069A6CE /* linestring_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linestring_example.kml; sourceTree = "<group>"; };
 		ADE1961F25E7F2CB00935306 /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE1962225E7F2CB00935306 /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		ADE1962325E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ADE1962825E7F2CB00935306 /* KMLKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = KMLKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		ADE1962D25E7F2CB00935306 /* KMLKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLKitTests.swift; sourceTree = "<group>"; };
 		ADE1962F25E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ADE1963C25E7F4D500935306 /* KMLParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMLParser.swift; sourceTree = "<group>"; };
+		ADE1964425E7F4E400935306 /* KMLParserTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KMLParserTest.swift; sourceTree = "<group>"; };
+		ADE1965025E7F58500935306 /* ParsingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
+		ADE1965825E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml"; sourceTree = "<group>"; };
+		ADE1965925E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz"; sourceTree = "<group>"; };
+		ADE1966025E7F84100935306 /* KMLDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLDocument.swift; sourceTree = "<group>"; };
+		ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLinkControl.swift; sourceTree = "<group>"; };
+		ADE1966D25E7FC0F00935306 /* AbstractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
+		ADE1967125E7FD3E00935306 /* KmlObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KmlObject.swift; sourceTree = "<group>"; };
+		ADE1967525E8031D00935306 /* UpdateOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOption.swift; sourceTree = "<group>"; };
+		ADE1967F25E8043100935306 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
+		ADE1968325E8048000935306 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
+		ADE1968725E804FF00935306 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
+		ADE1968B25E8058D00935306 /* AddressDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDetails.swift; sourceTree = "<group>"; };
+		ADE1968F25E8073A00935306 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
+		ADE1969325E8076100935306 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		ADE1969725E807CE00935306 /* Lod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lod.swift; sourceTree = "<group>"; };
+		ADE196A125E809F700935306 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
+		ADE196A925E80D4F00935306 /* Tour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tour.swift; sourceTree = "<group>"; };
+		ADE196B125E80E2D00935306 /* TourPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPrimitive.swift; sourceTree = "<group>"; };
+		ADE196B725E8112100935306 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
+		ADE196CD25E8167B00935306 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
+		ADE196D325E8178100935306 /* AltitudeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeMode.swift; sourceTree = "<group>"; };
+		ADE196DD25E829CE00935306 /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
+		ADE196E925E8304800935306 /* KmlColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KmlColor.swift; sourceTree = "<group>"; };
+		ADE196EF25E8373100935306 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
+		ADE196F325E8380900935306 /* LookAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookAt.swift; sourceTree = "<group>"; };
+		ADE196FD25E84A3F00935306 /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
+		ADE1970125E84DCC00935306 /* Snippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippet.swift; sourceTree = "<group>"; };
+		ADE1970525E8601300935306 /* KML_Samples.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = KML_Samples.kml; sourceTree = "<group>"; };
+		ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLonAltBox.swift; sourceTree = "<group>"; };
+		ADE1972125E9652100935306 /* KMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLWriter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AD55D4ED25E990E20069A6CE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD55D52825E991780069A6CE /* ZIPFoundation in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE1961C25E7F2CB00935306 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE1964D25E7F54C00935306 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -50,12 +213,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD55D4F125E990E20069A6CE /* KMLKit */ = {
+			isa = PBXGroup;
+			children = (
+				AD55D4F225E990E20069A6CE /* KMLKit.h */,
+				AD55D4F325E990E20069A6CE /* Info.plist */,
+			);
+			path = KMLKit;
+			sourceTree = "<group>";
+		};
+		AD55D52625E991780069A6CE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		ADE1961525E7F2CB00935306 = {
 			isa = PBXGroup;
 			children = (
 				ADE1962125E7F2CB00935306 /* KMLKit */,
 				ADE1962C25E7F2CB00935306 /* KMLKitTests */,
+				AD55D4F125E990E20069A6CE /* KMLKit */,
 				ADE1962025E7F2CB00935306 /* Products */,
+				AD55D52625E991780069A6CE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +245,7 @@
 			children = (
 				ADE1961F25E7F2CB00935306 /* KMLKit.framework */,
 				ADE1962825E7F2CB00935306 /* KMLKitTests.xctest */,
+				AD55D4F025E990E20069A6CE /* KMLKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -71,8 +253,12 @@
 		ADE1962125E7F2CB00935306 /* KMLKit */ = {
 			isa = PBXGroup;
 			children = (
+				ADE1966425E7FA5E00935306 /* Elements */,
+				ADE1963C25E7F4D500935306 /* KMLParser.swift */,
 				ADE1962225E7F2CB00935306 /* KMLKit.h */,
 				ADE1962325E7F2CB00935306 /* Info.plist */,
+				ADE1965025E7F58500935306 /* ParsingError.swift */,
+				ADE1972125E9652100935306 /* KMLWriter.swift */,
 			);
 			path = KMLKit;
 			sourceTree = "<group>";
@@ -80,15 +266,95 @@
 		ADE1962C25E7F2CB00935306 /* KMLKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				ADE1962D25E7F2CB00935306 /* KMLKitTests.swift */,
+				ADE1965725E7F70E00935306 /* Sample Data */,
+				ADE1964425E7F4E400935306 /* KMLParserTest.swift */,
 				ADE1962F25E7F2CB00935306 /* Info.plist */,
+				AD55D53F25E997200069A6CE /* KmlColorTest.swift */,
 			);
 			path = KMLKitTests;
+			sourceTree = "<group>";
+		};
+		ADE1965725E7F70E00935306 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				AD55D54625E9CD5F0069A6CE /* altitudemode_reference.kml */,
+				AD55D54C25E9CD5F0069A6CE /* animatedupdate_example.kml */,
+				AD55D55925E9CD600069A6CE /* author_example.kml */,
+				AD55D55125E9CD5F0069A6CE /* balloonstyle_example.kml */,
+				AD55D54F25E9CD5F0069A6CE /* balloonvisibility_example.kml */,
+				AD55D55C25E9CD600069A6CE /* balloonvisibility_tourexample.kml */,
+				AD55D55625E9CD5F0069A6CE /* document_example.kml */,
+				AD55D54D25E9CD5F0069A6CE /* embedded_video_sample.kml */,
+				AD55D55025E9CD5F0069A6CE /* folder_example.kml */,
+				AD55D55225E9CD5F0069A6CE /* groundoverlay_example.kml */,
+				AD55D54825E9CD5F0069A6CE /* iconstyle_example.kml */,
+				AD55D55D25E9CD600069A6CE /* labelstyle_example.kml */,
+				AD55D54925E9CD5F0069A6CE /* latlonquad_example.kml */,
+				AD55D54B25E9CD5F0069A6CE /* linearring_example.kml */,
+				AD55D55F25E9CD600069A6CE /* linestring_example.kml */,
+				AD55D54725E9CD5F0069A6CE /* linestyle_example.kml */,
+				AD55D54525E9CD5F0069A6CE /* liststyle_example.kml */,
+				AD55D55425E9CD5F0069A6CE /* lookat_example.kml */,
+				AD55D54E25E9CD5F0069A6CE /* networklinkcontrol_example.kml */,
+				AD55D55A25E9CD600069A6CE /* placemark_example.kml */,
+				AD55D54A25E9CD5F0069A6CE /* polygon_example.kml */,
+				AD55D55325E9CD5F0069A6CE /* polystyle_example.kml */,
+				AD55D55825E9CD600069A6CE /* simplefield_example.kml */,
+				AD55D54425E9CD5F0069A6CE /* stylemap_example.kml */,
+				AD55D55B25E9CD600069A6CE /* timespan_example.kml */,
+				AD55D55525E9CD5F0069A6CE /* tourprimitive_example.kml */,
+				AD55D55725E9CD600069A6CE /* track_example.kml */,
+				AD55D55E25E9CD600069A6CE /* track_extended_example.kml */,
+				ADE1970525E8601300935306 /* KML_Samples.kml */,
+				ADE1965825E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml */,
+				ADE1965925E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
+		ADE1966425E7FA5E00935306 /* Elements */ = {
+			isa = PBXGroup;
+			children = (
+				ADE1966D25E7FC0F00935306 /* AbstractView.swift */,
+				ADE1968B25E8058D00935306 /* AddressDetails.swift */,
+				ADE196D325E8178100935306 /* AltitudeMode.swift */,
+				ADE1968325E8048000935306 /* Author.swift */,
+				ADE196EF25E8373100935306 /* Camera.swift */,
+				ADE196A125E809F700935306 /* Container.swift */,
+				ADE1967F25E8043100935306 /* Feature.swift */,
+				ADE196CD25E8167B00935306 /* Geometry.swift */,
+				ADE196E925E8304800935306 /* KmlColor.swift */,
+				ADE1966025E7F84100935306 /* KMLDocument.swift */,
+				ADE1967125E7FD3E00935306 /* KmlObject.swift */,
+				ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */,
+				ADE1968725E804FF00935306 /* Link.swift */,
+				ADE1969725E807CE00935306 /* Lod.swift */,
+				ADE196F325E8380900935306 /* LookAt.swift */,
+				ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */,
+				ADE196DD25E829CE00935306 /* Orientation.swift */,
+				ADE196B725E8112100935306 /* Overlay.swift */,
+				ADE196FD25E84A3F00935306 /* Placemark.swift */,
+				ADE1969325E8076100935306 /* Region.swift */,
+				ADE1970125E84DCC00935306 /* Snippet.swift */,
+				ADE1968F25E8073A00935306 /* Style.swift */,
+				ADE196A925E80D4F00935306 /* Tour.swift */,
+				ADE196B125E80E2D00935306 /* TourPrimitive.swift */,
+				ADE1967525E8031D00935306 /* UpdateOption.swift */,
+			);
+			path = Elements;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		AD55D4EB25E990E20069A6CE /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD55D4F425E990E20069A6CE /* KMLKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE1961A25E7F2CB00935306 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -100,9 +366,30 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		ADE1961E25E7F2CB00935306 /* KMLKit */ = {
+		AD55D4EF25E990E20069A6CE /* iOS KMLKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = ADE1963325E7F2CB00935306 /* Build configuration list for PBXNativeTarget "KMLKit" */;
+			buildConfigurationList = AD55D4F525E990E20069A6CE /* Build configuration list for PBXNativeTarget "iOS KMLKit" */;
+			buildPhases = (
+				AD55D4EB25E990E20069A6CE /* Headers */,
+				AD55D4EC25E990E20069A6CE /* Sources */,
+				AD55D4ED25E990E20069A6CE /* Frameworks */,
+				AD55D4EE25E990E20069A6CE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "iOS KMLKit";
+			packageProductDependencies = (
+				AD55D52725E991780069A6CE /* ZIPFoundation */,
+			);
+			productName = KMLKit;
+			productReference = AD55D4F025E990E20069A6CE /* KMLKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		ADE1961E25E7F2CB00935306 /* macOS KMLKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ADE1963325E7F2CB00935306 /* Build configuration list for PBXNativeTarget "macOS KMLKit" */;
 			buildPhases = (
 				ADE1961A25E7F2CB00935306 /* Headers */,
 				ADE1961B25E7F2CB00935306 /* Sources */,
@@ -113,7 +400,10 @@
 			);
 			dependencies = (
 			);
-			name = KMLKit;
+			name = "macOS KMLKit";
+			packageProductDependencies = (
+				ADE1964C25E7F54C00935306 /* ZIPFoundation */,
+			);
 			productName = KMLKit;
 			productReference = ADE1961F25E7F2CB00935306 /* KMLKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -145,8 +435,12 @@
 				LastSwiftUpdateCheck = 1240;
 				LastUpgradeCheck = 1240;
 				TargetAttributes = {
+					AD55D4EF25E990E20069A6CE = {
+						CreatedOnToolsVersion = 12.4;
+					};
 					ADE1961E25E7F2CB00935306 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 					ADE1962725E7F2CB00935306 = {
 						CreatedOnToolsVersion = 12.4;
@@ -162,17 +456,28 @@
 				Base,
 			);
 			mainGroup = ADE1961525E7F2CB00935306;
+			packageReferences = (
+				ADE1964B25E7F54C00935306 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+			);
 			productRefGroup = ADE1962025E7F2CB00935306 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				ADE1961E25E7F2CB00935306 /* KMLKit */,
+				ADE1961E25E7F2CB00935306 /* macOS KMLKit */,
 				ADE1962725E7F2CB00935306 /* KMLKitTests */,
+				AD55D4EF25E990E20069A6CE /* iOS KMLKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AD55D4EE25E990E20069A6CE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE1961D25E7F2CB00935306 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -184,16 +489,110 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD55D56D25E9CD600069A6CE /* balloonstyle_example.kml in Resources */,
+				AD55D57025E9CD600069A6CE /* lookat_example.kml in Resources */,
+				AD55D57625E9CD600069A6CE /* placemark_example.kml in Resources */,
+				AD55D57525E9CD600069A6CE /* author_example.kml in Resources */,
+				AD55D57A25E9CD600069A6CE /* track_extended_example.kml in Resources */,
+				AD55D57425E9CD600069A6CE /* simplefield_example.kml in Resources */,
+				AD55D56725E9CD600069A6CE /* linearring_example.kml in Resources */,
+				AD55D57325E9CD600069A6CE /* track_example.kml in Resources */,
+				AD55D57725E9CD600069A6CE /* timespan_example.kml in Resources */,
+				AD55D56025E9CD600069A6CE /* stylemap_example.kml in Resources */,
+				AD55D56A25E9CD600069A6CE /* networklinkcontrol_example.kml in Resources */,
+				AD55D56125E9CD600069A6CE /* liststyle_example.kml in Resources */,
+				AD55D56B25E9CD600069A6CE /* balloonvisibility_example.kml in Resources */,
+				AD55D56925E9CD600069A6CE /* embedded_video_sample.kml in Resources */,
+				AD55D57825E9CD600069A6CE /* balloonvisibility_tourexample.kml in Resources */,
+				ADE1970625E8601300935306 /* KML_Samples.kml in Resources */,
+				ADE1965B25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz in Resources */,
+				AD55D56F25E9CD600069A6CE /* polystyle_example.kml in Resources */,
+				AD55D56625E9CD600069A6CE /* polygon_example.kml in Resources */,
+				AD55D56525E9CD600069A6CE /* latlonquad_example.kml in Resources */,
+				AD55D57B25E9CD600069A6CE /* linestring_example.kml in Resources */,
+				AD55D56425E9CD600069A6CE /* iconstyle_example.kml in Resources */,
+				AD55D57225E9CD600069A6CE /* document_example.kml in Resources */,
+				AD55D56C25E9CD600069A6CE /* folder_example.kml in Resources */,
+				AD55D57925E9CD600069A6CE /* labelstyle_example.kml in Resources */,
+				AD55D56E25E9CD600069A6CE /* groundoverlay_example.kml in Resources */,
+				ADE1965A25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml in Resources */,
+				AD55D56825E9CD600069A6CE /* animatedupdate_example.kml in Resources */,
+				AD55D57125E9CD600069A6CE /* tourprimitive_example.kml in Resources */,
+				AD55D56225E9CD600069A6CE /* altitudemode_reference.kml in Resources */,
+				AD55D56325E9CD600069A6CE /* linestyle_example.kml in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AD55D4EC25E990E20069A6CE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AD55D50F25E991390069A6CE /* AddressDetails.swift in Sources */,
+				AD55D50325E991390069A6CE /* Feature.swift in Sources */,
+				AD55D50A25E991390069A6CE /* KMLDocument.swift in Sources */,
+				AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */,
+				AD55D50425E991390069A6CE /* LookAt.swift in Sources */,
+				AD55D50525E991390069A6CE /* Lod.swift in Sources */,
+				AD55D50625E991390069A6CE /* Region.swift in Sources */,
+				AD55D51325E991390069A6CE /* TourPrimitive.swift in Sources */,
+				AD55D50825E991390069A6CE /* KmlColor.swift in Sources */,
+				AD55D51625E991390069A6CE /* Placemark.swift in Sources */,
+				AD55D4FE25E991260069A6CE /* AbstractView.swift in Sources */,
+				AD55D50925E991390069A6CE /* AltitudeMode.swift in Sources */,
+				AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */,
+				AD55D50C25E991390069A6CE /* Camera.swift in Sources */,
+				AD55D51225E991390069A6CE /* NetworkLinkControl.swift in Sources */,
+				AD55D50D25E991390069A6CE /* Author.swift in Sources */,
+				AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */,
+				AD55D50725E991390069A6CE /* UpdateOption.swift in Sources */,
+				AD55D51125E991390069A6CE /* Tour.swift in Sources */,
+				AD55D50E25E991390069A6CE /* LatLonAltBox.swift in Sources */,
+				AD55D50B25E991390069A6CE /* Snippet.swift in Sources */,
+				AD55D51725E991390069A6CE /* Container.swift in Sources */,
+				AD55D50225E991390069A6CE /* KmlObject.swift in Sources */,
+				AD55D51525E991390069A6CE /* Style.swift in Sources */,
+				AD55D51425E991390069A6CE /* Link.swift in Sources */,
+				AD55D51A25E991390069A6CE /* Overlay.swift in Sources */,
+				AD55D51B25E991390069A6CE /* Orientation.swift in Sources */,
+				AD55D51925E991390069A6CE /* Geometry.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		ADE1961B25E7F2CB00935306 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ADE196B825E8112100935306 /* Overlay.swift in Sources */,
+				ADE1966E25E7FC0F00935306 /* AbstractView.swift in Sources */,
+				ADE196FE25E84A3F00935306 /* Placemark.swift in Sources */,
+				ADE196CE25E8167B00935306 /* Geometry.swift in Sources */,
+				ADE1967225E7FD3E00935306 /* KmlObject.swift in Sources */,
+				ADE1969825E807CE00935306 /* Lod.swift in Sources */,
+				ADE196D425E8178100935306 /* AltitudeMode.swift in Sources */,
+				ADE1966125E7F84100935306 /* KMLDocument.swift in Sources */,
+				ADE1968C25E8058D00935306 /* AddressDetails.swift in Sources */,
+				ADE196F025E8373200935306 /* Camera.swift in Sources */,
+				ADE196B225E80E2D00935306 /* TourPrimitive.swift in Sources */,
+				ADE1970C25E91E7D00935306 /* LatLonAltBox.swift in Sources */,
+				ADE1972225E9652100935306 /* KMLWriter.swift in Sources */,
+				ADE1968825E804FF00935306 /* Link.swift in Sources */,
+				ADE1968425E8048000935306 /* Author.swift in Sources */,
+				ADE1967625E8031D00935306 /* UpdateOption.swift in Sources */,
+				ADE196EA25E8304800935306 /* KmlColor.swift in Sources */,
+				ADE1965125E7F58500935306 /* ParsingError.swift in Sources */,
+				ADE196DE25E829CE00935306 /* Orientation.swift in Sources */,
+				ADE1968025E8043100935306 /* Feature.swift in Sources */,
+				ADE1970225E84DCC00935306 /* Snippet.swift in Sources */,
+				ADE1969025E8073A00935306 /* Style.swift in Sources */,
+				ADE1969425E8076100935306 /* Region.swift in Sources */,
+				ADE196AA25E80D4F00935306 /* Tour.swift in Sources */,
+				ADE196A225E809F700935306 /* Container.swift in Sources */,
+				ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */,
+				ADE196F425E8380900935306 /* LookAt.swift in Sources */,
+				ADE1966625E7FA6D00935306 /* NetworkLinkControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,7 +600,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADE1962E25E7F2CB00935306 /* KMLKitTests.swift in Sources */,
+				AD55D54025E997200069A6CE /* KmlColorTest.swift in Sources */,
+				ADE1964625E7F4E400935306 /* KMLParserTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,12 +610,65 @@
 /* Begin PBXTargetDependency section */
 		ADE1962B25E7F2CB00935306 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = ADE1961E25E7F2CB00935306 /* KMLKit */;
+			target = ADE1961E25E7F2CB00935306 /* macOS KMLKit */;
 			targetProxy = ADE1962A25E7F2CB00935306 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		AD55D4F625E990E20069A6CE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EX25C7QZ85;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = KMLKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKit;
+				PRODUCT_NAME = KMLKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AD55D4F725E990E20069A6CE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = EX25C7QZ85;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = KMLKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKit;
+				PRODUCT_NAME = KMLKit;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 		ADE1963125E7F2CB00935306 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -268,7 +721,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -326,7 +779,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = macosx;
@@ -340,6 +793,7 @@
 		ADE1963425E7F2CB00935306 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -355,8 +809,9 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = KMLKit;
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -364,6 +819,7 @@
 		ADE1963525E7F2CB00935306 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -379,7 +835,7 @@
 					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKit;
-				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PRODUCT_NAME = KMLKit;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -388,6 +844,7 @@
 		ADE1963725E7F2CB00935306 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX25C7QZ85;
@@ -406,6 +863,7 @@
 		ADE1963825E7F2CB00935306 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX25C7QZ85;
@@ -424,6 +882,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AD55D4F525E990E20069A6CE /* Build configuration list for PBXNativeTarget "iOS KMLKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AD55D4F625E990E20069A6CE /* Debug */,
+				AD55D4F725E990E20069A6CE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		ADE1961925E7F2CB00935306 /* Build configuration list for PBXProject "KMLKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -433,7 +900,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		ADE1963325E7F2CB00935306 /* Build configuration list for PBXNativeTarget "KMLKit" */ = {
+		ADE1963325E7F2CB00935306 /* Build configuration list for PBXNativeTarget "macOS KMLKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				ADE1963425E7F2CB00935306 /* Debug */,
@@ -452,6 +919,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		ADE1964B25E7F54C00935306 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.12;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AD55D52725E991780069A6CE /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADE1964B25E7F54C00935306 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		ADE1964C25E7F54C00935306 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = ADE1964B25E7F54C00935306 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = ADE1961625E7F2CB00935306 /* Project object */;
 }
