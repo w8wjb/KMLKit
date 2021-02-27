@@ -7,6 +7,6 @@
 
 import Foundation
 
-public class AbstractView: KmlObject {
+public class KMLAbstractView: KMLObject {
 
 }

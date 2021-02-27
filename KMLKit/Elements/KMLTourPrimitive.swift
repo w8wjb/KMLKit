@@ -17,7 +17,7 @@ public class Wait: KMLTourPrimitive {
 
 public class AnimatedUpdate: KMLTourPrimitive {
     public var duration: Double = 0.0
-    public var update: Update?
+    public var update: KMLUpdate?
     public var delayedStart: Double?
 }
 

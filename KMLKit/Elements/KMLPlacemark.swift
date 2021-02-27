@@ -7,6 +7,6 @@
 
 import Foundation
 
-public class Placemark: Feature {
-    public var geometry: Geometry?
+public class KMLPlacemark: KMLFeature {
+    public var geometry: KMLGeometry?
 }

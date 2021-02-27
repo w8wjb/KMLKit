@@ -39,11 +39,11 @@ class KMLParserTest: XCTestCase {
         let kmzFile = try getSampleFile("aprsfi_export_W8AGT-9_20210222_122629_20210225_122629", type: "kmz")
         
         let kml = try KMLParser.parse(file: kmzFile)
-        let document = kml.findFirstFeatures(ofType: Document.self)!
+        let document = kml.findFirstFeatures(ofType: KMLDocument.self)!
         XCTAssertEqual("aprs", document.id)
         
         XCTAssertEqual(1, document.styleSelector.count)
-        let style = document.styleSelector.first as! Style
+        let style = document.styleSelector.first as! KMLStyle
         XCTAssertEqual("t4856505", style.id)
         
         let labelStyle = style.labelStyle!
@@ -64,9 +64,9 @@ class KMLParserTest: XCTestCase {
         let polyStyle = style.polyStyle!
         XCTAssertEqual("#7f00ff00", polyStyle.color.hexRGBaColor)
         
-        let placemark = document.features.first as! Placemark
+        let placemark = document.features.first as! KMLPlacemark
         XCTAssertEqual("W8AGT-9", placemark.name)
-        XCTAssertEqual("<a href=\'http://aprs.fi/?call=W8AGT-9\'>[click here to track on aprs.fi]</a><br />\n2021-02-25 12:24:52z<br />\n27 MPH\n 179°\n 817 ft\n<br />", placemark.description)
+        XCTAssertEqual("<a href=\'http://aprs.fi/?call=W8AGT-9\'>[click here to track on aprs.fi]</a><br />\n2021-02-25 12:24:52z<br />\n27 MPH\n 179°\n 817 ft\n<br />", placemark.featureDescription)
         
         XCTAssertEqual(1, placemark.snippets.count)
         let snippet = placemark.snippets.first!
@@ -75,17 +75,17 @@ class KMLParserTest: XCTestCase {
         
         XCTAssertEqual("t4856505", placemark.styleUrl?.fragment)
         
-        let multiGeometry = placemark.geometry as! MultiGeometry
+        let multiGeometry = placemark.geometry as! KMLMultiGeometry
         
         XCTAssertEqual(2, multiGeometry.geometry.count)
         
-        let point = multiGeometry.geometry[0] as! Point
+        let point = multiGeometry.geometry[0] as! KMLPoint
         XCTAssertEqual(.absolute, point.altitudeMode)
         XCTAssertEqual(CLLocationDegrees(42.74583), point.location.coordinate.latitude)
         XCTAssertEqual(CLLocationDegrees(-85.66200), point.location.coordinate.longitude)
         XCTAssertEqual(CLLocationDistance(249.00), point.location.altitude)
         
-        let lineString = multiGeometry.geometry[1] as! LineString
+        let lineString = multiGeometry.geometry[1] as! KMLLineString
         XCTAssertTrue(lineString.tessellate)
         XCTAssertTrue(lineString.extrude)
         XCTAssertEqual(.absolute, lineString.altitudeMode)
@@ -113,11 +113,11 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let placemark = kml.feature as! Placemark
-        let lookat = placemark.abstractView as! LookAt
+        let placemark = kml.feature as! KMLPlacemark
+        let lookat = placemark.abstractView as! KMLLookAt
         XCTAssertEqual(.relativeToSeaFloor, lookat.altitudeMode)
         
-        let lineString = placemark.geometry as! LineString
+        let lineString = placemark.geometry as! KMLLineString
         XCTAssertEqual(.relativeToSeaFloor, lineString.altitudeMode)
 
     }
@@ -128,7 +128,7 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
 
-        let tour = kml.findFeatures(ofType: Tour.self).first!
+        let tour = kml.findFeatures(ofType: KMLTour.self).first!
         
         XCTAssertEqual(3, tour.playlist.items.count)
         
@@ -140,7 +140,7 @@ class KMLParserTest: XCTestCase {
             case let flyTo as FlyTo:
                 XCTAssertEqual(4.1, flyTo.duration)
                 
-                let camera = flyTo.view as! Camera
+                let camera = flyTo.view as! KMLCamera
                 XCTAssertEqual(170.157, camera.longitude)
                 XCTAssertEqual(-43.671, camera.latitude)
                 XCTAssertEqual(9700, camera.altitude)
@@ -164,20 +164,20 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let document = kml.findFirstFeatures(ofType: Document.self)!
+        let document = kml.findFirstFeatures(ofType: KMLDocument.self)!
         
         XCTAssertEqual("J. K. Rowling", document.author?.nameOrUriOrEmail.first)
         XCTAssertEqual(URL(string: "http://www.harrypotter.com"), document.link?.href)
         
-        let hogwarts = document.features[0] as! Placemark
+        let hogwarts = document.features[0] as! KMLPlacemark
         XCTAssertEqual("Hogwarts", hogwarts.name)
-        let hogwartsPoint = hogwarts.geometry as! Point
+        let hogwartsPoint = hogwarts.geometry as! KMLPoint
         XCTAssertEqual(1, hogwartsPoint.location.coordinate.latitude)
         XCTAssertEqual(1, hogwartsPoint.location.coordinate.longitude)
 
-        let littleHangleton = document.features[1] as! Placemark
+        let littleHangleton = document.features[1] as! KMLPlacemark
         XCTAssertEqual("Little Hangleton", littleHangleton.name)
-        let littleHangletonPoint = littleHangleton.geometry as! Point
+        let littleHangletonPoint = littleHangleton.geometry as! KMLPoint
         XCTAssertEqual(1, littleHangletonPoint.location.coordinate.longitude)
         XCTAssertEqual(2, littleHangletonPoint.location.coordinate.latitude)
 
@@ -190,8 +190,8 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let document = kml.findFirstFeatures(ofType: Document.self)!
-        let style = document.styleSelector.first as! Style
+        let document = kml.findFirstFeatures(ofType: KMLDocument.self)!
+        let style = document.styleSelector.first as! KMLStyle
         let balloonStyle = style.balloonStyle
         
         XCTAssertEqual("#ffffffbb", balloonStyle?.bgColor?.hexRGBaColor)
@@ -199,12 +199,12 @@ class KMLParserTest: XCTestCase {
         
         
         
-        let placemark = document.findFirstFeatures(ofType: Placemark.self)!
+        let placemark = document.findFirstFeatures(ofType: KMLPlacemark.self)!
         XCTAssertEqual("BalloonStyle", placemark.name)
-        XCTAssertEqual("An example of BalloonStyle", placemark.description)
+        XCTAssertEqual("An example of BalloonStyle", placemark.featureDescription)
         XCTAssertEqual("exampleBalloonStyle", placemark.styleUrl?.fragment)
         
-        let point = placemark.geometry as! Point
+        let point = placemark.geometry as! KMLPoint
         XCTAssertEqual(-122.370533, point.location.coordinate.longitude)
         XCTAssertEqual(37.823842, point.location.coordinate.latitude)
         XCTAssertEqual(0, point.location.altitude)
@@ -219,7 +219,7 @@ class KMLParserTest: XCTestCase {
         let kml = try KMLParser.parse(file: kmlFile)
 
         
-        let placemark = kml.feature as! Placemark
+        let placemark = kml.feature as! KMLPlacemark
         XCTAssertTrue(placemark.balloonVisibility)
         
     }
@@ -230,7 +230,7 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let tour = kml.findFeatures(ofType: Tour.self).first!
+        let tour = kml.findFeatures(ofType: KMLTour.self).first!
         XCTAssertEqual("Play me", tour.name)
         
         XCTAssertEqual(11, tour.playlist.items.count)
@@ -238,16 +238,16 @@ class KMLParserTest: XCTestCase {
         let changes = tour.playlist
             .compactMap({ ($0 as? AnimatedUpdate)?.update })
             .flatMap({ $0.items })
-            .compactMap({ $0 as? Change })
+            .compactMap({ $0 as? KMLChange })
         
-        let placemarkChanges: [Placemark] = changes.compactMap { $0.objects.first as? Placemark }
+        let placemarkChanges: [KMLPlacemark] = changes.compactMap { $0.objects.first as? KMLPlacemark }
         XCTAssertEqual(5, placemarkChanges.count)
         
         
         let balloonVisibilityCount = placemarkChanges.reduce(0, { $0 + ($1.balloonVisibility as NSNumber).intValue })
         XCTAssertEqual(3, balloonVisibilityCount)
 
-        let placemarks = kml.findFeatures(ofType: Placemark.self)
+        let placemarks = kml.findFeatures(ofType: KMLPlacemark.self)
         
         let placemarkIds = placemarks.map { $0.id }
         XCTAssertEqual(["underwater1", "underwater2", "onland"], placemarkIds)
@@ -260,7 +260,7 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
 
-        let document = kml.findFirstFeatures(ofType: Document.self)
+        let document = kml.findFirstFeatures(ofType: KMLDocument.self)
         XCTAssertNotNil(document)
     }
     
@@ -270,9 +270,9 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
      
-        let placemark = kml.findFirstFeatures(ofType: Placemark.self)!
+        let placemark = kml.findFirstFeatures(ofType: KMLPlacemark.self)!
         
-        XCTAssert(placemark.description!.contains("application/x-shockwave-flash"))
+        XCTAssert(placemark.featureDescription!.contains("application/x-shockwave-flash"))
         
     }
     
@@ -282,10 +282,10 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let folder = kml.findFirstFeatures(ofType: Folder.self)!        
+        let folder = kml.findFirstFeatures(ofType: KMLFolder.self)!
         XCTAssertEqual(3, folder.count)
         XCTAssertEqual("Folder.kml", folder.name)
-        XCTAssertEqual("A folder is a container that can hold multiple other objects", folder.description)
+        XCTAssertEqual("A folder is a container that can hold multiple other objects", folder.featureDescription)
         XCTAssertTrue(folder.open)
 
     }
@@ -297,7 +297,7 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let groundOverlay = kml.findFirstFeatures(ofType: GroundOverlay.self)!
+        let groundOverlay = kml.findFirstFeatures(ofType: KMLGroundOverlay.self)!
 
         XCTAssertEqual("GroundOverlay.kml", groundOverlay.name)
         XCTAssertEqual("#7fffffff", groundOverlay.color?.hexRGBaColor)
@@ -324,8 +324,8 @@ class KMLParserTest: XCTestCase {
 
         let kml = try KMLParser.parse(file: kmlFile)
         
-        let document = kml.findFirstFeatures(ofType: Document.self)!
-        let style: Style = document.findStyle(withId: "randomColorIcon")!
+        let document = kml.findFirstFeatures(ofType: KMLDocument.self)!
+        let style: KMLStyle = document.findStyle(withId: "randomColorIcon")!
         let iconStyle = style.iconStyle!
         
         XCTAssertEqual("#ff00ff00", iconStyle.color.hexRGBaColor)

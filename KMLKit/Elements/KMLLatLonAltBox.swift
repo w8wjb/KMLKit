@@ -32,6 +32,6 @@ public class KMLLatLonAltBox: KMLAbstractLatLonBox {
     
 }
 
-public class LatLonQuad: KMLAbstractExtent {
+public class KMLLatLonQuad: KMLAbstractExtent {
     public var coordinates: [CLLocation] = []
 }

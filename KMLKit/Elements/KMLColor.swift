@@ -10,17 +10,17 @@ import Foundation
 import MapKit
 #if os(iOS)
 import UIKit
-public typealias KmlColor = UIColor
+public typealias KMLColor = UIColor
 
 #elseif os(macOS)
 
 import AppKit
-public typealias KmlColor = NSColor
+public typealias KMLColor = NSColor
 
 
 #endif
 
-extension KmlColor {
+extension KMLColor {
     
     var rgbComponents: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
         var r:CGFloat = 0

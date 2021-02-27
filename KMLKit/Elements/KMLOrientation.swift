@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-public class Orientation: KmlObject {
+public class KMLOrientation: KMLObject {
 
     public var heading = CLLocationDegrees()
     public var tilt = CLLocationDegrees()

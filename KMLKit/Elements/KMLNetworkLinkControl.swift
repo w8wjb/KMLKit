@@ -17,6 +17,6 @@ public class KMLNetworkLinkControl: NSObject {
     public var linkSnippet: String?
     public var linkSnippetMaxLines: Int = -1
     public var expires: Date?
-    public var update: Update?
+    public var update: KMLUpdate?
     public var view: KMLAbstractView?
 }

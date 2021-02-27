@@ -11,13 +11,13 @@ public class KMLUpdateOption: NSObject {
     
 }
 
-public class Update: NSObject {
+public class KMLUpdate: NSObject {
     public var targetHref: URL?
     public var sourceHref: URL?
     public var items: [KMLUpdateOption] = []
 }
 
-extension Update: Sequence {
+extension KMLUpdate: Sequence {
     public typealias Element = KMLUpdateOption
     public typealias Iterator = Array<Element>.Iterator
     
@@ -26,19 +26,19 @@ extension Update: Sequence {
     }
 }
 
-public class Create: KMLUpdateOption {
+public class KMLCreate: KMLUpdateOption {
     public var containers: [KMLContainer] = []
     public var multiTracks: [KMLMultiTrack] = []
     public var multiGeometry: [KMLMultiGeometry] = []
 }
 
 
-public class Change: KMLUpdateOption {
+public class KMLChange: KMLUpdateOption {
     public var objects: [KMLObject] = []
     
 }
 
-extension Change: Sequence {
+extension KMLChange: Sequence {
     public typealias Element = KMLObject
     public typealias Iterator = Array<Element>.Iterator
     
@@ -47,7 +47,7 @@ extension Change: Sequence {
     }
 }
 
-public class Delete: KMLUpdateOption {
+public class KMLDelete: KMLUpdateOption {
     public var features: [KMLFeature] = []
     public var geometry: [KMLGeometry] = []
 }

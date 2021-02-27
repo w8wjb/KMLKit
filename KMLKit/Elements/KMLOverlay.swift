@@ -9,23 +9,23 @@ import Foundation
 import CoreLocation
 import MapKit
 
-public class Overlay: Feature {
+public class KMLOverlay: KMLFeature {
 
-    public var color: KmlColor?
+    public var color: KMLColor?
     public var drawOrder = 0
     public var icon: Icon?
     
 }
 
-public class GroundOverlay: Overlay {
+public class KMLGroundOverlay: KMLOverlay {
     
     public var altitude: CLLocationDistance = 0.0
-    public var altitudeMode = AltitudeMode.clampToGround
-    public var latLonBox: LatLonBox?
+    public var altitudeMode = KMLAltitudeMode.clampToGround
+    public var latLonBox: KMLLatLonBox?
     
 }
 
-public class PhotoOverlay: Overlay {
+public class KMLPhotoOverlay: KMLOverlay {
     
     public struct ViewVolume {
         var leftFov: Double = 0.0
@@ -55,7 +55,7 @@ public class PhotoOverlay: Overlay {
     
 }
 
-public class ScreenOverlay: Overlay {
+public class ScreenOverlay: KMLOverlay {
     public var overlayXY: CGPoint?
     public var screenXY: CGPoint?
     public var rotationXY: CGPoint?

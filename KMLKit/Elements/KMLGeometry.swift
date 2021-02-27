@@ -8,18 +8,18 @@
 import Foundation
 import MapKit
 
-public class Geometry: KmlObject {
-    public var altitudeMode = AltitudeMode.clampToGround
+public class KMLGeometry: KMLObject {
+    public var altitudeMode = KMLAltitudeMode.clampToGround
 }
 
-public class Point: Geometry {
+public class KMLPoint: KMLGeometry {
     
     public var extrude = false
     public var location = CLLocation()
     
 }
 
-public class Track: Geometry {
+public class KMLTrack: KMLGeometry {
 
     public var extrude = false
     public var tessellate = false
@@ -29,59 +29,59 @@ public class Track: Geometry {
 
 }
 
-public class MultiTrack: Geometry {
+public class KMLMultiTrack: KMLGeometry {
  
     public var interpolate = false
 
 }
 
-public class Model: Geometry {
+public class KMLModel: KMLGeometry {
     
-    public class Scale: KmlObject {
+    public class KMLScale: KMLObject {
         public var x: Double = 1.0
         public var y: Double = 1.0
         public var z: Double = 1.0
     }
     
-    public class Alias {
+    public class KMLAlias: NSObject {
         public var targetHref: URL?
         public var sourceHref: URL?
     }
     
     public var location = CLLocation()
-    public var orientation = Orientation()
-    public var scale = Scale()
-    public var link: Link?
-    public var resourceMap: [Alias] = []
+    public var orientation = KMLOrientation()
+    public var scale = KMLScale()
+    public var link: KMLLink?
+    public var resourceMap: [KMLAlias] = []
 
 }
 
-public class MultiGeometry: Geometry {
+public class KMLMultiGeometry: KMLGeometry {
 
-    public var geometry: [Geometry] = []
+    public var geometry: [KMLGeometry] = []
 
 }
 
-public class LineString: Geometry {
+public class KMLLineString: KMLGeometry {
     public var extrude = false
     public var tessellate = false
     public var coordinates: [CLLocation] = []
 }
 
-public class LinearRing: Geometry {
+public class KMLLinearRing: KMLGeometry {
     public var extrude = false
     public var tessellate = false
     public var coordinates: [CLLocation] = []
 }
 
-public class Boundary {
-    public var linearRing = LinearRing()
+public class KMLBoundary: NSObject {
+    public var linearRing = KMLLinearRing()
 }
 
-public class Polygon: Geometry {
+public class KMLPolygon: KMLGeometry {
 
     public var extrude = false
     public var tessellate = false
-    public var outerBoundaryIs = Boundary()
-    public var innerBoundaryIs: [Boundary] = []
+    public var outerBoundaryIs = KMLBoundary()
+    public var innerBoundaryIs: [KMLBoundary] = []
 }

@@ -8,31 +8,31 @@
 
 /* Begin PBXBuildFile section */
 		AD55D4F425E990E20069A6CE /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD55D4F225E990E20069A6CE /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AD55D4FE25E991260069A6CE /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* AbstractView.swift */; };
-		AD55D50225E991390069A6CE /* KmlObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KmlObject.swift */; };
-		AD55D50325E991390069A6CE /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* Feature.swift */; };
-		AD55D50425E991390069A6CE /* LookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* LookAt.swift */; };
-		AD55D50525E991390069A6CE /* Lod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* Lod.swift */; };
-		AD55D50625E991390069A6CE /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* Region.swift */; };
-		AD55D50725E991390069A6CE /* UpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* UpdateOption.swift */; };
-		AD55D50825E991390069A6CE /* KmlColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KmlColor.swift */; };
-		AD55D50925E991390069A6CE /* AltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* AltitudeMode.swift */; };
-		AD55D50A25E991390069A6CE /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLDocument.swift */; };
-		AD55D50B25E991390069A6CE /* Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* Snippet.swift */; };
-		AD55D50C25E991390069A6CE /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* Camera.swift */; };
-		AD55D50D25E991390069A6CE /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* Author.swift */; };
-		AD55D50E25E991390069A6CE /* LatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */; };
-		AD55D50F25E991390069A6CE /* AddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* AddressDetails.swift */; };
-		AD55D51125E991390069A6CE /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* Tour.swift */; };
-		AD55D51225E991390069A6CE /* NetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */; };
-		AD55D51325E991390069A6CE /* TourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* TourPrimitive.swift */; };
-		AD55D51425E991390069A6CE /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* Link.swift */; };
-		AD55D51525E991390069A6CE /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* Style.swift */; };
-		AD55D51625E991390069A6CE /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* Placemark.swift */; };
-		AD55D51725E991390069A6CE /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* Container.swift */; };
-		AD55D51925E991390069A6CE /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* Geometry.swift */; };
-		AD55D51A25E991390069A6CE /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* Overlay.swift */; };
-		AD55D51B25E991390069A6CE /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* Orientation.swift */; };
+		AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */; };
+		AD55D50225E991390069A6CE /* KMLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KMLObject.swift */; };
+		AD55D50325E991390069A6CE /* KMLFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* KMLFeature.swift */; };
+		AD55D50425E991390069A6CE /* KMLLookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* KMLLookAt.swift */; };
+		AD55D50525E991390069A6CE /* KMLLod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* KMLLod.swift */; };
+		AD55D50625E991390069A6CE /* KMLRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* KMLRegion.swift */; };
+		AD55D50725E991390069A6CE /* KMLUpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* KMLUpdateOption.swift */; };
+		AD55D50825E991390069A6CE /* KMLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KMLColor.swift */; };
+		AD55D50925E991390069A6CE /* KMLAltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* KMLAltitudeMode.swift */; };
+		AD55D50A25E991390069A6CE /* KMLRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLRoot.swift */; };
+		AD55D50B25E991390069A6CE /* KMLSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* KMLSnippet.swift */; };
+		AD55D50C25E991390069A6CE /* KMLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* KMLCamera.swift */; };
+		AD55D50D25E991390069A6CE /* KMLAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* KMLAuthor.swift */; };
+		AD55D50E25E991390069A6CE /* KMLLatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* KMLLatLonAltBox.swift */; };
+		AD55D50F25E991390069A6CE /* KMLAddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* KMLAddressDetails.swift */; };
+		AD55D51125E991390069A6CE /* KMLTour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* KMLTour.swift */; };
+		AD55D51225E991390069A6CE /* KMLNetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */; };
+		AD55D51325E991390069A6CE /* KMLTourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* KMLTourPrimitive.swift */; };
+		AD55D51425E991390069A6CE /* KMLLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* KMLLink.swift */; };
+		AD55D51525E991390069A6CE /* KMLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* KMLStyle.swift */; };
+		AD55D51625E991390069A6CE /* KMLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* KMLPlacemark.swift */; };
+		AD55D51725E991390069A6CE /* KMLContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* KMLContainer.swift */; };
+		AD55D51925E991390069A6CE /* KMLGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* KMLGeometry.swift */; };
+		AD55D51A25E991390069A6CE /* KMLOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* KMLOverlay.swift */; };
+		AD55D51B25E991390069A6CE /* KMLOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* KMLOrientation.swift */; };
 		AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
 		AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1965025E7F58500935306 /* ParsingError.swift */; };
 		AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1972125E9652100935306 /* KMLWriter.swift */; };
@@ -74,32 +74,32 @@
 		ADE1965125E7F58500935306 /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1965025E7F58500935306 /* ParsingError.swift */; };
 		ADE1965A25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml in Resources */ = {isa = PBXBuildFile; fileRef = ADE1965825E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml */; };
 		ADE1965B25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz in Resources */ = {isa = PBXBuildFile; fileRef = ADE1965925E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz */; };
-		ADE1966125E7F84100935306 /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLDocument.swift */; };
-		ADE1966625E7FA6D00935306 /* NetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */; };
-		ADE1966E25E7FC0F00935306 /* AbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* AbstractView.swift */; };
-		ADE1967225E7FD3E00935306 /* KmlObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KmlObject.swift */; };
-		ADE1967625E8031D00935306 /* UpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* UpdateOption.swift */; };
-		ADE1968025E8043100935306 /* Feature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* Feature.swift */; };
-		ADE1968425E8048000935306 /* Author.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* Author.swift */; };
-		ADE1968825E804FF00935306 /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* Link.swift */; };
-		ADE1968C25E8058D00935306 /* AddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* AddressDetails.swift */; };
-		ADE1969025E8073A00935306 /* Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* Style.swift */; };
-		ADE1969425E8076100935306 /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* Region.swift */; };
-		ADE1969825E807CE00935306 /* Lod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* Lod.swift */; };
-		ADE196A225E809F700935306 /* Container.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* Container.swift */; };
-		ADE196AA25E80D4F00935306 /* Tour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* Tour.swift */; };
-		ADE196B225E80E2D00935306 /* TourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* TourPrimitive.swift */; };
-		ADE196B825E8112100935306 /* Overlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* Overlay.swift */; };
-		ADE196CE25E8167B00935306 /* Geometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* Geometry.swift */; };
-		ADE196D425E8178100935306 /* AltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* AltitudeMode.swift */; };
-		ADE196DE25E829CE00935306 /* Orientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* Orientation.swift */; };
-		ADE196EA25E8304800935306 /* KmlColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KmlColor.swift */; };
-		ADE196F025E8373200935306 /* Camera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* Camera.swift */; };
-		ADE196F425E8380900935306 /* LookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* LookAt.swift */; };
-		ADE196FE25E84A3F00935306 /* Placemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* Placemark.swift */; };
-		ADE1970225E84DCC00935306 /* Snippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* Snippet.swift */; };
+		ADE1966125E7F84100935306 /* KMLRoot.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966025E7F84100935306 /* KMLRoot.swift */; };
+		ADE1966625E7FA6D00935306 /* KMLNetworkLinkControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */; };
+		ADE1966E25E7FC0F00935306 /* KMLAbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */; };
+		ADE1967225E7FD3E00935306 /* KMLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KMLObject.swift */; };
+		ADE1967625E8031D00935306 /* KMLUpdateOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967525E8031D00935306 /* KMLUpdateOption.swift */; };
+		ADE1968025E8043100935306 /* KMLFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967F25E8043100935306 /* KMLFeature.swift */; };
+		ADE1968425E8048000935306 /* KMLAuthor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968325E8048000935306 /* KMLAuthor.swift */; };
+		ADE1968825E804FF00935306 /* KMLLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968725E804FF00935306 /* KMLLink.swift */; };
+		ADE1968C25E8058D00935306 /* KMLAddressDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968B25E8058D00935306 /* KMLAddressDetails.swift */; };
+		ADE1969025E8073A00935306 /* KMLStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1968F25E8073A00935306 /* KMLStyle.swift */; };
+		ADE1969425E8076100935306 /* KMLRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969325E8076100935306 /* KMLRegion.swift */; };
+		ADE1969825E807CE00935306 /* KMLLod.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1969725E807CE00935306 /* KMLLod.swift */; };
+		ADE196A225E809F700935306 /* KMLContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A125E809F700935306 /* KMLContainer.swift */; };
+		ADE196AA25E80D4F00935306 /* KMLTour.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196A925E80D4F00935306 /* KMLTour.swift */; };
+		ADE196B225E80E2D00935306 /* KMLTourPrimitive.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B125E80E2D00935306 /* KMLTourPrimitive.swift */; };
+		ADE196B825E8112100935306 /* KMLOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196B725E8112100935306 /* KMLOverlay.swift */; };
+		ADE196CE25E8167B00935306 /* KMLGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196CD25E8167B00935306 /* KMLGeometry.swift */; };
+		ADE196D425E8178100935306 /* KMLAltitudeMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196D325E8178100935306 /* KMLAltitudeMode.swift */; };
+		ADE196DE25E829CE00935306 /* KMLOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* KMLOrientation.swift */; };
+		ADE196EA25E8304800935306 /* KMLColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196E925E8304800935306 /* KMLColor.swift */; };
+		ADE196F025E8373200935306 /* KMLCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196EF25E8373100935306 /* KMLCamera.swift */; };
+		ADE196F425E8380900935306 /* KMLLookAt.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196F325E8380900935306 /* KMLLookAt.swift */; };
+		ADE196FE25E84A3F00935306 /* KMLPlacemark.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196FD25E84A3F00935306 /* KMLPlacemark.swift */; };
+		ADE1970225E84DCC00935306 /* KMLSnippet.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970125E84DCC00935306 /* KMLSnippet.swift */; };
 		ADE1970625E8601300935306 /* KML_Samples.kml in Resources */ = {isa = PBXBuildFile; fileRef = ADE1970525E8601300935306 /* KML_Samples.kml */; };
-		ADE1970C25E91E7D00935306 /* LatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */; };
+		ADE1970C25E91E7D00935306 /* KMLLatLonAltBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1970B25E91E7D00935306 /* KMLLatLonAltBox.swift */; };
 		ADE1972225E9652100935306 /* KMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1972125E9652100935306 /* KMLWriter.swift */; };
 /* End PBXBuildFile section */
 
@@ -156,32 +156,32 @@
 		ADE1965025E7F58500935306 /* ParsingError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParsingError.swift; sourceTree = "<group>"; };
 		ADE1965825E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml"; sourceTree = "<group>"; };
 		ADE1965925E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz */ = {isa = PBXFileReference; lastKnownFileType = file; path = "aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kmz"; sourceTree = "<group>"; };
-		ADE1966025E7F84100935306 /* KMLDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLDocument.swift; sourceTree = "<group>"; };
-		ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLinkControl.swift; sourceTree = "<group>"; };
-		ADE1966D25E7FC0F00935306 /* AbstractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractView.swift; sourceTree = "<group>"; };
-		ADE1967125E7FD3E00935306 /* KmlObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KmlObject.swift; sourceTree = "<group>"; };
-		ADE1967525E8031D00935306 /* UpdateOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateOption.swift; sourceTree = "<group>"; };
-		ADE1967F25E8043100935306 /* Feature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feature.swift; sourceTree = "<group>"; };
-		ADE1968325E8048000935306 /* Author.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Author.swift; sourceTree = "<group>"; };
-		ADE1968725E804FF00935306 /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
-		ADE1968B25E8058D00935306 /* AddressDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressDetails.swift; sourceTree = "<group>"; };
-		ADE1968F25E8073A00935306 /* Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Style.swift; sourceTree = "<group>"; };
-		ADE1969325E8076100935306 /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
-		ADE1969725E807CE00935306 /* Lod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lod.swift; sourceTree = "<group>"; };
-		ADE196A125E809F700935306 /* Container.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Container.swift; sourceTree = "<group>"; };
-		ADE196A925E80D4F00935306 /* Tour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tour.swift; sourceTree = "<group>"; };
-		ADE196B125E80E2D00935306 /* TourPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TourPrimitive.swift; sourceTree = "<group>"; };
-		ADE196B725E8112100935306 /* Overlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Overlay.swift; sourceTree = "<group>"; };
-		ADE196CD25E8167B00935306 /* Geometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Geometry.swift; sourceTree = "<group>"; };
-		ADE196D325E8178100935306 /* AltitudeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AltitudeMode.swift; sourceTree = "<group>"; };
-		ADE196DD25E829CE00935306 /* Orientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Orientation.swift; sourceTree = "<group>"; };
-		ADE196E925E8304800935306 /* KmlColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KmlColor.swift; sourceTree = "<group>"; };
-		ADE196EF25E8373100935306 /* Camera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Camera.swift; sourceTree = "<group>"; };
-		ADE196F325E8380900935306 /* LookAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LookAt.swift; sourceTree = "<group>"; };
-		ADE196FD25E84A3F00935306 /* Placemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Placemark.swift; sourceTree = "<group>"; };
-		ADE1970125E84DCC00935306 /* Snippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Snippet.swift; sourceTree = "<group>"; };
+		ADE1966025E7F84100935306 /* KMLRoot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLRoot.swift; sourceTree = "<group>"; };
+		ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLNetworkLinkControl.swift; sourceTree = "<group>"; };
+		ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLAbstractView.swift; sourceTree = "<group>"; };
+		ADE1967125E7FD3E00935306 /* KMLObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLObject.swift; sourceTree = "<group>"; };
+		ADE1967525E8031D00935306 /* KMLUpdateOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLUpdateOption.swift; sourceTree = "<group>"; };
+		ADE1967F25E8043100935306 /* KMLFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLFeature.swift; sourceTree = "<group>"; };
+		ADE1968325E8048000935306 /* KMLAuthor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLAuthor.swift; sourceTree = "<group>"; };
+		ADE1968725E804FF00935306 /* KMLLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLLink.swift; sourceTree = "<group>"; };
+		ADE1968B25E8058D00935306 /* KMLAddressDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLAddressDetails.swift; sourceTree = "<group>"; };
+		ADE1968F25E8073A00935306 /* KMLStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLStyle.swift; sourceTree = "<group>"; };
+		ADE1969325E8076100935306 /* KMLRegion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLRegion.swift; sourceTree = "<group>"; };
+		ADE1969725E807CE00935306 /* KMLLod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLLod.swift; sourceTree = "<group>"; };
+		ADE196A125E809F700935306 /* KMLContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLContainer.swift; sourceTree = "<group>"; };
+		ADE196A925E80D4F00935306 /* KMLTour.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLTour.swift; sourceTree = "<group>"; };
+		ADE196B125E80E2D00935306 /* KMLTourPrimitive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLTourPrimitive.swift; sourceTree = "<group>"; };
+		ADE196B725E8112100935306 /* KMLOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLOverlay.swift; sourceTree = "<group>"; };
+		ADE196CD25E8167B00935306 /* KMLGeometry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLGeometry.swift; sourceTree = "<group>"; };
+		ADE196D325E8178100935306 /* KMLAltitudeMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLAltitudeMode.swift; sourceTree = "<group>"; };
+		ADE196DD25E829CE00935306 /* KMLOrientation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLOrientation.swift; sourceTree = "<group>"; };
+		ADE196E925E8304800935306 /* KMLColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLColor.swift; sourceTree = "<group>"; };
+		ADE196EF25E8373100935306 /* KMLCamera.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLCamera.swift; sourceTree = "<group>"; };
+		ADE196F325E8380900935306 /* KMLLookAt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLLookAt.swift; sourceTree = "<group>"; };
+		ADE196FD25E84A3F00935306 /* KMLPlacemark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLPlacemark.swift; sourceTree = "<group>"; };
+		ADE1970125E84DCC00935306 /* KMLSnippet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLSnippet.swift; sourceTree = "<group>"; };
 		ADE1970525E8601300935306 /* KML_Samples.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = KML_Samples.kml; sourceTree = "<group>"; };
-		ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LatLonAltBox.swift; sourceTree = "<group>"; };
+		ADE1970B25E91E7D00935306 /* KMLLatLonAltBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLLatLonAltBox.swift; sourceTree = "<group>"; };
 		ADE1972125E9652100935306 /* KMLWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLWriter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -315,31 +315,31 @@
 		ADE1966425E7FA5E00935306 /* Elements */ = {
 			isa = PBXGroup;
 			children = (
-				ADE1966D25E7FC0F00935306 /* AbstractView.swift */,
-				ADE1968B25E8058D00935306 /* AddressDetails.swift */,
-				ADE196D325E8178100935306 /* AltitudeMode.swift */,
-				ADE1968325E8048000935306 /* Author.swift */,
-				ADE196EF25E8373100935306 /* Camera.swift */,
-				ADE196A125E809F700935306 /* Container.swift */,
-				ADE1967F25E8043100935306 /* Feature.swift */,
-				ADE196CD25E8167B00935306 /* Geometry.swift */,
-				ADE196E925E8304800935306 /* KmlColor.swift */,
-				ADE1966025E7F84100935306 /* KMLDocument.swift */,
-				ADE1967125E7FD3E00935306 /* KmlObject.swift */,
-				ADE1970B25E91E7D00935306 /* LatLonAltBox.swift */,
-				ADE1968725E804FF00935306 /* Link.swift */,
-				ADE1969725E807CE00935306 /* Lod.swift */,
-				ADE196F325E8380900935306 /* LookAt.swift */,
-				ADE1966525E7FA6D00935306 /* NetworkLinkControl.swift */,
-				ADE196DD25E829CE00935306 /* Orientation.swift */,
-				ADE196B725E8112100935306 /* Overlay.swift */,
-				ADE196FD25E84A3F00935306 /* Placemark.swift */,
-				ADE1969325E8076100935306 /* Region.swift */,
-				ADE1970125E84DCC00935306 /* Snippet.swift */,
-				ADE1968F25E8073A00935306 /* Style.swift */,
-				ADE196A925E80D4F00935306 /* Tour.swift */,
-				ADE196B125E80E2D00935306 /* TourPrimitive.swift */,
-				ADE1967525E8031D00935306 /* UpdateOption.swift */,
+				ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */,
+				ADE1968B25E8058D00935306 /* KMLAddressDetails.swift */,
+				ADE196D325E8178100935306 /* KMLAltitudeMode.swift */,
+				ADE1968325E8048000935306 /* KMLAuthor.swift */,
+				ADE196EF25E8373100935306 /* KMLCamera.swift */,
+				ADE196A125E809F700935306 /* KMLContainer.swift */,
+				ADE1967F25E8043100935306 /* KMLFeature.swift */,
+				ADE196CD25E8167B00935306 /* KMLGeometry.swift */,
+				ADE196E925E8304800935306 /* KMLColor.swift */,
+				ADE1966025E7F84100935306 /* KMLRoot.swift */,
+				ADE1967125E7FD3E00935306 /* KMLObject.swift */,
+				ADE1970B25E91E7D00935306 /* KMLLatLonAltBox.swift */,
+				ADE1968725E804FF00935306 /* KMLLink.swift */,
+				ADE1969725E807CE00935306 /* KMLLod.swift */,
+				ADE196F325E8380900935306 /* KMLLookAt.swift */,
+				ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */,
+				ADE196DD25E829CE00935306 /* KMLOrientation.swift */,
+				ADE196B725E8112100935306 /* KMLOverlay.swift */,
+				ADE196FD25E84A3F00935306 /* KMLPlacemark.swift */,
+				ADE1969325E8076100935306 /* KMLRegion.swift */,
+				ADE1970125E84DCC00935306 /* KMLSnippet.swift */,
+				ADE1968F25E8073A00935306 /* KMLStyle.swift */,
+				ADE196A925E80D4F00935306 /* KMLTour.swift */,
+				ADE196B125E80E2D00935306 /* KMLTourPrimitive.swift */,
+				ADE1967525E8031D00935306 /* KMLUpdateOption.swift */,
 			);
 			path = Elements;
 			sourceTree = "<group>";
@@ -530,34 +530,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AD55D50F25E991390069A6CE /* AddressDetails.swift in Sources */,
-				AD55D50325E991390069A6CE /* Feature.swift in Sources */,
-				AD55D50A25E991390069A6CE /* KMLDocument.swift in Sources */,
+				AD55D50F25E991390069A6CE /* KMLAddressDetails.swift in Sources */,
+				AD55D50325E991390069A6CE /* KMLFeature.swift in Sources */,
+				AD55D50A25E991390069A6CE /* KMLRoot.swift in Sources */,
 				AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */,
-				AD55D50425E991390069A6CE /* LookAt.swift in Sources */,
-				AD55D50525E991390069A6CE /* Lod.swift in Sources */,
-				AD55D50625E991390069A6CE /* Region.swift in Sources */,
-				AD55D51325E991390069A6CE /* TourPrimitive.swift in Sources */,
-				AD55D50825E991390069A6CE /* KmlColor.swift in Sources */,
-				AD55D51625E991390069A6CE /* Placemark.swift in Sources */,
-				AD55D4FE25E991260069A6CE /* AbstractView.swift in Sources */,
-				AD55D50925E991390069A6CE /* AltitudeMode.swift in Sources */,
+				AD55D50425E991390069A6CE /* KMLLookAt.swift in Sources */,
+				AD55D50525E991390069A6CE /* KMLLod.swift in Sources */,
+				AD55D50625E991390069A6CE /* KMLRegion.swift in Sources */,
+				AD55D51325E991390069A6CE /* KMLTourPrimitive.swift in Sources */,
+				AD55D50825E991390069A6CE /* KMLColor.swift in Sources */,
+				AD55D51625E991390069A6CE /* KMLPlacemark.swift in Sources */,
+				AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */,
+				AD55D50925E991390069A6CE /* KMLAltitudeMode.swift in Sources */,
 				AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */,
-				AD55D50C25E991390069A6CE /* Camera.swift in Sources */,
-				AD55D51225E991390069A6CE /* NetworkLinkControl.swift in Sources */,
-				AD55D50D25E991390069A6CE /* Author.swift in Sources */,
+				AD55D50C25E991390069A6CE /* KMLCamera.swift in Sources */,
+				AD55D51225E991390069A6CE /* KMLNetworkLinkControl.swift in Sources */,
+				AD55D50D25E991390069A6CE /* KMLAuthor.swift in Sources */,
 				AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */,
-				AD55D50725E991390069A6CE /* UpdateOption.swift in Sources */,
-				AD55D51125E991390069A6CE /* Tour.swift in Sources */,
-				AD55D50E25E991390069A6CE /* LatLonAltBox.swift in Sources */,
-				AD55D50B25E991390069A6CE /* Snippet.swift in Sources */,
-				AD55D51725E991390069A6CE /* Container.swift in Sources */,
-				AD55D50225E991390069A6CE /* KmlObject.swift in Sources */,
-				AD55D51525E991390069A6CE /* Style.swift in Sources */,
-				AD55D51425E991390069A6CE /* Link.swift in Sources */,
-				AD55D51A25E991390069A6CE /* Overlay.swift in Sources */,
-				AD55D51B25E991390069A6CE /* Orientation.swift in Sources */,
-				AD55D51925E991390069A6CE /* Geometry.swift in Sources */,
+				AD55D50725E991390069A6CE /* KMLUpdateOption.swift in Sources */,
+				AD55D51125E991390069A6CE /* KMLTour.swift in Sources */,
+				AD55D50E25E991390069A6CE /* KMLLatLonAltBox.swift in Sources */,
+				AD55D50B25E991390069A6CE /* KMLSnippet.swift in Sources */,
+				AD55D51725E991390069A6CE /* KMLContainer.swift in Sources */,
+				AD55D50225E991390069A6CE /* KMLObject.swift in Sources */,
+				AD55D51525E991390069A6CE /* KMLStyle.swift in Sources */,
+				AD55D51425E991390069A6CE /* KMLLink.swift in Sources */,
+				AD55D51A25E991390069A6CE /* KMLOverlay.swift in Sources */,
+				AD55D51B25E991390069A6CE /* KMLOrientation.swift in Sources */,
+				AD55D51925E991390069A6CE /* KMLGeometry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -565,34 +565,34 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ADE196B825E8112100935306 /* Overlay.swift in Sources */,
-				ADE1966E25E7FC0F00935306 /* AbstractView.swift in Sources */,
-				ADE196FE25E84A3F00935306 /* Placemark.swift in Sources */,
-				ADE196CE25E8167B00935306 /* Geometry.swift in Sources */,
-				ADE1967225E7FD3E00935306 /* KmlObject.swift in Sources */,
-				ADE1969825E807CE00935306 /* Lod.swift in Sources */,
-				ADE196D425E8178100935306 /* AltitudeMode.swift in Sources */,
-				ADE1966125E7F84100935306 /* KMLDocument.swift in Sources */,
-				ADE1968C25E8058D00935306 /* AddressDetails.swift in Sources */,
-				ADE196F025E8373200935306 /* Camera.swift in Sources */,
-				ADE196B225E80E2D00935306 /* TourPrimitive.swift in Sources */,
-				ADE1970C25E91E7D00935306 /* LatLonAltBox.swift in Sources */,
+				ADE196B825E8112100935306 /* KMLOverlay.swift in Sources */,
+				ADE1966E25E7FC0F00935306 /* KMLAbstractView.swift in Sources */,
+				ADE196FE25E84A3F00935306 /* KMLPlacemark.swift in Sources */,
+				ADE196CE25E8167B00935306 /* KMLGeometry.swift in Sources */,
+				ADE1967225E7FD3E00935306 /* KMLObject.swift in Sources */,
+				ADE1969825E807CE00935306 /* KMLLod.swift in Sources */,
+				ADE196D425E8178100935306 /* KMLAltitudeMode.swift in Sources */,
+				ADE1966125E7F84100935306 /* KMLRoot.swift in Sources */,
+				ADE1968C25E8058D00935306 /* KMLAddressDetails.swift in Sources */,
+				ADE196F025E8373200935306 /* KMLCamera.swift in Sources */,
+				ADE196B225E80E2D00935306 /* KMLTourPrimitive.swift in Sources */,
+				ADE1970C25E91E7D00935306 /* KMLLatLonAltBox.swift in Sources */,
 				ADE1972225E9652100935306 /* KMLWriter.swift in Sources */,
-				ADE1968825E804FF00935306 /* Link.swift in Sources */,
-				ADE1968425E8048000935306 /* Author.swift in Sources */,
-				ADE1967625E8031D00935306 /* UpdateOption.swift in Sources */,
-				ADE196EA25E8304800935306 /* KmlColor.swift in Sources */,
+				ADE1968825E804FF00935306 /* KMLLink.swift in Sources */,
+				ADE1968425E8048000935306 /* KMLAuthor.swift in Sources */,
+				ADE1967625E8031D00935306 /* KMLUpdateOption.swift in Sources */,
+				ADE196EA25E8304800935306 /* KMLColor.swift in Sources */,
 				ADE1965125E7F58500935306 /* ParsingError.swift in Sources */,
-				ADE196DE25E829CE00935306 /* Orientation.swift in Sources */,
-				ADE1968025E8043100935306 /* Feature.swift in Sources */,
-				ADE1970225E84DCC00935306 /* Snippet.swift in Sources */,
-				ADE1969025E8073A00935306 /* Style.swift in Sources */,
-				ADE1969425E8076100935306 /* Region.swift in Sources */,
-				ADE196AA25E80D4F00935306 /* Tour.swift in Sources */,
-				ADE196A225E809F700935306 /* Container.swift in Sources */,
+				ADE196DE25E829CE00935306 /* KMLOrientation.swift in Sources */,
+				ADE1968025E8043100935306 /* KMLFeature.swift in Sources */,
+				ADE1970225E84DCC00935306 /* KMLSnippet.swift in Sources */,
+				ADE1969025E8073A00935306 /* KMLStyle.swift in Sources */,
+				ADE1969425E8076100935306 /* KMLRegion.swift in Sources */,
+				ADE196AA25E80D4F00935306 /* KMLTour.swift in Sources */,
+				ADE196A225E809F700935306 /* KMLContainer.swift in Sources */,
 				ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */,
-				ADE196F425E8380900935306 /* LookAt.swift in Sources */,
-				ADE1966625E7FA6D00935306 /* NetworkLinkControl.swift in Sources */,
+				ADE196F425E8380900935306 /* KMLLookAt.swift in Sources */,
+				ADE1966625E7FA6D00935306 /* KMLNetworkLinkControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

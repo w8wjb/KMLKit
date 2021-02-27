@@ -7,18 +7,18 @@
 
 import Foundation
 
-public protocol FeatureCollection {
+public protocol KMLFeatureCollection {
     
     func findFirstFeatures<T>(ofType type: T.Type) -> T?
-    func findFeatures<T:Feature>(ofType type: T.Type) -> [T]
+    func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T]
 }
 
 
-public class Container: Feature, FeatureCollection {
+public class KMLContainer: KMLFeature, KMLFeatureCollection {
 
-    var features: [Feature] = []
+    var features: [KMLFeature] = []
     
-    public func findFeatures<T:Feature>(ofType type: T.Type) -> [T] {
+    public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         
         var found: [T] = []
         
@@ -28,7 +28,7 @@ public class Container: Feature, FeatureCollection {
                 found.append(match)
             }
             
-            if let collection = feature as? FeatureCollection {
+            if let collection = feature as? KMLFeatureCollection {
                 found.append(contentsOf: collection.findFeatures(ofType: type))
             }
             
@@ -45,7 +45,7 @@ public class Container: Feature, FeatureCollection {
                 return match
             }
             
-            if let collection = feature as? FeatureCollection {
+            if let collection = feature as? KMLFeatureCollection {
                 if let match = collection.findFirstFeatures(ofType: type) {
                     return match
                 }
@@ -57,15 +57,15 @@ public class Container: Feature, FeatureCollection {
     
 }
 
-extension Container: Collection {
+extension KMLContainer: Collection {
     
-    public typealias Element = Feature
+    public typealias Element = KMLFeature
     public typealias Iterator = Array<Element>.Iterator
     public typealias Index = Array<Element>.Index
     
     public var startIndex: Array<Element>.Index { features.startIndex }
     public var endIndex: Array<Element>.Index { features.endIndex }
-    public subscript(position: Array<Element>.Index) -> Feature { features[position] }
+    public subscript(position: Array<Element>.Index) -> KMLFeature { features[position] }
     public func index(after i: Array<Element>.Index) -> Array<Element>.Index { features.index(after: i) }
     public func makeIterator() -> Iterator { return features.makeIterator() }
 }
@@ -73,9 +73,9 @@ extension Container: Collection {
 
 
 
-public class Folder: Container {
+public class KMLFolder: KMLContainer {
 }
 
-public class Document: Container {
+public class KMLDocument: KMLContainer {
     
 }

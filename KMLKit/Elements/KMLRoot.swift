@@ -7,14 +7,14 @@
 
 import Foundation
 
-public class KMLDocument: FeatureCollection {
+public class KMLRoot: NSObject, KMLFeatureCollection {
     
     public var name: String?
     public var hint: String?
-    public var networkLinkControl: NetworkLinkControl?
-    public var feature: Feature?
+    public var networkLinkControl: KMLNetworkLinkControl?
+    public var feature: KMLFeature?
 
-    public func findFeatures<T:Feature>(ofType type: T.Type) -> [T] {
+    public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         
         var found: [T] = []
         
@@ -22,7 +22,7 @@ public class KMLDocument: FeatureCollection {
             found.append(myFeature)
         }
         
-        if let collection = self.feature as? FeatureCollection {
+        if let collection = self.feature as? KMLFeatureCollection {
             found.append(contentsOf: collection.findFeatures(ofType: type))
         }
         
@@ -35,7 +35,7 @@ public class KMLDocument: FeatureCollection {
             return match
         }
         
-        if let collection = self.feature as? FeatureCollection {
+        if let collection = self.feature as? KMLFeatureCollection {
             if let match = collection.findFirstFeatures(ofType: type) {
                 return match
             }

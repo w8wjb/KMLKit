@@ -8,57 +8,57 @@
 import Foundation
 import CoreGraphics
 
-public class StyleSelector: KmlObject {
+public class KMLStyleSelector: KMLObject {
         
 }
 
-public class Style: StyleSelector {
-    var iconStyle: IconStyle?
-    var labelStyle: LabelStyle?
-    var lineStyle: LineStyle?
-    var polyStyle: PolyStyle?
-    var balloonStyle: BalloonStyle?
-    var listStyle: ListStyle?
+public class KMLStyle: KMLStyleSelector {
+    var iconStyle: KMLIconStyle?
+    var labelStyle: KMLLabelStyle?
+    var lineStyle: KMLLineStyle?
+    var polyStyle: KMLPolyStyle?
+    var balloonStyle: KMLBalloonStyle?
+    var listStyle: KMLListStyle?
 }
 
-public class SubStyle: Style {
+public class KMLSubStyle: KMLStyle {
     
 }
 
-public enum ColorMode: String {
+public enum KMLColorMode: String {
     case normal = "normal"
     case random = "random"
 }
 
-public class ColorStyle: SubStyle {
-    var color = KmlColor.white
-    var colorMode = ColorMode.normal
+public class KMLColorStyle: KMLSubStyle {
+    var color = KMLColor.white
+    var colorMode = KMLColorMode.normal
 }
 
-public class BalloonStyle: ColorStyle {
+public class KMLBalloonStyle: KMLColorStyle {
     
     public enum DisplayMode: String {
         case `default` = "default"
         case hide = "hide"
     }
     
-    public var bgColor: KmlColor?
-    public var textColor: KmlColor?
+    public var bgColor: KMLColor?
+    public var textColor: KMLColor?
     public var text = ""
     public var displayMode = DisplayMode.default
 }
 
-public class LabelStyle: ColorStyle {
+public class KMLLabelStyle: KMLColorStyle {
     public var scale: Double = 1.0
 }
 
-public class LineStyle: ColorStyle {
+public class KMLLineStyle: KMLColorStyle {
     public var width: Double = 1.0
 }
 
-class ItemIcon: KmlObject {
+class KMLItemIcon: KMLObject {
     
-    enum ItemIconState: String {
+    enum KMLItemIconState: String {
         case `open` = "open"
         case closed = "closed"
         case error = "error"
@@ -67,11 +67,11 @@ class ItemIcon: KmlObject {
         case fetching2 = "fetching2"
     }
     
-    var state: [ItemIconState] = []
+    var state: [KMLItemIconState] = []
     var href: URL?
 }
 
-class ListStyle: SubStyle {
+class KMLListStyle: KMLSubStyle {
     
     enum ListItemType: String {
         case radioFolder = "radioFolder"
@@ -81,26 +81,26 @@ class ListStyle: SubStyle {
     }
     
     var listItemType = ListItemType.check
-    var bgColor = KmlColor.white
-    var itemIcon: [ItemIcon] = []
+    var bgColor = KMLColor.white
+    var itemIcon: [KMLItemIcon] = []
     var maxSnippetLines = 2
 }
 
-class PolyStyle: ColorStyle {
+class KMLPolyStyle: KMLColorStyle {
     var fill = true
     var outline = true
 }
 
-class IconStyle: ColorStyle {
+class KMLIconStyle: KMLColorStyle {
     var scale: Double = 1.0
     var heading: Double = 0.0
     var icon: Icon?
     var hotSpot = CGPoint()
 }
 
-class StyleMap: StyleSelector {
+class KMLStyleMap: KMLStyleSelector {
     
-    class Pair {
+    class Pair: NSObject {
         var key: String?
         var styleUrl: URL?
     }

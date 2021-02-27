@@ -7,14 +7,14 @@
 
 import Foundation
 
-public class KmlObject {
+public class KMLObject: NSObject {
     public var id: String?
     public var name: String?
     public var targetId: String?
     
     
-    public init() {
-        
+    public override init() {
+        super.init()
     }
 
     public init(_ attributes: [String:String]) {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class AddressDetails {
+public class KMLAddressDetails {
     public var address: String?
     public var addressLines = [String]()
     public var country: String?

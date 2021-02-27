@@ -8,12 +8,12 @@
 import Foundation
 import CoreLocation
 
-public class LookAt: AbstractView {
+public class KMLLookAt: KMLAbstractView {
     public var longitude = CLLocationDegrees()
     public var latitude = CLLocationDegrees()
     public var altitude = CLLocationDistance()
     public var heading = CLLocationDirection()
     public var tilt: Double = 0
     public var range: Double = 0
-    public var altitudeMode = AltitudeMode.clampToGround
+    public var altitudeMode = KMLAltitudeMode.clampToGround
 }

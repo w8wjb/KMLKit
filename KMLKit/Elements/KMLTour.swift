@@ -7,21 +7,21 @@
 
 import Foundation
 
-public class Tour: Feature {
+public class KMLTour: KMLFeature {
 
-    public var playlist = Playlist()
+    public var playlist = KMLPlaylist()
     
 }
 
-public class Playlist: KmlObject {
+public class KMLPlaylist: KMLObject {
 
-    public var items: [TourPrimitive] = []
+    public var items: [KMLTourPrimitive] = []
 
     
 }
 
-extension Playlist: Sequence {
-    public typealias Element = TourPrimitive
+extension KMLPlaylist: Sequence {
+    public typealias Element = KMLTourPrimitive
     public typealias Iterator = Array<Element>.Iterator
     
     public func makeIterator() -> Iterator {

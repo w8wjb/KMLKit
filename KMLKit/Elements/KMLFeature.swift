@@ -7,21 +7,21 @@
 
 import Foundation
 
-public class Feature: KmlObject {
+public class KMLFeature: KMLObject {
     var visibility = true
     var balloonVisibility = true
     var open = false
-    var author: Author?
-    var link: Link?
+    var author: KMLAuthor?
+    var link: KMLLink?
     var address: String?
-    var xalAddressDetails: AddressDetails?
+    var xalAddressDetails: KMLAddressDetails?
     var phoneNumber: String?
-    var snippets: [Snippet] = []
-    var description: String?
-    var abstractView: AbstractView?
+    var snippets: [KMLSnippet] = []
+    var featureDescription: String?
+    var abstractView: KMLAbstractView?
     var styleUrl: URL?
-    var styleSelector: [StyleSelector] = []
-    var region: Region?
+    var styleSelector: [KMLStyleSelector] = []
+    var region: KMLRegion?
 
     func findStyle<T>(withId id: String) -> T? {
         return styleSelector.first(where: { $0.id == id }) as? T        

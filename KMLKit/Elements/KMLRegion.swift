@@ -8,10 +8,10 @@
 import Foundation
 import MapKit
 
-public class Region: KmlObject {
+public class KMLRegion: KMLObject {
 
-    public var latLonAltBox: LatLonAltBox?
-    public var lod: Lod?
+    public var latLonAltBox: KMLLatLonAltBox?
+    public var lod: KMLLod?
     public var metadata: [AnyObject] = []
 
 }

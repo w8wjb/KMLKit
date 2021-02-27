@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class Lod: KmlObject {
+public class KMLLod: KMLObject {
 
     public var minLodPixels: Double = 0.0
     public var maxLodPixels: Double = -1.0

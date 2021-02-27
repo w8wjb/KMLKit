@@ -7,7 +7,7 @@
 
 import Foundation
 
-public enum AltitudeMode: String {
+public enum KMLAltitudeMode: String {
     case clampToGround = "clampToGround"
     case relativeToGround = "relativeToGround"
     case absolute = "absolute"
@@ -15,7 +15,7 @@ public enum AltitudeMode: String {
     case relativeToSeaFloor = "relativeToSeaFloor"
 }
 
-public enum SeaFloorAltitudeMode: String {
+public enum KMLSeaFloorAltitudeMode: String {
     case clampToSeaFloor = "clampToSeaFloor"
     case relativeToSeaFloor = "relativeToSeaFloor"
 }
