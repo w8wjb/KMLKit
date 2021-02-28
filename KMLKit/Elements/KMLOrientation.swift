@@ -10,8 +10,8 @@ import CoreLocation
 
 public class KMLOrientation: KMLObject {
 
-    public var heading = CLLocationDegrees()
-    public var tilt = CLLocationDegrees()
-    public var roll = CLLocationDegrees()
+    @objc public var heading = CLLocationDegrees()
+    @objc public var tilt = CLLocationDegrees()
+    @objc public var roll = CLLocationDegrees()
 
 }

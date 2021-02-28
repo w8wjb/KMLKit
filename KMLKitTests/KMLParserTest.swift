@@ -114,7 +114,7 @@ class KMLParserTest: XCTestCase {
         let kml = try KMLParser.parse(file: kmlFile)
         
         let placemark = kml.feature as! KMLPlacemark
-        let lookat = placemark.abstractView as! KMLLookAt
+        let lookat = placemark.view as! KMLLookAt
         XCTAssertEqual(.relativeToSeaFloor, lookat.altitudeMode)
         
         let lineString = placemark.geometry as! KMLLineString

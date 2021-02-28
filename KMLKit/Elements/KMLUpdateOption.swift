@@ -12,9 +12,9 @@ public class KMLUpdateOption: NSObject {
 }
 
 public class KMLUpdate: NSObject {
-    public var targetHref: URL?
-    public var sourceHref: URL?
-    public var items: [KMLUpdateOption] = []
+    @objc public var targetHref: URL?
+    @objc public var sourceHref: URL?
+    @objc public var items: [KMLUpdateOption] = []
 }
 
 extension KMLUpdate: Sequence {
@@ -27,15 +27,22 @@ extension KMLUpdate: Sequence {
 }
 
 public class KMLCreate: KMLUpdateOption {
-    public var containers: [KMLContainer] = []
-    public var multiTracks: [KMLMultiTrack] = []
-    public var multiGeometry: [KMLMultiGeometry] = []
+    @objc public var containers: [KMLContainer] = []
+    @objc public var multiTracks: [KMLMultiTrack] = []
+    @objc public var multiGeometry: [KMLMultiGeometry] = []
 }
 
 
 public class KMLChange: KMLUpdateOption {
-    public var objects: [KMLObject] = []
+    @objc public var objects: [KMLObject] = []
     
+    public override func setValue(_ value: Any?, forKey key: String) {
+        if let obj = value as? KMLObject {
+            objects.append(obj)
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
 
 extension KMLChange: Sequence {
@@ -48,6 +55,6 @@ extension KMLChange: Sequence {
 }
 
 public class KMLDelete: KMLUpdateOption {
-    public var features: [KMLFeature] = []
-    public var geometry: [KMLGeometry] = []
+    @objc public var features: [KMLFeature] = []
+    @objc public var geometry: [KMLGeometry] = []
 }

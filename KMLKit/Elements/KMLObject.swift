@@ -8,9 +8,9 @@
 import Foundation
 
 public class KMLObject: NSObject {
-    public var id: String?
-    public var name: String?
-    public var targetId: String?
+    @objc public var id: String?
+    @objc public var name: String?
+    @objc public var targetId: String?
     
     
     public override init() {

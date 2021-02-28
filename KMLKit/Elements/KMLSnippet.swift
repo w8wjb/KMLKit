@@ -8,8 +8,8 @@
 import Foundation
 
 public class KMLSnippet: NSObject {
-    public var value: String?
-    public var maxLines: Int = 2
+    @objc public var value: String?
+    @objc public var maxLines: Int = 2
     
     public override init() {
         super.init()

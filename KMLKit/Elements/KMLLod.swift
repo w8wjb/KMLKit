@@ -9,9 +9,9 @@ import Foundation
 
 public class KMLLod: KMLObject {
 
-    public var minLodPixels: Double = 0.0
-    public var maxLodPixels: Double = -1.0
-    public var minFadeExtent: Double = 0.0
-    public var maxFadeExtent: Double = 0.0
+    @objc public var minLodPixels: Double = 0.0
+    @objc public var maxLodPixels: Double = -1.0
+    @objc public var minFadeExtent: Double = 0.0
+    @objc public var maxFadeExtent: Double = 0.0
     
 }

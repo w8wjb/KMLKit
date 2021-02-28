@@ -8,20 +8,20 @@
 import Foundation
 
 public class KMLFeature: KMLObject {
-    var visibility = true
-    var balloonVisibility = true
-    var open = false
-    var author: KMLAuthor?
-    var link: KMLLink?
-    var address: String?
-    var xalAddressDetails: KMLAddressDetails?
-    var phoneNumber: String?
-    var snippets: [KMLSnippet] = []
-    var featureDescription: String?
-    var abstractView: KMLAbstractView?
-    var styleUrl: URL?
-    var styleSelector: [KMLStyleSelector] = []
-    var region: KMLRegion?
+    @objc var visibility = true
+    @objc var balloonVisibility = true
+    @objc var open = false
+    @objc var author: KMLAuthor?
+    @objc var link: KMLLink?
+    @objc var address: String?
+    @objc var xalAddressDetails: KMLAddressDetails?
+    @objc var phoneNumber: String?
+    @objc var snippets: [KMLSnippet] = []
+    @objc var featureDescription: String?
+    @objc var view: KMLAbstractView?
+    @objc var styleUrl: URL?
+    @objc var styleSelector: [KMLStyleSelector] = []
+    @objc var region: KMLRegion?
 
     func findStyle<T>(withId id: String) -> T? {
         return styleSelector.first(where: { $0.id == id }) as? T        

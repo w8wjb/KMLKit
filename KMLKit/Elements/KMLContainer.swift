@@ -9,6 +9,7 @@ import Foundation
 
 public protocol KMLFeatureCollection {
     
+    func add(feature: KMLFeature)
     func findFirstFeatures<T>(ofType type: T.Type) -> T?
     func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T]
 }
@@ -17,7 +18,11 @@ public protocol KMLFeatureCollection {
 public class KMLContainer: KMLFeature, KMLFeatureCollection {
 
     var features: [KMLFeature] = []
-    
+
+    public func add(feature: KMLFeature) {
+        features.append(feature)
+    }
+
     public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         
         var found: [T] = []

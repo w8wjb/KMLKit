@@ -12,40 +12,69 @@ public class KMLTourPrimitive: KMLObject {
 }
 
 public class Wait: KMLTourPrimitive {
-    public var duration: Double = 0.0
+    @objc public var duration: Double = 0.0
 }
 
 public class AnimatedUpdate: KMLTourPrimitive {
-    public var duration: Double = 0.0
-    public var update: KMLUpdate?
-    public var delayedStart: Double?
+    @objc public var duration: Double = 0.0
+    @objc public var update: KMLUpdate?
+    @objc public var delayedStart: Double = 0.0
 }
 
 public class TourControl: KMLTourPrimitive {
     
-    public enum PlayMode: String {
-        case pause = "pause"
+    @objc public enum PlayMode: Int {
+        case pause
+        
+        init(_ value: String) {
+            switch value {
+            case "pause":
+                self = .pause
+            default:
+                self = .pause
+            }
+        }
     }
     
-    public var mode = PlayMode.pause
+    @objc public var mode = PlayMode.pause
     
 }
 
 public class FlyTo: KMLTourPrimitive {
     
-    public enum FlyToMode: String {
-        case bounce = "bounce"
-        case smooth = "smooth"
+    @objc public enum FlyToMode: Int {
+        case bounce
+        case smooth
+        
+        init(_ value: String) {
+            switch value {
+            case "bounce":
+                self = .bounce
+            case "smooth":
+                self = .smooth
+            default:
+                self = .bounce
+            }
+        }
     }
     
-    public var duration: Double = 0.0
-    public var mode = FlyToMode.bounce
-    public var view: KMLAbstractView?
+    @objc public var duration: Double = 0.0
+    @objc public var mode = FlyToMode.bounce
+    @objc public var view: KMLAbstractView?
+    
+    public override func setValue(_ value: Any?, forKey key: String) {        
+        if key == "flyToMode", let mode = value as? FlyToMode {
+            self.mode = mode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
 }
 
 public class SoundCue: KMLTourPrimitive {
     
-    public var href: String?
-    public var delayedStart: Double = 0.0
+    @objc public var href: String?
+    @objc public var delayedStart: Double = 0.0
     
 }

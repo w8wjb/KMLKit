@@ -8,7 +8,7 @@
 import Foundation
 
 public class KMLAuthor: NSObject {
-    public var nameOrUriOrEmail = [String]()
+    @objc public var nameOrUriOrEmail = [String]()
     
     override init() {
         super.init()
@@ -16,6 +16,14 @@ public class KMLAuthor: NSObject {
     
     init(name: String) {
         nameOrUriOrEmail = [name]
+    }
+    
+    public override func setValue(_ value: Any?, forKey key: String) {
+        if key == "name", let name = value as? String {
+            nameOrUriOrEmail.append(name)
+        } else {
+            super.setValue(value, forKey: key)
+        }
     }
     
 }

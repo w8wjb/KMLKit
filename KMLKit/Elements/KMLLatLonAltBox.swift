@@ -13,22 +13,22 @@ public class KMLAbstractExtent: KMLObject {
 }
 
 public class KMLAbstractLatLonBox: KMLAbstractExtent {
-    public var north: CLLocationDegrees = 0
-    public var south: CLLocationDegrees = 0
-    public var east: CLLocationDegrees = 0
-    public var west: CLLocationDegrees = 0
+    @objc public var north: CLLocationDegrees = 0
+    @objc public var south: CLLocationDegrees = 0
+    @objc public var east: CLLocationDegrees = 0
+    @objc public var west: CLLocationDegrees = 0
 }
 
 public class KMLLatLonBox: KMLAbstractLatLonBox {
-    public var rotation: CLLocationDegrees = 0.0
+    @objc public var rotation: CLLocationDegrees = 0.0
 }
 
 public class KMLLatLonAltBox: KMLAbstractLatLonBox {
     
-    public var minAltitude: CLLocationDistance = 0.0
-    public var maxAltitude: CLLocationDegrees = 0.0
-    public var altitudeMode = KMLAltitudeMode.clampToGround
-    public var seaFloorAltitudeMode = KMLSeaFloorAltitudeMode.clampToSeaFloor
+    @objc public var minAltitude: CLLocationDistance = 0.0
+    @objc public var maxAltitude: CLLocationDegrees = 0.0
+    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc public var seaFloorAltitudeMode = KMLSeaFloorAltitudeMode.clampToSeaFloor
     
 }
 

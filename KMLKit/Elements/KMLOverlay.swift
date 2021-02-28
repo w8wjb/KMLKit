@@ -11,23 +11,23 @@ import MapKit
 
 public class KMLOverlay: KMLFeature {
 
-    public var color: KMLColor?
-    public var drawOrder = 0
-    public var icon: Icon?
+    @objc public var color: KMLColor?
+    @objc public var drawOrder = 0
+    @objc public var icon: KMLIcon?
     
 }
 
 public class KMLGroundOverlay: KMLOverlay {
     
-    public var altitude: CLLocationDistance = 0.0
-    public var altitudeMode = KMLAltitudeMode.clampToGround
-    public var latLonBox: KMLLatLonBox?
+    @objc public var altitude: CLLocationDistance = 0.0
+    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc public var latLonBox: KMLLatLonBox?
     
 }
 
 public class KMLPhotoOverlay: KMLOverlay {
     
-    public struct ViewVolume {
+    public class ViewVolume: NSObject {
         var leftFov: Double = 0.0
         var rightFov: Double = 0.0
         var bottomFov: Double = 0.0
@@ -35,23 +35,34 @@ public class KMLPhotoOverlay: KMLOverlay {
         var near: Double = 0.0
     }
     
-    public enum GridOrigin: String {
-        case lowerLeft = "lowerLeft"
-        case upperLeft = "upperLeft"
+    @objc public enum GridOrigin: Int {
+        case lowerLeft
+        case upperLeft
+        
+        init(_ value: String) {
+            switch value {
+            case "lowerLeft":
+                self = .lowerLeft
+            case "upperLeft":
+                self = .upperLeft
+            default:
+                self = .lowerLeft
+            }
+        }
     }
     
     
-    public struct ImagePyramid {
-        var tileSize = 256
-        var maxWidth = 0
-        var maxHeight = 0
-        var gridOrigin = GridOrigin.lowerLeft
+    public class ImagePyramid: NSObject {
+        @objc var tileSize = 256
+        @objc var maxWidth = 0
+        @objc var maxHeight = 0
+        @objc var gridOrigin = GridOrigin.lowerLeft
     }
     
 
-    public var rotation: Double = 0.0
-    public var viewVolume = ViewVolume()
-    public var imagePyramid = ImagePyramid()
+    @objc public var rotation: Double = 0.0
+    @objc public var viewVolume = ViewVolume()
+    @objc public var imagePyramid = ImagePyramid()
     
 }
 
@@ -60,5 +71,21 @@ public class ScreenOverlay: KMLOverlay {
     public var screenXY: CGPoint?
     public var rotationXY: CGPoint?
     public var size: CGSize?
-    public var rotation: Double = 0
+    @objc public var rotation: Double = 0
+    
+    public override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "overlayXY", let overlayXY = value as? CGPoint {
+            self.overlayXY = overlayXY
+        } else if key == "screenXY", let screenXY = value as? CGPoint {
+            self.screenXY = screenXY
+        } else if key == "rotationXY", let rotationXY = value as? CGPoint {
+            self.rotationXY = rotationXY
+        } else if key == "size", let size = value as? CGSize {
+            self.size = size
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
 }

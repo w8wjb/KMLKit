@@ -7,15 +7,45 @@
 
 import Foundation
 
-public enum KMLAltitudeMode: String {
-    case clampToGround = "clampToGround"
-    case relativeToGround = "relativeToGround"
-    case absolute = "absolute"
-    case clampToSeaFloor = "clampToSeaFloor"
-    case relativeToSeaFloor = "relativeToSeaFloor"
+@objc public enum KMLAltitudeMode: Int {
+    case clampToGround
+    case relativeToGround
+    case absolute
+    case clampToSeaFloor
+    case relativeToSeaFloor
+    
+    init(_ value: String) {
+        switch value {
+        case "clampToGround":
+            self = .clampToGround
+        case "relativeToGround":
+            self = .relativeToGround
+        case "absolute":
+            self = .absolute
+        case "clampToSeaFloor":
+            self = .clampToSeaFloor
+        case "relativeToSeaFloor":
+            self = .relativeToSeaFloor
+        default:
+            self = .clampToGround
+        }
+    }
+    
 }
 
-public enum KMLSeaFloorAltitudeMode: String {
-    case clampToSeaFloor = "clampToSeaFloor"
-    case relativeToSeaFloor = "relativeToSeaFloor"
+@objc public enum KMLSeaFloorAltitudeMode: Int {
+    case clampToSeaFloor
+    case relativeToSeaFloor
+    
+    init(_ value: String) {
+        switch value {
+        case "clampToSeaFloor":
+            self = .clampToSeaFloor
+        case "relativeToSeaFloor":
+            self = .relativeToSeaFloor
+        default:
+            self = .clampToSeaFloor
+        }
+    }
+    
 }

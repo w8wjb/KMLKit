@@ -7,18 +7,18 @@
 
 import Foundation
 
-public class KMLAddressDetails {
-    public var address: String?
-    public var addressLines = [String]()
-    public var country: String?
-    public var administrativeArea: String?
-    public var locality: String?
-    public var thoroughfare: String?
-    public var currentStatus: String?
-    public var validFromDate: Date?
-    public var validToDate: Date?
-    public var usage: String?
-    public var addressDetailsKey: String?
-    public var code: String?
-    public var otherAttributes = [String:String]()
+public class KMLAddressDetails: NSObject {
+    @objc public var address: String?
+    @objc public var addressLines = [String]()
+    @objc public var country: String?
+    @objc public var administrativeArea: String?
+    @objc public var locality: String?
+    @objc public var thoroughfare: String?
+    @objc public var currentStatus: String?
+    @objc public var validFromDate: Date?
+    @objc public var validToDate: Date?
+    @objc public var usage: String?
+    @objc public var addressDetailsKey: String?
+    @objc public var code: String?
+    @objc public var otherAttributes = [String:String]()
 }

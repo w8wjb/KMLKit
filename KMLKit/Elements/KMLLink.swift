@@ -8,7 +8,7 @@
 import Foundation
 
 public class KMLBasicLink: KMLObject {
-    var href: URL?
+    @objc var href: URL?
     
     public override init() {
         super.init()
@@ -34,32 +34,61 @@ public class KMLBasicLink: KMLObject {
 
 public class KMLLink: KMLBasicLink {
 
-    public var rel: String?
-    public var type: String?
-    public var hreflang: String?
-    public var title: String?
-    public var length: Int?
-    public var refreshMode = RefreshMode.onChange
-    public var refreshInterval: Double = 4.0
-    public var viewRefreshMode = ViewRefreshMode.never
-    public var viewRefreshTime: Double = 4.0
-    public var viewBoundScale: Double = 1.0
-    public var viewFormat: String?
-    public var httpQuery: String?
+    @objc public var rel: String?
+    @objc public var type: String?
+    @objc public var hreflang: String?
+    @objc public var title: String?
+    @objc public var length: Int = 0
+    @objc public var refreshMode = KMLRefreshMode.onChange
+    @objc public var refreshInterval: Double = 4.0
+    @objc public var viewRefreshMode = KMLViewRefreshMode.never
+    @objc public var viewRefreshTime: Double = 4.0
+    @objc public var viewBoundScale: Double = 1.0
+    @objc public var viewFormat: String?
+    @objc public var httpQuery: String?
     
     
-    public enum RefreshMode: String {
-        case onChange = "onChange"
-        case onInterval = "onInterval"
-        case onExpire = "onExpire"
+    @objc public enum KMLRefreshMode: Int {
+        case onChange
+        case onInterval
+        case onExpire
+        
+        init(_ value: String) {
+            switch value {
+            case "onChange":
+                self = .onChange
+            case "onInterval":
+                self = .onInterval
+            case "onExpire":
+                self = .onExpire
+            default:
+                self = .onChange
+            }
+        }
+
     }
     
     
-    public enum ViewRefreshMode: String {
-        case never = "never"
-        case onRequest = "onRequest"
-        case onStop = "onStop"
-        case onRegion = "onRegion"
+    @objc public enum KMLViewRefreshMode: Int {
+        case never
+        case onRequest
+        case onStop
+        case onRegion
+        
+        init(_ value: String) {
+            switch value {
+            case "never":
+                self = .never
+            case "onRequest":
+                self = .onRequest
+            case "onStop":
+                self = .onStop
+            case "onRegion":
+                self = .onRegion
+            default:
+                self = .never
+            }
+        }
     }
     
     
@@ -85,12 +114,24 @@ public class KMLLink: KMLBasicLink {
         self.hreflang = attributes["hreflang"]
         self.title = attributes["title"]
         if let length = attributes["length"] {
-            self.length = Int(length)
+            self.length = Int(length) ?? 0
         }
+    }
+    
+    public override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "refreshMode", let refreshMode = value as? KMLRefreshMode {
+            self.refreshMode = refreshMode
+        } else if key == "viewRefreshMode", let viewRefreshMode = value as? KMLViewRefreshMode {
+            self.viewRefreshMode = viewRefreshMode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
     }
 }
 
 
-public class Icon: KMLLink {
+public class KMLIcon: KMLLink {
 
 }

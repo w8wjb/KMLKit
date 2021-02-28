@@ -9,13 +9,13 @@ import Foundation
 
 public class KMLTour: KMLFeature {
 
-    public var playlist = KMLPlaylist()
+    @objc public var playlist = KMLPlaylist()
     
 }
 
 public class KMLPlaylist: KMLObject {
 
-    public var items: [KMLTourPrimitive] = []
+    @objc public var items: [KMLTourPrimitive] = []
 
     
 }

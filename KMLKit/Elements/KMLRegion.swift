@@ -10,8 +10,8 @@ import MapKit
 
 public class KMLRegion: KMLObject {
 
-    public var latLonAltBox: KMLLatLonAltBox?
-    public var lod: KMLLod?
-    public var metadata: [AnyObject] = []
+    @objc public var latLonAltBox: KMLLatLonAltBox?
+    @objc public var lod: KMLLod?
+    @objc public var metadata: [AnyObject] = []
 
 }

@@ -9,10 +9,14 @@ import Foundation
 
 public class KMLRoot: NSObject, KMLFeatureCollection {
     
-    public var name: String?
-    public var hint: String?
-    public var networkLinkControl: KMLNetworkLinkControl?
-    public var feature: KMLFeature?
+    @objc public var name: String?
+    @objc public var hint: String?
+    @objc public var networkLinkControl: KMLNetworkLinkControl?
+    @objc public var feature: KMLFeature?
+
+    public func add(feature: KMLFeature) {
+        self.feature = feature
+    }
 
     public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         

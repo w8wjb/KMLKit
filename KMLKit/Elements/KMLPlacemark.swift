@@ -7,6 +7,10 @@
 
 import Foundation
 
-public class KMLPlacemark: KMLFeature {
-    public var geometry: KMLGeometry?
+public class KMLPlacemark: KMLFeature, KMLGeometryCollection {
+    @objc public var geometry: KMLGeometry?
+    
+    public func add(geometry: KMLGeometry) {
+        self.geometry = geometry
+    }
 }

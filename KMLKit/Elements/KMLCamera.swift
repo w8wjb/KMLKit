@@ -10,11 +10,11 @@ import CoreLocation
 
 public class KMLCamera: KMLAbstractView {
     
-    public var longitude = CLLocationDegrees()
-    public var latitude = CLLocationDegrees()
-    public var altitude = CLLocationDistance()
-    public var heading = CLLocationDirection()
-    public var tilt: Double = 0
-    public var roll: Double = 0
-    public var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc public var longitude = CLLocationDegrees()
+    @objc public var latitude = CLLocationDegrees()
+    @objc public var altitude = CLLocationDistance()
+    @objc public var heading = CLLocationDirection()
+    @objc public var tilt: Double = 0
+    @objc public var roll: Double = 0
+    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
 }
