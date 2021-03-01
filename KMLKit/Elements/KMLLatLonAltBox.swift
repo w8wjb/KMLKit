@@ -30,8 +30,20 @@ public class KMLLatLonAltBox: KMLAbstractLatLonBox {
     @objc public var altitudeMode = KMLAltitudeMode.clampToGround
     @objc public var seaFloorAltitudeMode = KMLSeaFloorAltitudeMode.clampToSeaFloor
     
+    public override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
+            self.altitudeMode = altitudeMode
+        } else if key == "seaFloorAltitudeMode", let seaFloorAltitudeMode = value as? KMLSeaFloorAltitudeMode {
+                self.seaFloorAltitudeMode = seaFloorAltitudeMode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
+    
 }
 
 public class KMLLatLonQuad: KMLAbstractExtent {
-    public var coordinates: [CLLocation] = []
+    @objc public var coordinates: [CLLocation] = []
 }

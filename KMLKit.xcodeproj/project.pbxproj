@@ -66,6 +66,23 @@
 		AD55D57925E9CD600069A6CE /* labelstyle_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55D25E9CD600069A6CE /* labelstyle_example.kml */; };
 		AD55D57A25E9CD600069A6CE /* track_extended_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55E25E9CD600069A6CE /* track_extended_example.kml */; };
 		AD55D57B25E9CD600069A6CE /* linestring_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D55F25E9CD600069A6CE /* linestring_example.kml */; };
+		AD55D5E025EBE6590069A6CE /* KMLTimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5DF25EBE6590069A6CE /* KMLTimeStamp.swift */; };
+		AD55D5E125EBE6590069A6CE /* KMLTimeStamp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5DF25EBE6590069A6CE /* KMLTimeStamp.swift */; };
+		AD55D5E625EC267A0069A6CE /* KMLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5E525EC267A0069A6CE /* KMLSchema.swift */; };
+		AD55D5E725EC267A0069A6CE /* KMLSchema.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5E525EC267A0069A6CE /* KMLSchema.swift */; };
+		AD55D5EC25EC26B70069A6CE /* KMLSimpleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5EB25EC26B70069A6CE /* KMLSimpleField.swift */; };
+		AD55D5ED25EC26B70069A6CE /* KMLSimpleField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5EB25EC26B70069A6CE /* KMLSimpleField.swift */; };
+		AD55D5F225EC625E0069A6CE /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5F125EC625E0069A6CE /* KMLDocument.swift */; };
+		AD55D5F325EC625E0069A6CE /* KMLDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5F125EC625E0069A6CE /* KMLDocument.swift */; };
+		AD55D5FB25ED40400069A6CE /* KMLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5FA25ED40400069A6CE /* KMLData.swift */; };
+		AD55D5FC25ED40400069A6CE /* KMLData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D5FA25ED40400069A6CE /* KMLData.swift */; };
+		AD55D60D25ED44890069A6CE /* KMLSimpleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D60C25ED44890069A6CE /* KMLSimpleData.swift */; };
+		AD55D60E25ED44890069A6CE /* KMLSimpleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D60C25ED44890069A6CE /* KMLSimpleData.swift */; };
+		AD55D61325ED451E0069A6CE /* KMLSchemaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D61225ED451E0069A6CE /* KMLSchemaData.swift */; };
+		AD55D61425ED451E0069A6CE /* KMLSchemaData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D61225ED451E0069A6CE /* KMLSchemaData.swift */; };
+		AD55D61925ED48780069A6CE /* KMLTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D61825ED48780069A6CE /* KMLTrack.swift */; };
+		AD55D61A25ED48780069A6CE /* KMLTrack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D61825ED48780069A6CE /* KMLTrack.swift */; };
+		AD55D62225ED62410069A6CE /* address_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D62125ED62410069A6CE /* address_example.kml */; };
 		ADE1962925E7F2CB00935306 /* KMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE1961F25E7F2CB00935306 /* KMLKit.framework */; };
 		ADE1963025E7F2CB00935306 /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE1962225E7F2CB00935306 /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
@@ -146,6 +163,15 @@
 		AD55D55D25E9CD600069A6CE /* labelstyle_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = labelstyle_example.kml; sourceTree = "<group>"; };
 		AD55D55E25E9CD600069A6CE /* track_extended_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = track_extended_example.kml; sourceTree = "<group>"; };
 		AD55D55F25E9CD600069A6CE /* linestring_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = linestring_example.kml; sourceTree = "<group>"; };
+		AD55D5DF25EBE6590069A6CE /* KMLTimeStamp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLTimeStamp.swift; sourceTree = "<group>"; };
+		AD55D5E525EC267A0069A6CE /* KMLSchema.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLSchema.swift; sourceTree = "<group>"; };
+		AD55D5EB25EC26B70069A6CE /* KMLSimpleField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLSimpleField.swift; sourceTree = "<group>"; };
+		AD55D5F125EC625E0069A6CE /* KMLDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLDocument.swift; sourceTree = "<group>"; };
+		AD55D5FA25ED40400069A6CE /* KMLData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLData.swift; sourceTree = "<group>"; };
+		AD55D60C25ED44890069A6CE /* KMLSimpleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLSimpleData.swift; sourceTree = "<group>"; };
+		AD55D61225ED451E0069A6CE /* KMLSchemaData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLSchemaData.swift; sourceTree = "<group>"; };
+		AD55D61825ED48780069A6CE /* KMLTrack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLTrack.swift; sourceTree = "<group>"; };
+		AD55D62125ED62410069A6CE /* address_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = address_example.kml; sourceTree = "<group>"; };
 		ADE1961F25E7F2CB00935306 /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE1962225E7F2CB00935306 /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		ADE1962325E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -277,6 +303,7 @@
 		ADE1965725E7F70E00935306 /* Sample Data */ = {
 			isa = PBXGroup;
 			children = (
+				AD55D62125ED62410069A6CE /* address_example.kml */,
 				AD55D54625E9CD5F0069A6CE /* altitudemode_reference.kml */,
 				AD55D54C25E9CD5F0069A6CE /* animatedupdate_example.kml */,
 				AD55D55925E9CD600069A6CE /* author_example.kml */,
@@ -320,25 +347,33 @@
 				ADE196D325E8178100935306 /* KMLAltitudeMode.swift */,
 				ADE1968325E8048000935306 /* KMLAuthor.swift */,
 				ADE196EF25E8373100935306 /* KMLCamera.swift */,
+				ADE196E925E8304800935306 /* KMLColor.swift */,
 				ADE196A125E809F700935306 /* KMLContainer.swift */,
+				AD55D5FA25ED40400069A6CE /* KMLData.swift */,
+				AD55D5F125EC625E0069A6CE /* KMLDocument.swift */,
 				ADE1967F25E8043100935306 /* KMLFeature.swift */,
 				ADE196CD25E8167B00935306 /* KMLGeometry.swift */,
-				ADE196E925E8304800935306 /* KMLColor.swift */,
-				ADE1966025E7F84100935306 /* KMLRoot.swift */,
-				ADE1967125E7FD3E00935306 /* KMLObject.swift */,
 				ADE1970B25E91E7D00935306 /* KMLLatLonAltBox.swift */,
 				ADE1968725E804FF00935306 /* KMLLink.swift */,
 				ADE1969725E807CE00935306 /* KMLLod.swift */,
 				ADE196F325E8380900935306 /* KMLLookAt.swift */,
 				ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */,
+				ADE1967125E7FD3E00935306 /* KMLObject.swift */,
 				ADE196DD25E829CE00935306 /* KMLOrientation.swift */,
 				ADE196B725E8112100935306 /* KMLOverlay.swift */,
 				ADE196FD25E84A3F00935306 /* KMLPlacemark.swift */,
 				ADE1969325E8076100935306 /* KMLRegion.swift */,
+				ADE1966025E7F84100935306 /* KMLRoot.swift */,
+				AD55D5E525EC267A0069A6CE /* KMLSchema.swift */,
+				AD55D61225ED451E0069A6CE /* KMLSchemaData.swift */,
+				AD55D60C25ED44890069A6CE /* KMLSimpleData.swift */,
+				AD55D5EB25EC26B70069A6CE /* KMLSimpleField.swift */,
 				ADE1970125E84DCC00935306 /* KMLSnippet.swift */,
 				ADE1968F25E8073A00935306 /* KMLStyle.swift */,
+				AD55D5DF25EBE6590069A6CE /* KMLTimeStamp.swift */,
 				ADE196A925E80D4F00935306 /* KMLTour.swift */,
 				ADE196B125E80E2D00935306 /* KMLTourPrimitive.swift */,
+				AD55D61825ED48780069A6CE /* KMLTrack.swift */,
 				ADE1967525E8031D00935306 /* KMLUpdateOption.swift */,
 			);
 			path = Elements;
@@ -511,6 +546,7 @@
 				AD55D56525E9CD600069A6CE /* latlonquad_example.kml in Resources */,
 				AD55D57B25E9CD600069A6CE /* linestring_example.kml in Resources */,
 				AD55D56425E9CD600069A6CE /* iconstyle_example.kml in Resources */,
+				AD55D62225ED62410069A6CE /* address_example.kml in Resources */,
 				AD55D57225E9CD600069A6CE /* document_example.kml in Resources */,
 				AD55D56C25E9CD600069A6CE /* folder_example.kml in Resources */,
 				AD55D57925E9CD600069A6CE /* labelstyle_example.kml in Resources */,
@@ -530,7 +566,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD55D5ED25EC26B70069A6CE /* KMLSimpleField.swift in Sources */,
 				AD55D50F25E991390069A6CE /* KMLAddressDetails.swift in Sources */,
+				AD55D5E125EBE6590069A6CE /* KMLTimeStamp.swift in Sources */,
 				AD55D50325E991390069A6CE /* KMLFeature.swift in Sources */,
 				AD55D50A25E991390069A6CE /* KMLRoot.swift in Sources */,
 				AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */,
@@ -538,12 +576,17 @@
 				AD55D50525E991390069A6CE /* KMLLod.swift in Sources */,
 				AD55D50625E991390069A6CE /* KMLRegion.swift in Sources */,
 				AD55D51325E991390069A6CE /* KMLTourPrimitive.swift in Sources */,
+				AD55D61A25ED48780069A6CE /* KMLTrack.swift in Sources */,
 				AD55D50825E991390069A6CE /* KMLColor.swift in Sources */,
+				AD55D61425ED451E0069A6CE /* KMLSchemaData.swift in Sources */,
 				AD55D51625E991390069A6CE /* KMLPlacemark.swift in Sources */,
+				AD55D5E725EC267A0069A6CE /* KMLSchema.swift in Sources */,
 				AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */,
 				AD55D50925E991390069A6CE /* KMLAltitudeMode.swift in Sources */,
+				AD55D5F325EC625E0069A6CE /* KMLDocument.swift in Sources */,
 				AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */,
 				AD55D50C25E991390069A6CE /* KMLCamera.swift in Sources */,
+				AD55D60E25ED44890069A6CE /* KMLSimpleData.swift in Sources */,
 				AD55D51225E991390069A6CE /* KMLNetworkLinkControl.swift in Sources */,
 				AD55D50D25E991390069A6CE /* KMLAuthor.swift in Sources */,
 				AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */,
@@ -557,6 +600,7 @@
 				AD55D51425E991390069A6CE /* KMLLink.swift in Sources */,
 				AD55D51A25E991390069A6CE /* KMLOverlay.swift in Sources */,
 				AD55D51B25E991390069A6CE /* KMLOrientation.swift in Sources */,
+				AD55D5FC25ED40400069A6CE /* KMLData.swift in Sources */,
 				AD55D51925E991390069A6CE /* KMLGeometry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -565,7 +609,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AD55D5EC25EC26B70069A6CE /* KMLSimpleField.swift in Sources */,
 				ADE196B825E8112100935306 /* KMLOverlay.swift in Sources */,
+				AD55D5E025EBE6590069A6CE /* KMLTimeStamp.swift in Sources */,
 				ADE1966E25E7FC0F00935306 /* KMLAbstractView.swift in Sources */,
 				ADE196FE25E84A3F00935306 /* KMLPlacemark.swift in Sources */,
 				ADE196CE25E8167B00935306 /* KMLGeometry.swift in Sources */,
@@ -573,12 +619,17 @@
 				ADE1969825E807CE00935306 /* KMLLod.swift in Sources */,
 				ADE196D425E8178100935306 /* KMLAltitudeMode.swift in Sources */,
 				ADE1966125E7F84100935306 /* KMLRoot.swift in Sources */,
+				AD55D61925ED48780069A6CE /* KMLTrack.swift in Sources */,
 				ADE1968C25E8058D00935306 /* KMLAddressDetails.swift in Sources */,
+				AD55D61325ED451E0069A6CE /* KMLSchemaData.swift in Sources */,
 				ADE196F025E8373200935306 /* KMLCamera.swift in Sources */,
+				AD55D5E625EC267A0069A6CE /* KMLSchema.swift in Sources */,
 				ADE196B225E80E2D00935306 /* KMLTourPrimitive.swift in Sources */,
 				ADE1970C25E91E7D00935306 /* KMLLatLonAltBox.swift in Sources */,
+				AD55D5F225EC625E0069A6CE /* KMLDocument.swift in Sources */,
 				ADE1972225E9652100935306 /* KMLWriter.swift in Sources */,
 				ADE1968825E804FF00935306 /* KMLLink.swift in Sources */,
+				AD55D60D25ED44890069A6CE /* KMLSimpleData.swift in Sources */,
 				ADE1968425E8048000935306 /* KMLAuthor.swift in Sources */,
 				ADE1967625E8031D00935306 /* KMLUpdateOption.swift in Sources */,
 				ADE196EA25E8304800935306 /* KMLColor.swift in Sources */,
@@ -592,6 +643,7 @@
 				ADE196A225E809F700935306 /* KMLContainer.swift in Sources */,
 				ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */,
 				ADE196F425E8380900935306 /* KMLLookAt.swift in Sources */,
+				AD55D5FB25ED40400069A6CE /* KMLData.swift in Sources */,
 				ADE1966625E7FA6D00935306 /* KMLNetworkLinkControl.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

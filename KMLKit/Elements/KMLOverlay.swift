@@ -22,20 +22,31 @@ public class KMLGroundOverlay: KMLOverlay {
     @objc public var altitude: CLLocationDistance = 0.0
     @objc public var altitudeMode = KMLAltitudeMode.clampToGround
     @objc public var latLonBox: KMLLatLonBox?
+    @objc public var extent: KMLAbstractExtent?
+
     
+    public override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
+            self.altitudeMode = altitudeMode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
 }
 
 public class KMLPhotoOverlay: KMLOverlay {
     
-    public class ViewVolume: NSObject {
-        var leftFov: Double = 0.0
-        var rightFov: Double = 0.0
-        var bottomFov: Double = 0.0
-        var topFov: Double = 0.0
-        var near: Double = 0.0
+    public class KMLViewVolume: NSObject {
+        @objc var leftFov: Double = 0.0
+        @objc var rightFov: Double = 0.0
+        @objc var bottomFov: Double = 0.0
+        @objc var topFov: Double = 0.0
+        @objc var near: Double = 0.0
     }
     
-    @objc public enum GridOrigin: Int {
+    @objc public enum KMLGridOrigin: Int {
         case lowerLeft
         case upperLeft
         
@@ -52,21 +63,21 @@ public class KMLPhotoOverlay: KMLOverlay {
     }
     
     
-    public class ImagePyramid: NSObject {
+    public class KMLImagePyramid: NSObject {
         @objc var tileSize = 256
         @objc var maxWidth = 0
         @objc var maxHeight = 0
-        @objc var gridOrigin = GridOrigin.lowerLeft
+        @objc var gridOrigin = KMLGridOrigin.lowerLeft
     }
     
 
     @objc public var rotation: Double = 0.0
-    @objc public var viewVolume = ViewVolume()
-    @objc public var imagePyramid = ImagePyramid()
+    @objc public var viewVolume = KMLViewVolume()
+    @objc public var imagePyramid = KMLImagePyramid()
     
 }
 
-public class ScreenOverlay: KMLOverlay {
+public class KMLScreenOverlay: KMLOverlay {
     public var overlayXY: CGPoint?
     public var screenXY: CGPoint?
     public var rotationXY: CGPoint?

@@ -8,5 +8,5 @@
 import Foundation
 
 public class KMLAbstractView: KMLObject {
-
+    @objc var time: KMLTimePrimitive?
 }

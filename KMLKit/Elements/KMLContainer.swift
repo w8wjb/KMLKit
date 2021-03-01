@@ -10,7 +10,7 @@ import Foundation
 public protocol KMLFeatureCollection {
     
     func add(feature: KMLFeature)
-    func findFirstFeatures<T>(ofType type: T.Type) -> T?
+    func findFirstFeature<T>(ofType type: T.Type) -> T?
     func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T]
 }
 
@@ -43,7 +43,7 @@ public class KMLContainer: KMLFeature, KMLFeatureCollection {
     }
 
     
-    public func findFirstFeatures<T>(ofType type: T.Type) -> T? {
+    public func findFirstFeature<T>(ofType type: T.Type) -> T? {
         
         for feature in self {
             if let match = feature as? T {
@@ -51,7 +51,7 @@ public class KMLContainer: KMLFeature, KMLFeatureCollection {
             }
             
             if let collection = feature as? KMLFeatureCollection {
-                if let match = collection.findFirstFeatures(ofType: type) {
+                if let match = collection.findFirstFeature(ofType: type) {
                     return match
                 }
             }
@@ -75,12 +75,5 @@ extension KMLContainer: Collection {
     public func makeIterator() -> Iterator { return features.makeIterator() }
 }
 
-
-
-
 public class KMLFolder: KMLContainer {
-}
-
-public class KMLDocument: KMLContainer {
-    
 }

@@ -16,7 +16,8 @@ public class KMLLookAt: KMLAbstractView {
     @objc public var tilt: Double = 0
     @objc public var range: Double = 0
     @objc public var altitudeMode = KMLAltitudeMode.clampToGround
-    
+    @objc public var horizFov: Double = 0
+
     public override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {

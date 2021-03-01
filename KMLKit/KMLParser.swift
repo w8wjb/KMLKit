@@ -13,6 +13,30 @@ import CoreGraphics
 
 public class KMLParser: NSObject, XMLParserDelegate {
     
+    private class KeyValuePair: NSObject {
+        var key: String?
+        var values: [Any] = []
+        
+        override init() {
+            super.init()
+        }
+        
+        init(key: String?) {
+            super.init()
+            self.key = key
+        }
+        
+        override func setValue(_ value: Any?, forKey key: String) {
+            if key == "key" {
+                self.key = value as? String
+            } else if let value = value {
+                self.values.append(value)
+            } else {
+                super.setValue(value, forKey: key)
+            }
+        }
+    }
+    
     public static func parse(file: URL) throws -> KMLRoot {
         
         switch file.pathExtension {
@@ -80,6 +104,32 @@ public class KMLParser: NSObject, XMLParserDelegate {
     private var buffer = ""
     private var stack: [NSObject] = []
     private var ignoreTags = false
+    private var whenIndex = -1
+    private var coordIndex = -1
+    
+    private let gYearFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy"
+        return formatter
+    }()
+    
+    private let gYearMonthFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM"
+        return formatter
+    }()
+    
+    private let dateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter
+    }()
+    
+    private let dateTimeFormatter: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = .withInternetDateTime
+        return formatter
+    }()
     
     private func push(_ element: NSObject) {
         self.stack.append(element)
@@ -135,6 +185,8 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLChange())
             case "Document":
                 push(KMLDocument(attrs))
+            case "ExtendedData":
+                push(KMLExtendedData())
             case "FlyTo":
                 push(FlyTo(attrs))
             case "Folder":
@@ -156,21 +208,27 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "LookAt":
                 push(KMLLookAt(attrs))
             case "Pair":
-                push(KMLStyleMap.Pair())
+                push(KeyValuePair())
             case "Polygon":
                 push(KMLPolygon(attrs))
             case "PolyStyle":
                 push(KMLPolyStyle(attrs))
             case "LatLonBox":
-                push(KMLLatLonBox())
+                push(KMLLatLonBox(attrs))
+            case "LatLonQuad":
+                push(KMLLatLonQuad(attrs))
             case "LinearRing":
                 push(KMLLinearRing(attrs))
             case "LineString":
                 push(KMLLineString(attrs))
             case "link":
                 push(KMLLink(attrs))
+            case "ListStyle":
+                push(KMLListStyle(attrs))
             case "MultiGeometry":
                 push(KMLMultiGeometry(attrs))
+            case "NetworkLinkControl":
+                push(KMLNetworkLinkControl())
             case "overlayXY":
                 push(parsePoint(attrs: attrs) as NSObject)
             case "Placemark":
@@ -185,8 +243,20 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(parsePoint(attrs: attrs) as NSObject)
             case "screenXY":
                 push(parsePoint(attrs: attrs) as NSObject)
+            case "Schema":
+                push(KMLSchema(attrs))
+            case "SchemaData":
+                push(KMLSchemaData(attrs))
             case "ScreenOverlay":
-                push(ScreenOverlay(attrs))
+                push(KMLScreenOverlay(attrs))
+            case "SimpleArrayData":
+                push(KeyValuePair(key: attrs["name"]))
+            case "SimpleArrayField":
+                push(KMLSimpleArrayField(attrs))
+            case "SimpleData":
+                push(KeyValuePair(key: attrs["name"]))
+            case "SimpleField":
+                push(KMLSimpleField(attrs))
             case "size":
                 push(parseSize(attrs: attrs) as NSObject)
             case "Snippet":
@@ -195,10 +265,16 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLStyle(attrs))
             case "StyleMap":
                 push(KMLStyleMap(attrs))
+            case "TimeSpan":
+                push(KMLTimeSpan(attrs))
+            case "TimeStamp":
+                push(KMLTimeStamp(attrs))
             case "Tour":
                 push(KMLTour(attrs))
             case "Track":
                 push(KMLTrack(attrs))
+                whenIndex = -1
+                coordIndex = -1
             case "Update":
                 push(KMLUpdate())
             case "Wait":
@@ -208,23 +284,38 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 ignoreTags = true
 
             // Ignore start of scalar values
-            case "altitude",
+            case "address",
+                 "altitude",
                  "altitudeMode",
+                 "altitudeOffset",
+                 "angles",
                  "balloonVisibility",
+                 "begin",
                  "bgColor",
+                 "bottomFov",
                  "color",
                  "colorMode",
+                 "cookie",
+                 "coord",
                  "coordinates",
+                 "displayName",
                  "drawOrder",
                  "duration",
                  "east",
+                 "end",
                  "extrude",
                  "flyToMode",
                  "heading",
+                 "horizFov",
                  "href",
+                 "httpQuery",
                  "key",
                  "latitude",
                  "longitude",
+                 "linkDescription",
+                 "linkName",
+                 "listItemType",
+                 "message",
                  "name",
                  "north",
                  "open",
@@ -234,15 +325,21 @@ public class KMLParser: NSObject, XMLParserDelegate {
                  "roll",
                  "rotation",
                  "scale",
+                 "seaFloorAltitudeMode",
                  "south",
                  "styleUrl",
                  "targetHref",
                  "tessellate",
                  "text",
                  "tilt",
+                 "topFov",
+                 "value",
                  "viewBoundScale",
+                 "viewFormat",
+                 "viewRefreshTime",
                  "visibility",
                  "west",
+                 "when",
                  "width":
                 break
                 
@@ -305,6 +402,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 }
                 collection.add(feature: child)
                 
+            case "ExtendedData":
+                let child = try pop(KMLExtendedData.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "extendedData")
+                
             case "FlyTo":
                 let child = try pop(FlyTo.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "items").add(child)
@@ -339,6 +440,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLLatLonBox.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "latLonBox")
                 
+            case "LatLonQuad":
+                let child = try pop(KMLLatLonQuad.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "extent")
+                
             case "LinearRing":
                 let child = try pop(KMLLinearRing.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "linearRing")
@@ -358,6 +463,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLLink.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "link")
                 
+            case "ListStyle":
+                let child = try pop(KMLListStyle.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "listStyle")
+
             case "LookAt":
                 let child = try pop(KMLLookAt.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "view")
@@ -368,7 +477,11 @@ public class KMLParser: NSObject, XMLParserDelegate {
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
                 collection.add(geometry: child)
-
+                
+            case "NetworkLinkControl":
+                let child = try pop(KMLNetworkLinkControl.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "networkLinkControl")
+                
             case "outerBoundaryIs":
                 let child = try pop(KMLBoundary.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: elementName)
@@ -378,9 +491,9 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 stack.last?.mutableArrayValue(forKey: elementName).add(child)
 
             case "Pair":
-                let child = try pop(KMLStyleMap.Pair.self, forElement: elementName)
+                let child = try pop(KeyValuePair.self, forElement: elementName)
                 guard let key = child.key,
-                      let styleUrl = child.styleUrl,
+                      let styleUrl = child.values.first as? URL,
                       let map = stack.last as? KMLStyleMap
                 else { return }
                 map.pairs[key] = styleUrl
@@ -420,16 +533,55 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 
             case "Snippet":
                 let child = try pop(KMLSnippet.self, forElement: elementName)
-                child.value = buffer
+                child.value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.mutableArrayValue(forKey: "snippets").add(child)
                 
+            case "Schema":
+                let child = try pop(KMLSchema.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "schema")
+                
+            case "SchemaData":
+                let child = try pop(KMLSchemaData.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "schemaData").add(child)
+
             case "ScreenOverlay":
-                let child = try pop(ScreenOverlay.self, forElement: elementName)
+                let child = try pop(KMLScreenOverlay.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
                 collection.add(feature: child)
+                
+            case "SimpleArrayData":
+                let child = try pop(KeyValuePair.self, forElement: elementName)
+                guard let key = child.key else {
+                    throw ParsingError.missingElement("key")
+                }
+                guard let schemaData = stack.last as? KMLSchemaData else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                schemaData.data[key] = child.values
 
+            case "SimpleArrayField":
+                let child = try pop(KMLSimpleArrayField.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "fields").add(child)
+            
+            case "SimpleData":
+                let child = try pop(KeyValuePair.self, forElement: elementName)
+                guard let key = child.key else {
+                    throw ParsingError.missingElement("key")
+                }
+                guard let value = child.values.first else {
+                    throw ParsingError.missingElement("key")
+                }
+                guard let schemaData = stack.last as? KMLSchemaData else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                schemaData.data[key] = value
+                
+            case "SimpleField":
+                let child = try pop(KMLSimpleField.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "fields").add(child)
+                
             case "Style":
                 let child = try pop(KMLStyle.self, forElement: elementName)
                 guard let feature = stack.last as? KMLFeature else {
@@ -443,6 +595,14 @@ public class KMLParser: NSObject, XMLParserDelegate {
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
                 feature.styleSelector.append(child)
+                
+            case "TimeSpan":
+                let child = try pop(KMLTimeSpan.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "time")
+
+            case "TimeStamp":
+                let child = try pop(KMLTimeStamp.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "time")
 
             case "Tour":
                 let child = try pop(KMLTour.self, forElement: elementName)
@@ -476,12 +636,24 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = KMLAltitudeMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "balloonVisibility":
-                let value = (buffer as NSString).boolValue
+            case "altitudeOffset":
+                let value = Double(buffer) ?? 0.0
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "angles":
+                let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                stack.last?.mutableArrayValue(forKey: elementName).add(value)
+                
+            case "begin":
+                let value = try parseDateTimeAsComponents(buffer)
                 stack.last?.setValue(value, forKey: elementName)
 
             case "bgColor":
                 let value = KMLColor(hex: buffer)
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "bottomFov":
+                let value = Double(buffer) ?? 0.0
                 stack.last?.setValue(value, forKey: elementName)
 
             case "color":
@@ -492,14 +664,36 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = KMLColorMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
                 
+            case "coord":
+                guard let value = parseCoordinates(buffer).first else {
+                    throw ParsingError.missingElement("coord")
+                }
+                guard let track = stack.last as? KMLTrack else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: value, elementName: elementName)
+                }
+                coordIndex += 1
+                if coordIndex < track.coordinates.endIndex {
+                    let existingLocation = track.coordinates[coordIndex]
+                    let updatedLocation = CLLocation(coordinate: value.coordinate,
+                                                     altitude: value.altitude,
+                                                     horizontalAccuracy: 0,
+                                                     verticalAccuracy: -1,
+                                                     timestamp: existingLocation.timestamp)
+                    track.coordinates[coordIndex] = updatedLocation
+
+                } else {
+                    let newLocation = value
+                    track.coordinates.append(newLocation)
+                }
+                
             case "coordinates":
                 let value = parseCoordinates(buffer)
                 stack.last?.setValue(value, forKey: elementName)
-                
+            
             case "description":
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.setValue(value, forKey: "featureDescription")
-                
+
             case "drawOrder":
                 let value = Int(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
@@ -512,10 +706,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "extrude":
-                let value = (buffer as NSString).boolValue
+            case "end":
+                let value = try parseDateTimeAsComponents(buffer)
                 stack.last?.setValue(value, forKey: elementName)
-                
+
             case "flyToMode":
                 let value = FlyTo.FlyToMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
@@ -524,10 +718,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = CLLocationDirection(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "key":
-                let value = buffer
+            case "horizFov":
+                let value = Double(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
-                
+
             case "href":
                 guard let value = URL(string: buffer) else { break }
                 stack.last?.setValue(value, forKey: elementName)
@@ -539,17 +733,13 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "longitude":
                 guard let value = CLLocationDegrees(buffer) else { break }
                 stack.last?.setValue(value, forKey: elementName)
-
-            case "name":
-                let value = buffer
+                
+            case "listItemType":
+                let value = KMLListStyle.KMLListItemType(buffer)
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "north":
                 let value = CLLocationDegrees(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-                
-            case "open":
-                let value = (buffer as NSString).boolValue
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "overlayXY":
@@ -592,6 +782,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = try pop(CGPoint.self, forElement: elementName)
                 stack.last?.setValue(value, forKey: elementName)
 
+            case "seaFloorAltitudeMode":
+                let value = KMLSeaFloorAltitudeMode(buffer)
+                stack.last?.setValue(value, forKey: elementName)
+
             case "south":
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
@@ -608,34 +802,83 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 guard let value = URL(string: buffer) else { break }
                 stack.last?.setValue(value, forKey: elementName)
 
-            case "tessellate":
-                let value = (buffer as NSString).boolValue
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "text":
-                let value = buffer
-                stack.last?.setValue(value, forKey: elementName)
-
             case "tilt":
                 let value = Double(buffer) ?? 0
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "topFov":
+                let value = Double(buffer) ?? 0
+                stack.last?.setValue(value, forKey: elementName)
+
+            case "value":
+                let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.setValue(value, forKey: elementName)
 
             case "viewBoundScale":
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
 
-            case "visibility":
-                let value = (buffer as NSString).boolValue
+            case "viewRefreshTime":
+                let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
 
             case "west":
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
-
+                
+            case "when":
+                switch stack.last {
+                case let track as KMLTrack:
+                    let value = try parseDateTime(buffer)
+                    whenIndex += 1
+                    if whenIndex < track.coordinates.endIndex {
+                        let existingLocation = track.coordinates[whenIndex]
+                        let updatedLocation = CLLocation(coordinate: existingLocation.coordinate,
+                                                         altitude: existingLocation.altitude,
+                                                         horizontalAccuracy: 0,
+                                                         verticalAccuracy: -1,
+                                                         timestamp: value)
+                        track.coordinates[whenIndex] = updatedLocation
+                        
+                    } else {
+                        let newLocation = CLLocation(coordinate: CLLocationCoordinate2D(),
+                                                     altitude: CLLocationDistance(),
+                                                     horizontalAccuracy: 0,
+                                                     verticalAccuracy: -1,
+                                                     timestamp: value)
+                        track.coordinates.append(newLocation)
+                    }
+                    
+                default:
+                    let value = try parseDateTimeAsComponents(buffer)
+                    stack.last?.setValue(value, forKey: elementName)
+                }
+                
             case "width":
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
 
+            // MARK: - Boolean scalars
+            case "balloonVisibility", "extrude", "open", "tessellate", "visibility":
+                let value = (buffer as NSString).boolValue
+                stack.last?.setValue(value, forKey: elementName)
+            
+            // MARK: - String scalars
+            case "address",
+                 "cookie",
+                 "displayName",
+                 "httpQuery",
+                 "key",
+                 "linkName",
+                 "linkDescription",
+                 "message",
+                 "name",
+                 "text",
+                 "viewFormat":
+                let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                stack.last?.setValue(value, forKey: elementName)
+
+                
             default:
                 throw ParsingError.unsupportedElement(elementName: elementName)
             }
@@ -660,6 +903,34 @@ public class KMLParser: NSObject, XMLParserDelegate {
         }
         
     }
+
+    func parseDateTime(_ input: String) throws -> Date {
+                
+        if let date = gYearFormatter.date(from: input) {
+            return date
+        } else if let date = gYearMonthFormatter.date(from: input) {
+            return date
+        } else if let date = dateFormatter.date(from: input) {
+            return date
+        } else if let date = dateTimeFormatter.date(from: input) {
+            return date
+        }
+        throw ParsingError.unsupportedDateFormat(input)
+    }
+    
+    func parseDateTimeAsComponents(_ input: String) throws -> DateComponents {
+                
+        if let date = gYearFormatter.date(from: input) {
+            return Calendar.current.dateComponents([.year], from: date)
+        } else if let date = gYearMonthFormatter.date(from: input) {
+            return Calendar.current.dateComponents([.year, .month], from: date)
+        } else if let date = dateFormatter.date(from: input) {
+            return Calendar.current.dateComponents([.year, .month, .day], from: date)
+        } else if let date = dateTimeFormatter.date(from: input) {
+            return Calendar.current.dateComponents(in: TimeZone.current, from: date)
+        }
+        throw ParsingError.unsupportedDateFormat(input)
+    }
     
     func parseCoordinates(_ input: String) -> [CLLocation] {
         
@@ -668,6 +939,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
             .components(separatedBy: CharacterSet.whitespacesAndNewlines)
         
         for tupleString in tuples {
+            if tupleString.isEmpty {
+                continue
+            }
+            
             let tuple = tupleString.components(separatedBy: ",")
                         
             var longitude = CLLocationDegrees()
@@ -690,8 +965,8 @@ public class KMLParser: NSObject, XMLParserDelegate {
             let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
             let location = CLLocation(coordinate:coordinate,
                                       altitude: altitude,
-                                      horizontalAccuracy: kCLLocationAccuracyBest,
-                                      verticalAccuracy: kCLLocationAccuracyBest,
+                                      horizontalAccuracy: 0,
+                                      verticalAccuracy: -1,
                                       timestamp: Date())
             coordinates.append(location)
         }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0">
+<Placemark>
+  <address>123 Any Str.</address>
+  <Point>
+    <coordinates>-122.378927,37.826793,0</coordinates>
+  </Point>
+</Placemark>
+</kml>

@@ -7,15 +7,19 @@
 
 import Foundation
 
+public protocol KMLTourPrimitiveDuration {
+    var duration: Double { get set }
+}
+
 public class KMLTourPrimitive: KMLObject {
     
 }
 
-public class Wait: KMLTourPrimitive {
+public class Wait: KMLTourPrimitive, KMLTourPrimitiveDuration {
     @objc public var duration: Double = 0.0
 }
 
-public class AnimatedUpdate: KMLTourPrimitive {
+public class AnimatedUpdate: KMLTourPrimitive, KMLTourPrimitiveDuration {
     @objc public var duration: Double = 0.0
     @objc public var update: KMLUpdate?
     @objc public var delayedStart: Double = 0.0
@@ -40,7 +44,7 @@ public class TourControl: KMLTourPrimitive {
     
 }
 
-public class FlyTo: KMLTourPrimitive {
+public class FlyTo: KMLTourPrimitive, KMLTourPrimitiveDuration {
     
     @objc public enum FlyToMode: Int {
         case bounce

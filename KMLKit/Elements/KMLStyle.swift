@@ -125,7 +125,7 @@ class KMLItemIcon: KMLObject {
 
 class KMLListStyle: KMLSubStyle {
     
-    @objc enum ListItemType: Int {
+    @objc enum KMLListItemType: Int {
         case radioFolder
         case check
         case checkHideChildren
@@ -147,10 +147,21 @@ class KMLListStyle: KMLSubStyle {
         }
     }
     
-    @objc var listItemType = ListItemType.check
+    @objc var listItemType = KMLListItemType.check
     @objc var bgColor = KMLColor.white
     @objc var itemIcon: [KMLItemIcon] = []
     @objc var maxSnippetLines = 2
+    
+    
+    public override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "listItemType", let listItemType = value as? KMLListItemType {
+            self.listItemType = listItemType
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
 }
 
 class KMLPolyStyle: KMLColorStyle {
@@ -166,11 +177,6 @@ class KMLIconStyle: KMLColorStyle {
 }
 
 class KMLStyleMap: KMLStyleSelector {
-    
-    class Pair: NSObject {
-        @objc var key: String?
-        @objc var styleUrl: URL?
-    }
     
     @objc var pairs: [String:URL] = [:]
     

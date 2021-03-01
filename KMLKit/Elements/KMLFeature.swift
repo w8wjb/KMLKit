@@ -8,23 +8,31 @@
 import Foundation
 
 public class KMLFeature: KMLObject {
-    @objc var visibility = true
-    @objc var balloonVisibility = true
-    @objc var open = false
-    @objc var author: KMLAuthor?
-    @objc var link: KMLLink?
-    @objc var address: String?
-    @objc var xalAddressDetails: KMLAddressDetails?
-    @objc var phoneNumber: String?
-    @objc var snippets: [KMLSnippet] = []
-    @objc var featureDescription: String?
-    @objc var view: KMLAbstractView?
-    @objc var styleUrl: URL?
-    @objc var styleSelector: [KMLStyleSelector] = []
-    @objc var region: KMLRegion?
+    @objc public var visibility = true
+    @objc public var balloonVisibility = true
+    @objc public var open = false
+    @objc public var author: KMLAuthor?
+    @objc public var link: KMLLink?
+    @objc public var address: String?
+    @objc public var addressDetails: KMLAddressDetails?
+    @objc public var phoneNumber: String?
+    @objc public var snippets: [KMLSnippet] = []
+    @objc public var featureDescription: String?
+    @objc public var view: KMLAbstractView?
+    @objc public var styleUrl: URL?
+    @objc public var styleSelector: [KMLStyleSelector] = []
+    @objc public var region: KMLRegion?
+    @objc public var extendedData: KMLExtendedData?
 
-    func findStyle<T>(withId id: String) -> T? {
-        return styleSelector.first(where: { $0.id == id }) as? T        
+    public func findStyle(withId id: String) -> KMLStyle? {
+        return styleSelector.compactMap({ $0 as? KMLStyle })
+            .first(where: { $0.id == id })
     }
-    
+
+    public func findStyle(withUrl styleUrl: URL?) -> KMLStyle? {
+        guard let styleUrl = styleUrl else { return nil }
+        return styleSelector.compactMap({ $0 as? KMLStyle })
+            .first(where: { $0.id == styleUrl.fragment })
+    }
+
 }

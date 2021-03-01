@@ -9,6 +9,7 @@ import Foundation
 
 enum ParsingError: Error {
     case unsupportedFormat(_ extension: String)
+    case unsupportedDateFormat(_ dateString: String)
     case failedToReadFile(_ url: URL)
     case unsupportedElement(elementName: String, line: Int = #line)
     case unsupportedRelationship(parent: Any?, child: Any?, elementName: String, line: Int = #line)

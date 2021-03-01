@@ -33,14 +33,14 @@ public class KMLRoot: NSObject, KMLFeatureCollection {
         return found
     }
     
-    public func findFirstFeatures<T>(ofType type: T.Type) -> T? {
+    public func findFirstFeature<T>(ofType type: T.Type) -> T? {
         
         if let match = feature as? T {
             return match
         }
         
         if let collection = self.feature as? KMLFeatureCollection {
-            if let match = collection.findFirstFeatures(ofType: type) {
+            if let match = collection.findFirstFeature(ofType: type) {
                 return match
             }
         }

@@ -46,22 +46,6 @@ public class KMLPoint: KMLGeometry {
     
 }
 
-public class KMLTrack: KMLGeometry {
-
-    @objc public var extrude = false
-    @objc public var tessellate = false
-    @objc public var when: [Date] = []
-    @objc public var coordinates: [CLLocation] = []
-    @objc public var angles: [String] = []
-
-}
-
-public class KMLMultiTrack: KMLGeometry {
- 
-    @objc public var interpolate = false
-
-}
-
 public class KMLModel: KMLGeometry {
     
     public class KMLScale: KMLObject {
@@ -96,6 +80,7 @@ public class KMLLineString: KMLGeometry {
     @objc public var extrude = false
     @objc public var tessellate = false
     @objc public var coordinates: [CLLocation] = []
+    @objc public var altitudeOffset: Double = 0.0
 }
 
 public class KMLLinearRing: KMLGeometry {
