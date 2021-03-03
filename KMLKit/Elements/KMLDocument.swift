@@ -8,6 +8,6 @@
 import Foundation
 
 
-public class KMLDocument: KMLContainer {
-    @objc public var schema: KMLSchema?
+open class KMLDocument: KMLContainer {
+    @objc open var schema: KMLSchema?
 }

@@ -7,11 +7,11 @@
 
 import Foundation
 
-public class KMLSchema: NSObject {
+open class KMLSchema: NSObject {
         
-    @objc public var id: String?
-    @objc public var name: String?
-    @objc public var fields: [KMLSimpleField] = []
+    @objc open var id: String?
+    @objc open var name: String?
+    @objc open var fields: [KMLSimpleField] = []
 
     
     public override init() {

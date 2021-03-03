@@ -7,12 +7,12 @@
 
 import Foundation
 
-public class KMLSimpleField: NSObject {
+open class KMLSimpleField: NSObject {
     
-    @objc public var type: String?
-    @objc public var name: String?
-    @objc public var uom: URL?
-    @objc public var displayName: String?
+    @objc open var type: String?
+    @objc open var name: String?
+    @objc open var uom: URL?
+    @objc open var displayName: String?
 
     public override init() {
         super.init()
@@ -28,6 +28,6 @@ public class KMLSimpleField: NSObject {
 }
 
 
-public class KMLSimpleArrayField: KMLSimpleField {
+open class KMLSimpleArrayField: KMLSimpleField {
     
 }

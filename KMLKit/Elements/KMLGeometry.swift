@@ -12,10 +12,10 @@ public protocol KMLGeometryCollection {
     func add(geometry: KMLGeometry)
 }
 
-public class KMLGeometry: KMLObject {
-    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
+open class KMLGeometry: KMLObject {
+    @objc open var altitudeMode = KMLAltitudeMode.clampToGround
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
             self.altitudeMode = altitudeMode
@@ -26,12 +26,12 @@ public class KMLGeometry: KMLObject {
     }
 }
 
-public class KMLPoint: KMLGeometry {
+open class KMLPoint: KMLGeometry {
     
-    @objc public var extrude = false
-    @objc public var location = CLLocation()
+    @objc open var extrude = false
+    @objc open var location = CLLocation()
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "coordinates",
            let coordinates = value as? [CLLocation],
@@ -46,57 +46,53 @@ public class KMLPoint: KMLGeometry {
     
 }
 
-public class KMLModel: KMLGeometry {
+open class KMLModel: KMLGeometry {
     
-    public class KMLScale: KMLObject {
-        @objc public var x: Double = 1.0
-        @objc public var y: Double = 1.0
-        @objc public var z: Double = 1.0
+    open class KMLScale: KMLObject {
+        @objc open var x: Double = 1.0
+        @objc open var y: Double = 1.0
+        @objc open var z: Double = 1.0
     }
+
+    @objc open var location = CLLocation()
+    @objc open var orientation = KMLOrientation()
     
-    public class KMLAlias: NSObject {
-        @objc public var targetHref: URL?
-        @objc public var sourceHref: URL?
-    }
-    
-    @objc public var location = CLLocation()
-    @objc public var orientation = KMLOrientation()
-    @objc public var scale = KMLScale()
-    @objc public var link: KMLLink?
-    @objc public var resourceMap: [KMLAlias] = []
+    @objc open var scale = KMLScale()
+    @objc open var link: KMLLink?
+    @objc open var resourceMap: [String:String] = [:]
 
 }
 
-public class KMLMultiGeometry: KMLGeometry, KMLGeometryCollection {
+open class KMLMultiGeometry: KMLGeometry, KMLGeometryCollection {
 
-    @objc public var geometry: [KMLGeometry] = []
+    @objc open var geometry: [KMLGeometry] = []
 
-    public func add(geometry: KMLGeometry) {
+    open func add(geometry: KMLGeometry) {
         self.geometry.append(geometry)
     }
 }
 
-public class KMLLineString: KMLGeometry {
-    @objc public var extrude = false
-    @objc public var tessellate = false
-    @objc public var coordinates: [CLLocation] = []
-    @objc public var altitudeOffset: Double = 0.0
+open class KMLLineString: KMLGeometry {
+    @objc open var extrude = false
+    @objc open var tessellate = false
+    @objc open var coordinates: [CLLocation] = []
+    @objc open var altitudeOffset: Double = 0.0
 }
 
-public class KMLLinearRing: KMLGeometry {
-    @objc public var extrude = false
-    @objc public var tessellate = false
-    @objc public var coordinates: [CLLocation] = []
+open class KMLLinearRing: KMLGeometry {
+    @objc open var extrude = false
+    @objc open var tessellate = false
+    @objc open var coordinates: [CLLocation] = []
 }
 
-public class KMLBoundary: NSObject {
-    @objc public var linearRing = KMLLinearRing()
+open class KMLBoundary: NSObject {
+    @objc open var linearRing = KMLLinearRing()
 }
 
-public class KMLPolygon: KMLGeometry {
+open class KMLPolygon: KMLGeometry {
 
-    @objc public var extrude = false
-    @objc public var tessellate = false
-    @objc public var outerBoundaryIs = KMLBoundary()
-    @objc public var innerBoundaryIs: [KMLBoundary] = []
+    @objc open var extrude = false
+    @objc open var tessellate = false
+    @objc open var outerBoundaryIs = KMLBoundary()
+    @objc open var innerBoundaryIs: [KMLBoundary] = []
 }

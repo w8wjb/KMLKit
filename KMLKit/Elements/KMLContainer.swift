@@ -15,15 +15,15 @@ public protocol KMLFeatureCollection {
 }
 
 
-public class KMLContainer: KMLFeature, KMLFeatureCollection {
+open class KMLContainer: KMLFeature, KMLFeatureCollection {
 
     var features: [KMLFeature] = []
 
-    public func add(feature: KMLFeature) {
+    open func add(feature: KMLFeature) {
         features.append(feature)
     }
 
-    public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
+    open func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         
         var found: [T] = []
         
@@ -43,7 +43,7 @@ public class KMLContainer: KMLFeature, KMLFeatureCollection {
     }
 
     
-    public func findFirstFeature<T>(ofType type: T.Type) -> T? {
+    open func findFirstFeature<T>(ofType type: T.Type) -> T? {
         
         for feature in self {
             if let match = feature as? T {
@@ -75,5 +75,5 @@ extension KMLContainer: Collection {
     public func makeIterator() -> Iterator { return features.makeIterator() }
 }
 
-public class KMLFolder: KMLContainer {
+open class KMLFolder: KMLContainer {
 }

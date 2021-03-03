@@ -8,17 +8,17 @@
 import Foundation
 import CoreLocation
 
-public class KMLLookAt: KMLAbstractView {
-    @objc public var longitude = CLLocationDegrees()
-    @objc public var latitude = CLLocationDegrees()
-    @objc public var altitude = CLLocationDistance()
-    @objc public var heading = CLLocationDirection()
-    @objc public var tilt: Double = 0
-    @objc public var range: Double = 0
-    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
-    @objc public var horizFov: Double = 0
+open class KMLLookAt: KMLAbstractView {
+    @objc open var longitude = CLLocationDegrees()
+    @objc open var latitude = CLLocationDegrees()
+    @objc open var altitude = CLLocationDistance()
+    @objc open var heading = CLLocationDirection()
+    @objc open var tilt: Double = 0
+    @objc open var range: Double = 0
+    @objc open var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc open var horizFov: Double = 0
 
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
             self.altitudeMode = altitudeMode

@@ -7,6 +7,6 @@
 
 import Foundation
 
-public class KMLSchemaData: KMLObject, KMLSimpleData {
-    public var data: [String : Any] = [:]
+open class KMLSchemaData: KMLObject, KMLSimpleData {
+    open var data: [String : Any] = [:]
 }

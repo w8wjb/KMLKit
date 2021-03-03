@@ -7,15 +7,15 @@
 
 import Foundation
 
-public class KMLTour: KMLFeature {
+open class KMLTour: KMLFeature {
 
-    @objc public var playlist = KMLPlaylist()
+    @objc open var playlist = KMLPlaylist()
     
 }
 
-public class KMLPlaylist: KMLObject {
+open class KMLPlaylist: KMLObject {
 
-    @objc public var items: [KMLTourPrimitive] = []
+    @objc open var items: [KMLTourPrimitive] = []
 
     
 }

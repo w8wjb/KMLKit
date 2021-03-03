@@ -7,10 +7,10 @@
 
 import Foundation
 
-public class KMLObject: NSObject {
-    @objc public var id: String?
-    @objc public var name: String?
-    @objc public var targetId: String?
+open class KMLObject: NSObject {
+    @objc open var id: String?
+    @objc open var name: String?
+    @objc open var targetId: String?
     
     
     public override init() {

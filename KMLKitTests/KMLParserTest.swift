@@ -182,9 +182,9 @@ class KMLParserTest: XCTestCase {
         for item in tour.playlist.items {
             
             switch item {
-            case let animatedUpdate as AnimatedUpdate:
+            case let animatedUpdate as KMLTourAnimatedUpdate:
                 XCTAssertEqual(6.5, animatedUpdate.duration)
-            case let flyTo as FlyTo:
+            case let flyTo as KMLTourFlyTo:
                 XCTAssertEqual(4.1, flyTo.duration)
                 
                 let camera = flyTo.view as! KMLCamera
@@ -195,7 +195,7 @@ class KMLParserTest: XCTestCase {
                 XCTAssertEqual(33.5, camera.tilt)
                 XCTAssertEqual(0, camera.roll)
                 
-            case let wait as Wait:
+            case let wait as KMLTourWait:
                 XCTAssertEqual(2.4, wait.duration)
                 
             default:
@@ -213,7 +213,7 @@ class KMLParserTest: XCTestCase {
         
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
         
-        XCTAssertEqual("J. K. Rowling", document.author?.nameOrUriOrEmail.first)
+        XCTAssertEqual("J. K. Rowling", document.author?.name.first)
         XCTAssertEqual(URL(string: "http://www.harrypotter.com"), document.link?.href)
         
         let hogwarts = document.features[0] as! KMLPlacemark
@@ -283,7 +283,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(11, tour.playlist.items.count)
         
         let changes = tour.playlist
-            .compactMap({ ($0 as? AnimatedUpdate)?.update })
+            .compactMap({ ($0 as? KMLTourAnimatedUpdate)?.update })
             .flatMap({ $0.items })
             .compactMap({ $0 as? KMLChange })
         
@@ -356,7 +356,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(86400, icon.refreshInterval)
         XCTAssertEqual(0.75, icon.viewBoundScale)
         
-        let box = groundOverlay.latLonBox!
+        let box = groundOverlay.extent as! KMLLatLonBox
         XCTAssertEqual(37.83234, box.north)
         XCTAssertEqual(37.832122, box.south)
         XCTAssertEqual(-122.373033, box.east)
@@ -562,6 +562,27 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual("cookie=sometext", networkLinkControl.cookie)
         XCTAssertEqual("New KML features", networkLinkControl.linkName)
         XCTAssertEqual("KML now has new features available!", networkLinkControl.linkDescription)
+        
+    }
+    
+    func testParse_photooverlay_example() throws {
+        let kmlFile = try getSampleFile("photooverlay_example", type: "kml")
+        
+        let kml = try KMLParser.parse(file: kmlFile)
+        
+        let photoOverlay = kml.findFirstFeature(ofType: KMLPhotoOverlay.self)!
+        XCTAssertEqual("A simple non-pyramidal photo", photoOverlay.name)
+        XCTAssertEqual("High above the ocean", photoOverlay.featureDescription)
+        
+        let icon = photoOverlay.icon!
+        XCTAssertEqual(URL(string: "small-photo.jpg"), icon.href)
+        
+        let viewVolume = photoOverlay.viewVolume!
+        XCTAssertEqual(1000, viewVolume.near)
+        XCTAssertEqual(-60, viewVolume.leftFov)
+        XCTAssertEqual(60, viewVolume.rightFov)
+        XCTAssertEqual(-45, viewVolume.bottomFov)
+        XCTAssertEqual(45, viewVolume.topFov)
         
     }
     
@@ -800,6 +821,118 @@ class KMLParserTest: XCTestCase {
         let powerData = (schemaData.data["power"] as! [String]).compactMap(Double.init)
         XCTAssertEqual(1371.0, powerData.reduce(0, +))
 
+    }
+    
+    func testParse_kitchen_sink() throws {
+        
+        
+        let kmlFile = try getSampleFile("kitchen_sink", type: "kml")
+        
+        let kml = try KMLParser.parse(file: kmlFile)
+
+        let networkLinkControl = kml.networkLinkControl!
+        XCTAssertEqual("Link Snippet", networkLinkControl.linkSnippet)
+        XCTAssertEqual(60, networkLinkControl.maxSessionLength)
+        XCTAssertEqual(0.2, networkLinkControl.minRefreshPeriod)
+        
+        
+        let document = kml.findFirstFeature(ofType: KMLDocument.self)!
+        
+        XCTAssertEqual(1, document.addressDetails.count)
+        
+        XCTAssertEqual("George Jetson", document.author?.name.first)
+        XCTAssertEqual("george.jetson@maildrop.cc", document.author?.email.first)
+        XCTAssertEqual(URL(string: "http://www.spacelysprocketsinc.com/index.html"), document.author?.uri.first)
+        
+        let style = document.styleSelector.first as! KMLStyle
+        
+        XCTAssertEqual(CGPoint(x: 3, y: 4), style.iconStyle?.hotSpot)
+
+        XCTAssertEqual(3, style.listStyle!.maxSnippetLines)
+        XCTAssertEqual(.open, style.listStyle?.itemIcon.first?.state)
+
+        XCTAssertTrue(style.polyStyle!.fill)
+        XCTAssertFalse(style.polyStyle!.outline)
+        
+        XCTAssertEqual("#ff0000ff", style.balloonStyle?.textColor?.hexRGBaColor)
+
+        
+        let photoOverlay = document.findFirstFeature(ofType: KMLPhotoOverlay.self)!
+        XCTAssertEqual("(555) 867-5309", photoOverlay.phoneNumber)
+        XCTAssertEqual(.sphere, photoOverlay.shape)
+        
+        
+        let imagePyramid = photoOverlay.imagePyramid!
+        XCTAssertEqual(512, imagePyramid.tileSize)
+        XCTAssertEqual(1024, imagePyramid.maxWidth)
+        XCTAssertEqual(1024, imagePyramid.maxHeight)
+        XCTAssertEqual(.lowerLeft, imagePyramid.gridOrigin)
+        
+        let region = photoOverlay.region!
+        
+        let extent = region.extent as! KMLLatLonAltBox
+        XCTAssertEqual(43.374, extent.north)
+        XCTAssertEqual(42.983, extent.south)
+        XCTAssertEqual(-0.335, extent.east)
+        XCTAssertEqual(-1.423, extent.west)
+        XCTAssertEqual(1, extent.minAltitude)
+        XCTAssertEqual(10000, extent.maxAltitude)
+        
+        let lod = region.lod!
+        XCTAssertEqual(0.01, lod.minLodPixels)
+        XCTAssertEqual(-1.02, lod.maxLodPixels)
+        XCTAssertEqual(3.4, lod.minFadeExtent)
+        XCTAssertEqual(4.5, lod.maxFadeExtent)
+        
+        let tour = kml.findFirstFeature(ofType: KMLTour.self)!
+        
+        XCTAssertEqual(2, tour.playlist.items.count)
+        for item in tour.playlist {
+            
+            switch item {
+            case let tourControl as KMLTourControl:
+                XCTAssertEqual(.pause, tourControl.mode)
+            case let soundCue as KMLTourSoundCue:
+                XCTAssertEqual(URL(string: "http://www.example.com/audio/trumpets.mp3"), soundCue.href)
+                XCTAssertEqual(0.5, soundCue.delayedStart)
+            default:
+                XCTFail("Unexpected item type \(item)")
+            }
+            
+        }
+        
+        let placemark = kml.findFirstFeature(ofType: KMLPlacemark.self)!
+        
+        let camera = placemark.view as! KMLCamera
+        XCTAssertEqual(1, camera.options.count)
+        XCTAssertEqual("zoom", camera.options.first?.name)
+        XCTAssertEqual(true, camera.options.first?.enabled)
+
+        
+        let geometry = placemark.geometry as! KMLMultiGeometry
+        
+        let model = geometry.geometry.removeFirst() as! KMLModel
+        
+        XCTAssertEqual("khModel543", model.id)
+        XCTAssertEqual(-118.9813220168456, model.location.coordinate.latitude)
+        XCTAssertEqual(39.55375305703105, model.location.coordinate.longitude)
+        XCTAssertEqual(1223, model.location.altitude)
+        XCTAssertEqual(45.0, model.orientation.heading)
+        XCTAssertEqual(10.0, model.orientation.tilt)
+        XCTAssertEqual(0.0, model.orientation.roll)
+        XCTAssertEqual(1.0, model.scale.x)
+        XCTAssertEqual(1.0, model.scale.y)
+        XCTAssertEqual(1.0, model.scale.z)
+        XCTAssertEqual(URL(string: "house.dae"), model.link?.href)
+        XCTAssertEqual(.onChange, model.link?.refreshMode)
+        
+        XCTAssertEqual(3, model.resourceMap.count)
+        
+        let targetHref = model.resourceMap["CU-Macky-Back-NorthnoCulling.jpg"]
+        XCTAssertEqual("../files/CU-Macky-Back-NorthnoCulling.jpg", targetHref)
+        
+        let multiTrack = geometry.geometry.removeFirst() as! KMLMultiTrack
+        XCTAssertEqual(2, multiTrack.tracks.count)
     }
     
 }

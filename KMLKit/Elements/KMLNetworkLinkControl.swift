@@ -7,16 +7,16 @@
 
 import Foundation
 
-public class KMLNetworkLinkControl: NSObject {
-    @objc public var minRefreshPeriod: Float = 0
-    @objc public var maxSessionLength: Float = -1
-    @objc public var cookie: String?
-    @objc public var message: String?
-    @objc public var linkName: String?
-    @objc public var linkDescription: String?
-    @objc public var linkSnippet: String?
-    @objc public var linkSnippetMaxLines: Int = -1
-    @objc public var expires: Date?
-    @objc public var update: KMLUpdate?
-    @objc public var view: KMLAbstractView?
+open class KMLNetworkLinkControl: NSObject {
+    @objc open var minRefreshPeriod: Float = 0
+    @objc open var maxSessionLength: Float = -1
+    @objc open var cookie: String?
+    @objc open var message: String?
+    @objc open var linkName: String?
+    @objc open var linkDescription: String?
+    @objc open var linkSnippet: String?
+    @objc open var linkSnippetMaxLines: Int = -1
+    @objc open var expires: Date?
+    @objc open var update: KMLUpdate?
+    @objc open var view: KMLAbstractView?
 }

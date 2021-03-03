@@ -8,29 +8,29 @@
 import Foundation
 import CoreLocation
 
-public class KMLAbstractExtent: KMLObject {
+open class KMLAbstractExtent: KMLObject {
     
 }
 
-public class KMLAbstractLatLonBox: KMLAbstractExtent {
-    @objc public var north: CLLocationDegrees = 0
-    @objc public var south: CLLocationDegrees = 0
-    @objc public var east: CLLocationDegrees = 0
-    @objc public var west: CLLocationDegrees = 0
+open class KMLAbstractLatLonBox: KMLAbstractExtent {
+    @objc open var north: CLLocationDegrees = 0
+    @objc open var south: CLLocationDegrees = 0
+    @objc open var east: CLLocationDegrees = 0
+    @objc open var west: CLLocationDegrees = 0
 }
 
-public class KMLLatLonBox: KMLAbstractLatLonBox {
-    @objc public var rotation: CLLocationDegrees = 0.0
+open class KMLLatLonBox: KMLAbstractLatLonBox {
+    @objc open var rotation: CLLocationDegrees = 0.0
 }
 
-public class KMLLatLonAltBox: KMLAbstractLatLonBox {
+open class KMLLatLonAltBox: KMLAbstractLatLonBox {
     
-    @objc public var minAltitude: CLLocationDistance = 0.0
-    @objc public var maxAltitude: CLLocationDegrees = 0.0
-    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
-    @objc public var seaFloorAltitudeMode = KMLSeaFloorAltitudeMode.clampToSeaFloor
+    @objc open var minAltitude: CLLocationDistance = 0.0
+    @objc open var maxAltitude: CLLocationDegrees = 0.0
+    @objc open var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc open var seaFloorAltitudeMode = KMLSeaFloorAltitudeMode.clampToSeaFloor
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
             self.altitudeMode = altitudeMode
@@ -44,6 +44,6 @@ public class KMLLatLonAltBox: KMLAbstractLatLonBox {
     
 }
 
-public class KMLLatLonQuad: KMLAbstractExtent {
-    @objc public var coordinates: [CLLocation] = []
+open class KMLLatLonQuad: KMLAbstractExtent {
+    @objc open var coordinates: [CLLocation] = []
 }

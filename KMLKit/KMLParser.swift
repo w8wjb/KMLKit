@@ -11,7 +11,7 @@ import ZIPFoundation
 import CoreLocation
 import CoreGraphics
 
-public class KMLParser: NSObject, XMLParserDelegate {
+open class KMLParser: NSObject, XMLParserDelegate {
     
     private class KeyValuePair: NSObject {
         var key: String?
@@ -81,7 +81,7 @@ public class KMLParser: NSObject, XMLParserDelegate {
         return try kmlParser.parse(data: data)
     }
     
-    public func parse(data: Data) throws -> KMLRoot {
+    open func parse(data: Data) throws -> KMLRoot {
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self
         xmlParser.shouldProcessNamespaces = true
@@ -97,6 +97,13 @@ public class KMLParser: NSObject, XMLParserDelegate {
         
         return root
     }
+    
+    let xalNamespace = "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+    let supportedNamespaces = ["http://www.opengis.net/kml/2.2",
+                               "http://www.google.com/kml/ext/2.2",
+                               "http://www.w3.org/2005/Atom",
+                               "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"]
+    
     
     private var root: KMLRoot?
     var error: Error?
@@ -147,11 +154,12 @@ public class KMLParser: NSObject, XMLParserDelegate {
         throw ParsingError.unexpectedElement(expected: elementName)
     }
     
-    public func parser(_ parser: XMLParser, foundCharacters string: String) {
+    open func parser(_ parser: XMLParser, foundCharacters string: String) {
         buffer.append(string)
     }
     
-    public func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attrs: [String : String] = [:]) {
+    open func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attrs: [String : String] = [:]) {
+
         
         guard !ignoreTags else {
             buffer.append("<\(elementName)")
@@ -164,19 +172,29 @@ public class KMLParser: NSObject, XMLParserDelegate {
             return
         }
         
+        guard supportedNamespaces.contains(namespaceURI ?? "") else {
+            return
+        }
+        
         do {
-            
+
             buffer = ""
+            
+            if xalNamespace == namespaceURI {
+                let dict = NSMutableDictionary(dictionary: attrs)
+                push(dict)
+                return
+            }
             
             switch elementName {
             case "kml":
                 push(KMLRoot())
             case "Alias":
-                push(KMLModel.KMLAlias())
+                push(NSMutableDictionary())
             case "AnimatedUpdate":
-                push(AnimatedUpdate(attrs))
+                push(KMLTourAnimatedUpdate(attrs))
             case "author":
-                push(KMLAuthor())
+                push(AtomAuthor())
             case "BalloonStyle":
                 push(KMLBalloonStyle(attrs))
             case "Camera":
@@ -188,15 +206,21 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "ExtendedData":
                 push(KMLExtendedData())
             case "FlyTo":
-                push(FlyTo(attrs))
+                push(KMLTourFlyTo(attrs))
             case "Folder":
                 push(KMLFolder(attrs))
             case "GroundOverlay":
                 push(KMLGroundOverlay(attrs))
+            case "hotSpot":
+                push(parsePoint(attrs: attrs) as NSObject)
             case "Icon":
                 push(KMLIcon())
             case "IconStyle":
                 push(KMLIconStyle(attrs))
+            case "ImagePyramid":
+                push(KMLPhotoOverlay.ImagePyramid())
+            case "ItemIcon":
+                push(KMLItemIcon(attrs))
             case "outerBoundaryIs":
                 push(KMLBoundary())
             case "innerBoundaryIs":
@@ -207,12 +231,16 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLLineStyle(attrs))
             case "LookAt":
                 push(KMLLookAt(attrs))
+            case "Orientation":
+                push(KMLOrientation(attrs))
             case "Pair":
                 push(KeyValuePair())
             case "Polygon":
                 push(KMLPolygon(attrs))
             case "PolyStyle":
                 push(KMLPolyStyle(attrs))
+            case "LatLonAltBox":
+                push(KMLLatLonAltBox(attrs))
             case "LatLonBox":
                 push(KMLLatLonBox(attrs))
             case "LatLonQuad":
@@ -222,15 +250,30 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "LineString":
                 push(KMLLineString(attrs))
             case "link":
+                guard let href = attrs["href"], let url = URL(string: href) else { throw ParsingError.missingAttribute("href") }
+                push(AtomLink(href: url, attrs))
+            case "Link":
                 push(KMLLink(attrs))
             case "ListStyle":
                 push(KMLListStyle(attrs))
+            case "Location":
+                push(NSMutableDictionary())
+            case "Lod":
+                push(KMLLevelOfDetail(attrs))
+            case "Model":
+                push(KMLModel(attrs))
             case "MultiGeometry":
                 push(KMLMultiGeometry(attrs))
+            case "MultiTrack":
+                push(KMLMultiTrack(attrs))
             case "NetworkLinkControl":
                 push(KMLNetworkLinkControl())
+            case "option":
+                push(KMLAbstractView.ViewOption(attrs))
             case "overlayXY":
                 push(parsePoint(attrs: attrs) as NSObject)
+            case "PhotoOverlay":
+                push(KMLPhotoOverlay(attrs))
             case "Placemark":
                 push(KMLPlacemark(attrs))
             case "Point":
@@ -239,10 +282,14 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLPlaylist(attrs))
             case "Region":
                 push(KMLRegion(attrs))
+            case "ResourceMap":
+                push(NSMutableDictionary())
             case "rotationXY":
                 push(parsePoint(attrs: attrs) as NSObject)
             case "screenXY":
                 push(parsePoint(attrs: attrs) as NSObject)
+            case "Scale":
+                push(KMLModel.KMLScale(attrs))
             case "Schema":
                 push(KMLSchema(attrs))
             case "SchemaData":
@@ -261,6 +308,8 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(parseSize(attrs: attrs) as NSObject)
             case "Snippet":
                 push(KMLSnippet(attrs))
+            case "SoundCue":
+                push(KMLTourSoundCue(attrs))
             case "Style":
                 push(KMLStyle(attrs))
             case "StyleMap":
@@ -271,19 +320,25 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLTimeStamp(attrs))
             case "Tour":
                 push(KMLTour(attrs))
+            case "TourControl":
+                push(KMLTourControl(attrs))
             case "Track":
                 push(KMLTrack(attrs))
                 whenIndex = -1
                 coordIndex = -1
             case "Update":
                 push(KMLUpdate())
+            case "ViewerOptions":
+                push(NSMutableArray())
+            case "ViewVolume":
+                push(KMLPhotoOverlay.ViewVolume())
             case "Wait":
-                push(Wait(attrs))
+                push(KMLTourWait(attrs))
 
             case "description":
                 ignoreTags = true
 
-            // Ignore start of scalar values
+            // MARK: - Ignore start of scalar values
             case "address",
                  "altitude",
                  "altitudeMode",
@@ -298,41 +353,69 @@ public class KMLParser: NSObject, XMLParserDelegate {
                  "cookie",
                  "coord",
                  "coordinates",
+                 "delayedStart",
                  "displayName",
                  "drawOrder",
                  "duration",
                  "east",
+                 "email",
                  "end",
                  "extrude",
+                 "fill",
                  "flyToMode",
+                 "gridOrigin",
                  "heading",
                  "horizFov",
                  "href",
                  "httpQuery",
                  "key",
                  "latitude",
-                 "longitude",
+                 "leftFov",
                  "linkDescription",
                  "linkName",
+                 "linkSnippet",
                  "listItemType",
+                 "longitude",
+                 "maxAltitude",
+                 "maxFadeExtent",
+                 "maxHeight",
+                 "maxLodPixels",
+                 "maxSessionLength",
+                 "maxSnippetLines",
+                 "maxWidth",
                  "message",
+                 "minAltitude",
+                 "minFadeExtent",
+                 "minLodPixels",
+                 "minRefreshPeriod",
                  "name",
+                 "near",
                  "north",
                  "open",
+                 "outline",
+                 "phoneNumber",
+                 "playMode",
                  "range",
                  "refreshInterval",
                  "refreshMode",
+                 "rightFov",
                  "roll",
                  "rotation",
                  "scale",
                  "seaFloorAltitudeMode",
+                 "shape",
+                 "sourceHref",
                  "south",
+                 "state",
                  "styleUrl",
                  "targetHref",
                  "tessellate",
                  "text",
+                 "textColor",
+                 "tileSize",
                  "tilt",
                  "topFov",
+                 "uri",
                  "value",
                  "viewBoundScale",
                  "viewFormat",
@@ -340,7 +423,8 @@ public class KMLParser: NSObject, XMLParserDelegate {
                  "visibility",
                  "west",
                  "when",
-                 "width":
+                 "width",
+                 "x", "y", "z":
                 break
                 
             default:
@@ -354,8 +438,9 @@ public class KMLParser: NSObject, XMLParserDelegate {
         
     }
     
-    public func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+    open func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         
+
         if ignoreTags {
             if elementName == "description" {
                 ignoreTags = false
@@ -365,22 +450,51 @@ public class KMLParser: NSObject, XMLParserDelegate {
             }
         }
         
-        do {
+        guard supportedNamespaces.contains(namespaceURI ?? "") else {
+            return
+        }
 
+        do {
+            
+            if xalNamespace == namespaceURI {
+                let dict = try pop(NSMutableDictionary.self, forElement: elementName)
+                buffer = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                if !buffer.isEmpty {
+                    dict.setValue(buffer, forKey: "value")
+                    buffer = ""
+                }
+                switch stack.last {
+                case let feature as KMLFeature:
+                    feature.addressDetails = dict as! [String : Any]
+                case let parentDict as NSMutableDictionary:
+                    parentDict.setValue(dict, forKey: elementName)
+                default:
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName)
+                }
+                return
+            }
+            
             switch elementName {
             case "kml":
                 root = pop() as? KMLRoot
                 
             case "Alias":
-                let child = try pop(KMLModel.KMLAlias.self, forElement: elementName)
-                stack.last?.mutableArrayValue(forKey: "resourceMap").add(child)
+                let dict = try pop(NSDictionary.self, forElement: elementName)
+                
+                guard let targetHref = dict.value(forKey: "targetHref") as? URL else { throw ParsingError.missingElement("targetHref") }
+                guard let sourceHref = dict.value(forKey: "sourceHref") as? URL else { throw ParsingError.missingElement("sourceHref") }
+
+                guard let resourceMap = stack.last as? NSMutableDictionary else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName)
+                }
+                resourceMap.setValue(targetHref.description, forKey: sourceHref.description)
                 
             case "AnimatedUpdate":
-                let child = try pop(AnimatedUpdate.self, forElement: elementName)
+                let child = try pop(KMLTourAnimatedUpdate.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "items").add(child)
 
             case "author":
-                let child = try pop(KMLAuthor.self, forElement: elementName)
+                let child = try pop(AtomAuthor.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: elementName)
                 
             case "BalloonStyle":
@@ -407,7 +521,7 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 stack.last?.setValue(child, forKey: "extendedData")
                 
             case "FlyTo":
-                let child = try pop(FlyTo.self, forElement: elementName)
+                let child = try pop(KMLTourFlyTo.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "items").add(child)
 
             case "Folder":
@@ -424,6 +538,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 }
                 collection.add(feature: child)
 
+            case "hotSpot":
+                let child = try pop(CGPoint.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: elementName)
+                
             case "Icon":
                 let child = try pop(KMLIcon.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "icon")
@@ -432,13 +550,25 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLIconStyle.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "iconStyle")
                 
+            case "ImagePyramid":
+                let child = try pop(KMLPhotoOverlay.ImagePyramid.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "imagePyramid")
+                
+            case "ItemIcon":
+                let child = try pop(KMLItemIcon.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "itemIcon").add(child)
+
             case "LabelStyle":
                 let child = try pop(KMLLabelStyle.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "labelStyle")
                 
+            case "LatLonAltBox":
+                let child = try pop(KMLLatLonAltBox.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "extent")
+
             case "LatLonBox":
                 let child = try pop(KMLLatLonBox.self, forElement: elementName)
-                stack.last?.setValue(child, forKey: "latLonBox")
+                stack.last?.setValue(child, forKey: "extent")
                 
             case "LatLonQuad":
                 let child = try pop(KMLLatLonQuad.self, forElement: elementName)
@@ -459,7 +589,11 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLLineStyle.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "lineStyle")
                 
-            case "Link", "link":
+            case "link":
+                let child = try pop(AtomLink.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "link")
+
+            case "Link":
                 let child = try pop(KMLLink.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "link")
                 
@@ -467,9 +601,31 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLListStyle.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "listStyle")
 
+            case "Location":
+                let child = try pop(NSDictionary.self, forElement: elementName)
+                
+                let longitude = child.value(forKey: "longitude") as? CLLocationDegrees ?? 0.0
+                let latitude = child.value(forKey: "latitude") as? CLLocationDegrees ?? 0.0
+                let altitude = child.value(forKey: "altitude") as? CLLocationDistance ?? 0.0
+                
+                let location = CLLocation(coordinate: CLLocationCoordinate2D(latitude: latitude, longitude: longitude),
+                           altitude: altitude, horizontalAccuracy: 0, verticalAccuracy: -1, timestamp: Date())
+                stack.last?.setValue(location, forKey: "location")
+
+            case "Lod":
+                let child = try pop(KMLLevelOfDetail.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "lod")
+
             case "LookAt":
                 let child = try pop(KMLLookAt.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "view")
+                
+            case "Model":
+                let child = try pop(KMLModel.self, forElement: elementName)
+                guard let collection = stack.last as? KMLGeometryCollection else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                collection.add(geometry: child)
                 
             case "MultiGeometry":
                 let child = try pop(KMLMultiGeometry.self, forElement: elementName)
@@ -478,10 +634,28 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 }
                 collection.add(geometry: child)
                 
+            case "MultiTrack":
+                let child = try pop(KMLMultiTrack.self, forElement: elementName)
+                guard let collection = stack.last as? KMLGeometryCollection else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                collection.add(geometry: child)
+
             case "NetworkLinkControl":
                 let child = try pop(KMLNetworkLinkControl.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "networkLinkControl")
                 
+            case "option":
+                let child = try pop(KMLAbstractView.ViewOption.self, forElement: elementName)
+                guard let options = stack.last as? NSMutableArray else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                options.add(child)
+                
+            case "Orientation":
+                let child = try pop(KMLOrientation.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "orientation")
+
             case "outerBoundaryIs":
                 let child = try pop(KMLBoundary.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: elementName)
@@ -509,6 +683,13 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLPolyStyle.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "polyStyle")
                 
+            case "PhotoOverlay":
+                let child = try pop(KMLPhotoOverlay.self, forElement: elementName)
+                guard let collection = stack.last as? KMLFeatureCollection else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                }
+                collection.add(feature: child)
+                
             case "Placemark":
                 let child = try pop(KMLPlacemark.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
@@ -522,14 +703,26 @@ public class KMLParser: NSObject, XMLParserDelegate {
 
             case "Point":
                 let child = try pop(KMLPoint.self, forElement: elementName)
-                guard let collection = stack.last as? KMLGeometryCollection else {
+                switch stack.last {
+                case let overlay as KMLPhotoOverlay:
+                    overlay.point = child
+                case let collection as KMLGeometryCollection:
+                    collection.add(geometry: child)
+                default:
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
-                collection.add(geometry: child)
                 
             case "Region":
                 let child = try pop(KMLRegion.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "region")
+                
+            case "ResourceMap":
+                let child = try pop(NSMutableDictionary.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "resourceMap")
+                
+            case "Scale":
+                let child = try pop(KMLModel.KMLScale.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "scale")
                 
             case "Snippet":
                 let child = try pop(KMLSnippet.self, forElement: elementName)
@@ -582,6 +775,10 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLSimpleField.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "fields").add(child)
                 
+            case "SoundCue":
+                let child = try pop(KMLTourSoundCue.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "items").add(child)
+                
             case "Style":
                 let child = try pop(KMLStyle.self, forElement: elementName)
                 guard let feature = stack.last as? KMLFeature else {
@@ -610,20 +807,36 @@ public class KMLParser: NSObject, XMLParserDelegate {
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
                 collection.add(feature: child)
+                
+            case "TourControl":
+                let child = try pop(KMLTourControl.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "items").add(child)
 
             case "Track":
                 let child = try pop(KMLTrack.self, forElement: elementName)
-                guard let collection = stack.last as? KMLGeometryCollection else {
+                switch stack.last {
+                case let multiTrack as KMLMultiTrack:
+                    multiTrack.tracks.append(child)
+                case let collection as KMLGeometryCollection:
+                    collection.add(geometry: child)
+                default:
                     throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
                 }
-                collection.add(geometry: child)
 
             case "Update":
                 let child = try pop(KMLUpdate.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "update")
                 
+            case "ViewerOptions":
+                let child = try pop(NSArray.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "options")
+                
+            case "ViewVolume":
+                let child = try pop(KMLPhotoOverlay.ViewVolume.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "viewVolume")
+
             case "Wait":
-                let child = try pop(Wait.self, forElement: elementName)
+                let child = try pop(KMLTourWait.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "items").add(child)
                 
             // MARK: - Scalar values below
@@ -634,10 +847,6 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 
             case "altitudeMode":
                 let value = KMLAltitudeMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
-                
-            case "altitudeOffset":
-                let value = Double(buffer) ?? 0.0
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "angles":
@@ -652,10 +861,6 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = KMLColor(hex: buffer)
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "bottomFov":
-                let value = Double(buffer) ?? 0.0
-                stack.last?.setValue(value, forKey: elementName)
-
             case "color":
                 let value = KMLColor(hex: buffer)
                 stack.last?.setValue(value, forKey: elementName)
@@ -694,14 +899,6 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.setValue(value, forKey: "featureDescription")
 
-            case "drawOrder":
-                let value = Int(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-                
-            case "duration":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
             case "east":
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
@@ -711,18 +908,18 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 stack.last?.setValue(value, forKey: elementName)
 
             case "flyToMode":
-                let value = FlyTo.FlyToMode(buffer)
+                let value = KMLTourFlyTo.FlyToMode(buffer)
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "gridOrigin":
+                let value = KMLPhotoOverlay.GridOrigin(buffer)
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "heading":
                 let value = CLLocationDirection(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "horizFov":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "href":
+            case "href", "uri":
                 guard let value = URL(string: buffer) else { break }
                 stack.last?.setValue(value, forKey: elementName)
                 
@@ -735,7 +932,11 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "listItemType":
-                let value = KMLListStyle.KMLListItemType(buffer)
+                let value = KMLListStyle.ListItemType(buffer)
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "maxSnippetLines":
+                let value = Int(buffer) ?? 2
                 stack.last?.setValue(value, forKey: elementName)
                 
             case "north":
@@ -746,20 +947,8 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = try pop(CGPoint.self, forElement: elementName)
                 stack.last?.setValue(value, forKey: elementName)
 
-            case "rotation":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "range":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "scale":
-                let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "size":
-                let value = try pop(CGSize.self, forElement: elementName)
+            case "playMode":
+                let value = KMLTourControl.PlayMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
 
             case "refreshInterval":
@@ -770,12 +959,12 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = KMLIcon.KMLRefreshMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
 
-            case "roll":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
             case "rotationXY":
                 let value = try pop(CGPoint.self, forElement: elementName)
+                stack.last?.setValue(value, forKey: elementName)
+
+            case "scale":
+                let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
 
             case "screenXY":
@@ -786,12 +975,24 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 let value = KMLSeaFloorAltitudeMode(buffer)
                 stack.last?.setValue(value, forKey: elementName)
 
+            case "shape":
+                let value = KMLPhotoOverlay.Shape(buffer)
+                stack.last?.setValue(value, forKey: elementName)
+                
+            case "size":
+                let value = try pop(CGSize.self, forElement: elementName)
+                stack.last?.setValue(value, forKey: elementName)
+
             case "south":
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
 
             case "sourceHref":
                 guard let value = URL(string: buffer) else { break }
+                stack.last?.setValue(value, forKey: elementName)
+
+            case "state":
+                let value = KMLItemIcon.IconState(buffer)
                 stack.last?.setValue(value, forKey: elementName)
 
             case "styleUrl":
@@ -802,18 +1003,14 @@ public class KMLParser: NSObject, XMLParserDelegate {
                 guard let value = URL(string: buffer) else { break }
                 stack.last?.setValue(value, forKey: elementName)
 
-            case "tilt":
-                let value = Double(buffer) ?? 0
+            case "textColor":
+                let value = KMLColor(hex: buffer)
+                stack.last?.setValue(value, forKey: elementName)
+
+            case "tileSize":
+                let value = Int(buffer) ?? 256
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "topFov":
-                let value = Double(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
-
-            case "value":
-                let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                stack.last?.setValue(value, forKey: elementName)
-
             case "viewBoundScale":
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
@@ -857,9 +1054,25 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "width":
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
+                
+            case "x", "y", "z":
+                let value = Double(buffer) ?? 1.0
+                stack.last?.setValue(value, forKey: elementName)
+
+            // MARK: - Int scalars, default 0
+            case "drawOrder", "maxHeight", "maxSessionLength", "maxWidth":
+                let value = Int(buffer) ?? 0
+                stack.last?.setValue(value, forKey: elementName)
+                
+            // MARK: - Double scalars, default 0
+            case "altitudeOffset", "bottomFov", "delayedStart", "duration", "horizFov", "leftFov", "minAltitude",
+                 "maxAltitude", "maxFadeExtent", "maxLodPixels", "minFadeExtent", "minLodPixels", "minRefreshPeriod",
+                 "near", "range", "rightFov", "roll", "rotation", "tilt", "topFov" :
+                let value = Double(buffer) ?? 0.0
+                stack.last?.setValue(value, forKey: elementName)
 
             // MARK: - Boolean scalars
-            case "balloonVisibility", "extrude", "open", "tessellate", "visibility":
+            case "balloonVisibility", "extrude", "fill", "open", "outline", "tessellate", "visibility":
                 let value = (buffer as NSString).boolValue
                 stack.last?.setValue(value, forKey: elementName)
             
@@ -867,13 +1080,17 @@ public class KMLParser: NSObject, XMLParserDelegate {
             case "address",
                  "cookie",
                  "displayName",
+                 "email",
                  "httpQuery",
                  "key",
                  "linkName",
                  "linkDescription",
+                 "linkSnippet",
                  "message",
                  "name",
+                 "phoneNumber",
                  "text",
+                 "value",
                  "viewFormat":
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.setValue(value, forKey: elementName)

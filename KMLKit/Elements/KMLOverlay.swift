@@ -9,23 +9,21 @@ import Foundation
 import CoreLocation
 import MapKit
 
-public class KMLOverlay: KMLFeature {
+open class KMLOverlay: KMLFeature {
 
-    @objc public var color: KMLColor?
-    @objc public var drawOrder = 0
-    @objc public var icon: KMLIcon?
+    @objc open var color: KMLColor?
+    @objc open var drawOrder = 0
+    @objc open var icon: KMLIcon?
     
 }
 
-public class KMLGroundOverlay: KMLOverlay {
+open class KMLGroundOverlay: KMLOverlay {
     
-    @objc public var altitude: CLLocationDistance = 0.0
-    @objc public var altitudeMode = KMLAltitudeMode.clampToGround
-    @objc public var latLonBox: KMLLatLonBox?
-    @objc public var extent: KMLAbstractExtent?
-
+    @objc open var altitude: CLLocationDistance = 0.0
+    @objc open var altitudeMode = KMLAltitudeMode.clampToGround
+    @objc open var extent: KMLAbstractExtent?
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "altitudeMode", let altitudeMode = value as? KMLAltitudeMode {
             self.altitudeMode = altitudeMode
@@ -36,9 +34,9 @@ public class KMLGroundOverlay: KMLOverlay {
     }
 }
 
-public class KMLPhotoOverlay: KMLOverlay {
+open class KMLPhotoOverlay: KMLOverlay {
     
-    public class KMLViewVolume: NSObject {
+    open class ViewVolume: NSObject {
         @objc var leftFov: Double = 0.0
         @objc var rightFov: Double = 0.0
         @objc var bottomFov: Double = 0.0
@@ -46,7 +44,7 @@ public class KMLPhotoOverlay: KMLOverlay {
         @objc var near: Double = 0.0
     }
     
-    @objc public enum KMLGridOrigin: Int {
+    @objc public enum GridOrigin: Int {
         case lowerLeft
         case upperLeft
         
@@ -63,28 +61,66 @@ public class KMLPhotoOverlay: KMLOverlay {
     }
     
     
-    public class KMLImagePyramid: NSObject {
-        @objc var tileSize = 256
-        @objc var maxWidth = 0
-        @objc var maxHeight = 0
-        @objc var gridOrigin = KMLGridOrigin.lowerLeft
+    open class ImagePyramid: NSObject {
+        @objc open var tileSize = 256
+        @objc open var maxWidth = 0
+        @objc open var maxHeight = 0
+        @objc open var gridOrigin = GridOrigin.lowerLeft
+        
+        open override func setValue(_ value: Any?, forKey key: String) {
+            
+            if key == "gridOrigin", let gridOrigin = value as? GridOrigin {
+                self.gridOrigin = gridOrigin
+            } else {
+                super.setValue(value, forKey: key)
+            }
+            
+        }
+    }
+    
+    @objc public enum Shape: Int {
+        case rectangle
+        case cylinder
+        case sphere
+        
+        init(_ value: String) {
+            switch value {
+            case "rectangle":
+                self = .rectangle
+            case "cylinder":
+                self = .cylinder
+            case "sphere":
+                self = .sphere
+            default:
+                self = .rectangle
+            }
+        }
     }
     
 
-    @objc public var rotation: Double = 0.0
-    @objc public var viewVolume = KMLViewVolume()
-    @objc public var imagePyramid = KMLImagePyramid()
+    @objc open var rotation: Double = 0.0
+    @objc open var viewVolume: ViewVolume?
+    @objc open var imagePyramid: ImagePyramid?
+    @objc open var point: KMLPoint?
+    @objc open var shape = Shape.rectangle
     
+    open override func setValue(_ value: Any?, forKey key: String) {        
+        if key == "shape", let shape = value as? Shape {
+            self.shape = shape
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
 
-public class KMLScreenOverlay: KMLOverlay {
-    public var overlayXY: CGPoint?
-    public var screenXY: CGPoint?
-    public var rotationXY: CGPoint?
-    public var size: CGSize?
-    @objc public var rotation: Double = 0
+open class KMLScreenOverlay: KMLOverlay {
+    open var overlayXY: CGPoint?
+    open var screenXY: CGPoint?
+    open var rotationXY: CGPoint?
+    open var size: CGSize?
+    @objc open var rotation: Double = 0
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "overlayXY", let overlayXY = value as? CGPoint {
             self.overlayXY = overlayXY

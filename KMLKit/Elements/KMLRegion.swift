@@ -8,11 +8,10 @@
 import Foundation
 import MapKit
 
-public class KMLRegion: KMLObject {
+open class KMLRegion: KMLObject {
 
-    @objc public var latLonAltBox: KMLLatLonAltBox?
-    @objc public var extent: KMLAbstractExtent?
-    @objc public var lod: KMLLod?
-    @objc public var metadata: [AnyObject] = []
+    @objc open var extent: KMLAbstractExtent?
+    @objc open var lod: KMLLevelOfDetail?
+    @objc open var metadata: [AnyObject] = []
 
 }

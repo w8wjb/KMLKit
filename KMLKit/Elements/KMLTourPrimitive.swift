@@ -11,21 +11,21 @@ public protocol KMLTourPrimitiveDuration {
     var duration: Double { get set }
 }
 
-public class KMLTourPrimitive: KMLObject {
+open class KMLTourPrimitive: KMLObject {
     
 }
 
-public class Wait: KMLTourPrimitive, KMLTourPrimitiveDuration {
-    @objc public var duration: Double = 0.0
+open class KMLTourWait: KMLTourPrimitive, KMLTourPrimitiveDuration {
+    @objc open var duration: Double = 0.0
 }
 
-public class AnimatedUpdate: KMLTourPrimitive, KMLTourPrimitiveDuration {
-    @objc public var duration: Double = 0.0
-    @objc public var update: KMLUpdate?
-    @objc public var delayedStart: Double = 0.0
+open class KMLTourAnimatedUpdate: KMLTourPrimitive, KMLTourPrimitiveDuration {
+    @objc open var duration: Double = 0.0
+    @objc open var update: KMLUpdate?
+    @objc open var delayedStart: Double = 0.0
 }
 
-public class TourControl: KMLTourPrimitive {
+open class KMLTourControl: KMLTourPrimitive {
     
     @objc public enum PlayMode: Int {
         case pause
@@ -40,11 +40,18 @@ public class TourControl: KMLTourPrimitive {
         }
     }
     
-    @objc public var mode = PlayMode.pause
-    
+    @objc open var mode = PlayMode.pause
+ 
+    open override func setValue(_ value: Any?, forKey key: String) {
+        if key == "playMode", let mode = value as? PlayMode {
+            self.mode = mode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
 
-public class FlyTo: KMLTourPrimitive, KMLTourPrimitiveDuration {
+open class KMLTourFlyTo: KMLTourPrimitive, KMLTourPrimitiveDuration {
     
     @objc public enum FlyToMode: Int {
         case bounce
@@ -62,23 +69,22 @@ public class FlyTo: KMLTourPrimitive, KMLTourPrimitiveDuration {
         }
     }
     
-    @objc public var duration: Double = 0.0
-    @objc public var mode = FlyToMode.bounce
-    @objc public var view: KMLAbstractView?
+    @objc open var duration: Double = 0.0
+    @objc open var mode = FlyToMode.bounce
+    @objc open var view: KMLAbstractView?
     
-    public override func setValue(_ value: Any?, forKey key: String) {        
+    open override func setValue(_ value: Any?, forKey key: String) {        
         if key == "flyToMode", let mode = value as? FlyToMode {
             self.mode = mode
         } else {
             super.setValue(value, forKey: key)
         }
-        
     }
 }
 
-public class SoundCue: KMLTourPrimitive {
+open class KMLTourSoundCue: KMLTourPrimitive {
     
-    @objc public var href: String?
-    @objc public var delayedStart: Double = 0.0
+    @objc open var href: URL?
+    @objc open var delayedStart: Double = 0.0
     
 }

@@ -13,41 +13,41 @@ import Foundation
     func asInterval() -> DateInterval?
 }
 
-public class KMLTimeStamp: KMLObject, KMLTimePrimitive {
+open class KMLTimeStamp: KMLObject, KMLTimePrimitive {
 
-    @objc public var when: DateComponents?
+    @objc open var when: DateComponents?
     
-    public func asDateComponents() -> DateComponents? {
+    open func asDateComponents() -> DateComponents? {
         return when
     }
 
-    public func asDate() -> Date? {
+    open func asDate() -> Date? {
         guard let components = when else { return nil }
         return Calendar.current.date(from: components)
     }
     
-    public func asInterval() -> DateInterval? {
+    open func asInterval() -> DateInterval? {
         guard let date = asDate() else { return nil }
         return DateInterval(start: date, end: date)
     }
 }
 
 
-public class KMLTimeSpan: KMLObject, KMLTimePrimitive {
+open class KMLTimeSpan: KMLObject, KMLTimePrimitive {
 
-    @objc public var begin: DateComponents?
-    @objc public var end: DateComponents?
+    @objc open var begin: DateComponents?
+    @objc open var end: DateComponents?
     
-    public func asDateComponents() -> DateComponents? {
+    open func asDateComponents() -> DateComponents? {
         return begin
     }
     
-    public func asInterval() -> DateInterval? {
+    open func asInterval() -> DateInterval? {
         guard let start = begin?.date, let end = self.end?.date else { return nil}        
         return DateInterval(start: start, end: end)
     }
     
-    public func asDate() -> Date? {
+    open func asDate() -> Date? {
         guard let components = begin else { return nil }
         return Calendar.current.date(from: components)
     }

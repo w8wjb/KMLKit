@@ -8,12 +8,12 @@
 import Foundation
 
 
-public class KMLData: KMLObject {
+open class KMLData: KMLObject {
     
-    @objc public var value: Any?
-    @objc public var type: String?
-    @objc public var uom: URL?
-    @objc public var displayName: String?
+    @objc open var value: Any?
+    @objc open var type: String?
+    @objc open var uom: URL?
+    @objc open var displayName: String?
 
     public override init() {
         super.init()
@@ -30,7 +30,7 @@ public class KMLData: KMLObject {
     
 }
 
-public class KMLExtendedData: NSObject {
-    @objc public var data: [KMLData] = []
-    @objc public var schemaData: [KMLSchemaData] = []
+open class KMLExtendedData: NSObject {
+    @objc open var data: [KMLData] = []
+    @objc open var schemaData: [KMLSchemaData] = []
 }

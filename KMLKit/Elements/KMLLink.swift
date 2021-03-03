@@ -7,7 +7,7 @@
 
 import Foundation
 
-public class KMLBasicLink: KMLObject {
+open class KMLBasicLink: KMLObject {
     @objc var href: URL?
     
     public override init() {
@@ -32,20 +32,15 @@ public class KMLBasicLink: KMLObject {
 }
 
 
-public class KMLLink: KMLBasicLink {
+open class KMLLink: KMLBasicLink {
 
-    @objc public var rel: String?
-    @objc public var type: String?
-    @objc public var hreflang: String?
-    @objc public var title: String?
-    @objc public var length: Int = 0
-    @objc public var refreshMode = KMLRefreshMode.onChange
-    @objc public var refreshInterval: Double = 4.0
-    @objc public var viewRefreshMode = KMLViewRefreshMode.never
-    @objc public var viewRefreshTime: Double = 4.0
-    @objc public var viewBoundScale: Double = 1.0
-    @objc public var viewFormat: String?
-    @objc public var httpQuery: String?
+    @objc open var refreshMode = KMLRefreshMode.onChange
+    @objc open var refreshInterval: Double = 4.0
+    @objc open var viewRefreshMode = KMLViewRefreshMode.never
+    @objc open var viewRefreshTime: Double = 4.0
+    @objc open var viewBoundScale: Double = 1.0
+    @objc open var viewFormat: String?
+    @objc open var httpQuery: String?
     
     
     @objc public enum KMLRefreshMode: Int {
@@ -109,16 +104,9 @@ public class KMLLink: KMLBasicLink {
         if let href = attributes["href"] {
             self.href = URL(string: href)
         }
-        self.rel = attributes["rel"]
-        self.type = attributes["type"]
-        self.hreflang = attributes["hreflang"]
-        self.title = attributes["title"]
-        if let length = attributes["length"] {
-            self.length = Int(length) ?? 0
-        }
     }
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "refreshMode", let refreshMode = value as? KMLRefreshMode {
             self.refreshMode = refreshMode
@@ -132,6 +120,6 @@ public class KMLLink: KMLBasicLink {
 }
 
 
-public class KMLIcon: KMLLink {
+open class KMLIcon: KMLLink {
 
 }

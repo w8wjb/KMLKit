@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AD55D4EF25E990E20069A6CE"
-               BuildableName = "iOS_KMLKit.framework"
+               BuildableName = "KMLKit.framework"
                BlueprintName = "iOS KMLKit"
                ReferencedContainer = "container:KMLKit.xcodeproj">
             </BuildableReference>
@@ -51,7 +51,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AD55D4EF25E990E20069A6CE"
-            BuildableName = "iOS_KMLKit.framework"
+            BuildableName = "KMLKit.framework"
             BlueprintName = "iOS KMLKit"
             ReferencedContainer = "container:KMLKit.xcodeproj">
          </BuildableReference>

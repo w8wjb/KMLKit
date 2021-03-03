@@ -7,18 +7,18 @@
 
 import Foundation
 
-public class KMLRoot: NSObject, KMLFeatureCollection {
+open class KMLRoot: NSObject, KMLFeatureCollection {
     
-    @objc public var name: String?
-    @objc public var hint: String?
-    @objc public var networkLinkControl: KMLNetworkLinkControl?
-    @objc public var feature: KMLFeature?
+    @objc open var name: String?
+    @objc open var hint: String?
+    @objc open var networkLinkControl: KMLNetworkLinkControl?
+    @objc open var feature: KMLFeature?
 
-    public func add(feature: KMLFeature) {
+    open func add(feature: KMLFeature) {
         self.feature = feature
     }
 
-    public func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
+    open func findFeatures<T:KMLFeature>(ofType type: T.Type) -> [T] {
         
         var found: [T] = []
         
@@ -33,7 +33,7 @@ public class KMLRoot: NSObject, KMLFeatureCollection {
         return found
     }
     
-    public func findFirstFeature<T>(ofType type: T.Type) -> T? {
+    open func findFirstFeature<T>(ofType type: T.Type) -> T? {
         
         if let match = feature as? T {
             return match

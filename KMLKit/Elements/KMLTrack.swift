@@ -8,17 +8,18 @@
 import Foundation
 import CoreLocation
 
-public class KMLTrack: KMLGeometry {
+open class KMLTrack: KMLGeometry {
 
-    @objc public var extrude = false
-    @objc public var tessellate = false
-    @objc public var coordinates: [CLLocation] = []
-    @objc public var angles: [String] = []
-    @objc public var extendedData: KMLExtendedData?
+    @objc open var extrude = false
+    @objc open var tessellate = false
+    @objc open var coordinates: [CLLocation] = []
+    @objc open var angles: [String] = []
+    @objc open var extendedData: KMLExtendedData?
 }
 
-public class KMLMultiTrack: KMLGeometry {
+open class KMLMultiTrack: KMLGeometry {
  
-    @objc public var interpolate = false
+    @objc open var interpolate = false
+    @objc open var tracks: [KMLTrack] = []
 
 }

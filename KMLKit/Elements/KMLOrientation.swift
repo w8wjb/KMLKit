@@ -8,10 +8,10 @@
 import Foundation
 import CoreLocation
 
-public class KMLOrientation: KMLObject {
+open class KMLOrientation: KMLObject {
 
-    @objc public var heading = CLLocationDegrees()
-    @objc public var tilt = CLLocationDegrees()
-    @objc public var roll = CLLocationDegrees()
+    @objc open var heading = CLLocationDegrees()
+    @objc open var tilt = CLLocationDegrees()
+    @objc open var roll = CLLocationDegrees()
 
 }

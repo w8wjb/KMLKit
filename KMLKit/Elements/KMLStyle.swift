@@ -8,11 +8,11 @@
 import Foundation
 import CoreGraphics
 
-public class KMLStyleSelector: KMLObject {
+open class KMLStyleSelector: KMLObject {
         
 }
 
-public class KMLStyle: KMLStyleSelector {
+open class KMLStyle: KMLStyleSelector {
     @objc var iconStyle: KMLIconStyle?
     @objc var labelStyle: KMLLabelStyle?
     @objc var lineStyle: KMLLineStyle?
@@ -21,7 +21,7 @@ public class KMLStyle: KMLStyleSelector {
     @objc var listStyle: KMLListStyle?
 }
 
-public class KMLSubStyle: KMLStyle {
+open class KMLSubStyle: KMLStyle {
     
 }
 
@@ -41,11 +41,11 @@ public class KMLSubStyle: KMLStyle {
     }
 }
 
-public class KMLColorStyle: KMLSubStyle {
+open class KMLColorStyle: KMLSubStyle {
     @objc var color = KMLColor.white
     @objc var colorMode = KMLColorMode.normal
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "colorMode", let colorMode = value as? KMLColorMode {
             self.colorMode = colorMode
@@ -57,7 +57,7 @@ public class KMLColorStyle: KMLSubStyle {
     
 }
 
-public class KMLBalloonStyle: KMLColorStyle {
+open class KMLBalloonStyle: KMLColorStyle {
     
     @objc public enum DisplayMode: Int {
         case `default`
@@ -75,23 +75,24 @@ public class KMLBalloonStyle: KMLColorStyle {
         }
     }
     
-    @objc public var bgColor: KMLColor?
-    @objc public var textColor: KMLColor?
-    @objc public var text = ""
-    @objc public var displayMode = DisplayMode.default
+    @objc open var bgColor: KMLColor?
+    @objc open var textColor: KMLColor?
+    @objc open var text = ""
+    @objc open var displayMode = DisplayMode.default
 }
 
-public class KMLLabelStyle: KMLColorStyle {
-    @objc public var scale: Double = 1.0
+open class KMLLabelStyle: KMLColorStyle {
+    @objc open var scale: Double = 1.0
 }
 
-public class KMLLineStyle: KMLColorStyle {
-    @objc public var width: Double = 1.0
+open class KMLLineStyle: KMLColorStyle {
+    @objc open var width: Double = 1.0
 }
 
 class KMLItemIcon: KMLObject {
     
-    @objc enum KMLItemIconState: Int {
+    @objc(KMLItemIconState)
+    enum IconState: Int {
         case `open`
         case closed
         case error
@@ -119,13 +120,21 @@ class KMLItemIcon: KMLObject {
         }
     }
     
-    @objc var state: KMLItemIconState = .open
+    @objc var state: IconState = .open
     @objc var href: URL?
+    
+    open override func setValue(_ value: Any?, forKey key: String) {
+        if key == "state", let state = value as? IconState {
+            self.state = state
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
 
 class KMLListStyle: KMLSubStyle {
     
-    @objc enum KMLListItemType: Int {
+    @objc(KMLListItemType) enum ListItemType: Int {
         case radioFolder
         case check
         case checkHideChildren
@@ -147,15 +156,15 @@ class KMLListStyle: KMLSubStyle {
         }
     }
     
-    @objc var listItemType = KMLListItemType.check
+    @objc var listItemType = ListItemType.check
     @objc var bgColor = KMLColor.white
     @objc var itemIcon: [KMLItemIcon] = []
     @objc var maxSnippetLines = 2
     
     
-    public override func setValue(_ value: Any?, forKey key: String) {
+    open override func setValue(_ value: Any?, forKey key: String) {
         
-        if key == "listItemType", let listItemType = value as? KMLListItemType {
+        if key == "listItemType", let listItemType = value as? ListItemType {
             self.listItemType = listItemType
         } else {
             super.setValue(value, forKey: key)
@@ -174,6 +183,16 @@ class KMLIconStyle: KMLColorStyle {
     @objc var heading: Double = 0.0
     @objc var icon: KMLIcon?
     var hotSpot = CGPoint()
+    
+    open override func setValue(_ value: Any?, forKey key: String) {
+        if key == "hotSpot", let hotSpot = value as? CGPoint {
+            self.hotSpot = hotSpot
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
+
+    
 }
 
 class KMLStyleMap: KMLStyleSelector {
