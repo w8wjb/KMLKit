@@ -7,8 +7,12 @@
 
 import Foundation
 
-open class KMLBasicLink: KMLObject {
-    @objc var href: URL?
+@objc public protocol KMLAbstractLink: class {
+    var href: URL? { get set }
+}
+
+open class KMLBasicLink: KMLObject, KMLAbstractLink {
+    @objc open var href: URL?
     
     public override init() {
         super.init()
@@ -122,4 +126,21 @@ open class KMLLink: KMLBasicLink {
 
 open class KMLIcon: KMLLink {
 
+    @objc var frame = CGRect()
+    
+    open override func setValue(_ value: Any?, forKey key: String) {
+        
+        if key == "x", let x = value as? Double {
+            frame.origin.x = CGFloat(x)
+        } else if key == "y", let y = value as? Double {
+            frame.origin.y = CGFloat(y)
+        } else if key == "w", let w = value as? Double {
+            frame.size.width = CGFloat(w)
+        } else if key == "h", let h = value as? Double {
+            frame.size.height = CGFloat(h)
+        } else {
+            super.setValue(value, forKey: key)
+        }
+        
+    }
 }

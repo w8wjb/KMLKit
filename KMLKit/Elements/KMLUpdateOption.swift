@@ -11,9 +11,20 @@ open class KMLUpdateOption: NSObject {
     
 }
 
+#if os(macOS)
+extension KMLUpdateOption: KMLWriterNode {
+    
+    class var elementName: String { fatalError("override in subclass") }
+
+    func toElement() -> XMLElement {
+        let element = XMLElement(name: type(of: self).elementName)
+        return element
+    }
+}
+#endif
+
 open class KMLUpdate: NSObject {
     @objc open var targetHref: URL?
-    @objc open var sourceHref: URL?
     @objc open var items: [KMLUpdateOption] = []
 }
 
@@ -26,12 +37,52 @@ extension KMLUpdate: Sequence {
     }
 }
 
+#if os(macOS)
+extension KMLUpdate: KMLWriterNode {
+    class var elementName: String { "Update" }
+
+    func toElement() -> XMLElement {
+        let element = XMLElement(name: type(of: self).elementName)
+        addSimpleChild(to: element, withName: "targetHref", value: targetHref)
+        
+        for child in items {
+            addChild(to: element, child: child)
+        }
+        
+        return element
+    }
+}
+#endif
+
 open class KMLCreate: KMLUpdateOption {
     @objc open var containers: [KMLContainer] = []
     @objc open var multiTracks: [KMLMultiTrack] = []
     @objc open var multiGeometry: [KMLMultiGeometry] = []
 }
 
+#if os(macOS)
+extension KMLCreate {
+    class override var elementName: String { "#KMLUpdateOption#" }
+
+    override func toElement() -> XMLElement {
+        let element = super.toElement()
+        
+        for child in containers {
+            addChild(to: element, child: child)
+        }
+
+        for child in multiTracks {
+            addChild(to: element, child: child)
+        }
+
+        for child in multiGeometry {
+            addChild(to: element, child: child)
+        }
+
+        return element
+    }
+}
+#endif
 
 open class KMLChange: KMLUpdateOption {
     @objc open var objects: [KMLObject] = []
@@ -44,6 +95,17 @@ open class KMLChange: KMLUpdateOption {
         }
     }
 }
+
+#if os(macOS)
+extension KMLChange {
+    class override var elementName: String { "Change" }
+
+    override func toElement() -> XMLElement {
+        let element = super.toElement()
+        return element
+    }
+}
+#endif
 
 extension KMLChange: Sequence {
     public typealias Element = KMLObject
@@ -58,3 +120,23 @@ open class KMLDelete: KMLUpdateOption {
     @objc open var features: [KMLFeature] = []
     @objc open var geometry: [KMLGeometry] = []
 }
+
+#if os(macOS)
+extension KMLDelete {
+    class override var elementName: String { "Delete" }
+
+    override func toElement() -> XMLElement {
+        let element = super.toElement()
+        
+        for child in features {
+            addChild(to: element, child: child)
+        }
+
+        for child in geometry {
+            addChild(to: element, child: child)
+        }
+
+        return element
+    }
+}
+#endif

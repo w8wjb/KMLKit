@@ -86,6 +86,9 @@
 		AD55D63525EDAE730069A6CE /* photooverlay_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D63425EDAE730069A6CE /* photooverlay_example.kml */; };
 		AD55D65325EEDF550069A6CE /* AtomLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D64525EEDDD80069A6CE /* AtomLink.swift */; };
 		AD55D65425EEDF560069A6CE /* AtomLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D64525EEDDD80069A6CE /* AtomLink.swift */; };
+		AD55D69925EF12910069A6CE /* KMLNetworkLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */; };
+		AD55D69A25EF12910069A6CE /* KMLNetworkLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */; };
+		AD55D6AD25F02C7F0069A6CE /* KMLWriterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */; };
 		ADE1962925E7F2CB00935306 /* KMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE1961F25E7F2CB00935306 /* KMLKit.framework */; };
 		ADE1963025E7F2CB00935306 /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE1962225E7F2CB00935306 /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
@@ -177,6 +180,8 @@
 		AD55D62C25EDAB2C0069A6CE /* kitchen_sink.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = kitchen_sink.kml; sourceTree = "<group>"; };
 		AD55D63425EDAE730069A6CE /* photooverlay_example.kml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = photooverlay_example.kml; sourceTree = "<group>"; };
 		AD55D64525EEDDD80069A6CE /* AtomLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomLink.swift; sourceTree = "<group>"; };
+		AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLNetworkLink.swift; sourceTree = "<group>"; };
+		AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLWriterTest.swift; sourceTree = "<group>"; };
 		ADE1961F25E7F2CB00935306 /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE1962225E7F2CB00935306 /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		ADE1962325E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -284,11 +289,11 @@
 			isa = PBXGroup;
 			children = (
 				ADE1966425E7FA5E00935306 /* Elements */,
-				ADE1963C25E7F4D500935306 /* KMLParser.swift */,
-				ADE1962225E7F2CB00935306 /* KMLKit.h */,
 				ADE1962325E7F2CB00935306 /* Info.plist */,
-				ADE1965025E7F58500935306 /* ParsingError.swift */,
+				ADE1962225E7F2CB00935306 /* KMLKit.h */,
+				ADE1963C25E7F4D500935306 /* KMLParser.swift */,
 				ADE1972125E9652100935306 /* KMLWriter.swift */,
+				ADE1965025E7F58500935306 /* ParsingError.swift */,
 			);
 			path = KMLKit;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 				ADE1964425E7F4E400935306 /* KMLParserTest.swift */,
 				ADE1962F25E7F2CB00935306 /* Info.plist */,
 				AD55D53F25E997200069A6CE /* KmlColorTest.swift */,
+				AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */,
 			);
 			path = KMLKitTests;
 			sourceTree = "<group>";
@@ -363,6 +369,7 @@
 				ADE1969725E807CE00935306 /* KMLLevelOfDetail.swift */,
 				ADE1968725E804FF00935306 /* KMLLink.swift */,
 				ADE196F325E8380900935306 /* KMLLookAt.swift */,
+				AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */,
 				ADE1966525E7FA6D00935306 /* KMLNetworkLinkControl.swift */,
 				ADE1967125E7FD3E00935306 /* KMLObject.swift */,
 				ADE196DD25E829CE00935306 /* KMLOrientation.swift */,
@@ -581,6 +588,7 @@
 				AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */,
 				AD55D50425E991390069A6CE /* KMLLookAt.swift in Sources */,
 				AD55D50525E991390069A6CE /* KMLLevelOfDetail.swift in Sources */,
+				AD55D69A25EF12910069A6CE /* KMLNetworkLink.swift in Sources */,
 				AD55D50625E991390069A6CE /* KMLRegion.swift in Sources */,
 				AD55D51325E991390069A6CE /* KMLTourPrimitive.swift in Sources */,
 				AD55D61A25ED48780069A6CE /* KMLTrack.swift in Sources */,
@@ -624,6 +632,7 @@
 				ADE196FE25E84A3F00935306 /* KMLPlacemark.swift in Sources */,
 				ADE196CE25E8167B00935306 /* KMLGeometry.swift in Sources */,
 				ADE1967225E7FD3E00935306 /* KMLObject.swift in Sources */,
+				AD55D69925EF12910069A6CE /* KMLNetworkLink.swift in Sources */,
 				ADE1969825E807CE00935306 /* KMLLevelOfDetail.swift in Sources */,
 				ADE196D425E8178100935306 /* KMLAltitudeMode.swift in Sources */,
 				ADE1966125E7F84100935306 /* KMLRoot.swift in Sources */,
@@ -661,6 +670,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AD55D54025E997200069A6CE /* KmlColorTest.swift in Sources */,
+				AD55D6AD25F02C7F0069A6CE /* KMLWriterTest.swift in Sources */,
 				ADE1964625E7F4E400935306 /* KMLParserTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

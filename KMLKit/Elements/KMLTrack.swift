@@ -14,6 +14,7 @@ open class KMLTrack: KMLGeometry {
     @objc open var tessellate = false
     @objc open var coordinates: [CLLocation] = []
     @objc open var angles: [String] = []
+    @objc open var model: KMLModel?
     @objc open var extendedData: KMLExtendedData?
 }
 

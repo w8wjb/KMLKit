@@ -8,11 +8,11 @@
 import Foundation
 import CoreGraphics
 
-open class KMLStyleSelector: KMLObject {
-        
+@objc public protocol KMLStyleSelector {
+    
 }
 
-open class KMLStyle: KMLStyleSelector {
+open class KMLStyle: KMLObject, KMLStyleSelector {
     @objc var iconStyle: KMLIconStyle?
     @objc var labelStyle: KMLLabelStyle?
     @objc var lineStyle: KMLLineStyle?
@@ -79,6 +79,14 @@ open class KMLBalloonStyle: KMLColorStyle {
     @objc open var textColor: KMLColor?
     @objc open var text = ""
     @objc open var displayMode = DisplayMode.default
+    
+    open override func setValue(_ value: Any?, forKey key: String) {
+        if key == "displayMode", let displayMode = value as? DisplayMode {
+            self.displayMode = displayMode
+        } else {
+            super.setValue(value, forKey: key)
+        }
+    }
 }
 
 open class KMLLabelStyle: KMLColorStyle {
@@ -89,7 +97,7 @@ open class KMLLineStyle: KMLColorStyle {
     @objc open var width: Double = 1.0
 }
 
-class KMLItemIcon: KMLObject {
+open class KMLItemIcon: KMLObject {
     
     @objc(KMLItemIconState)
     enum IconState: Int {
@@ -132,7 +140,7 @@ class KMLItemIcon: KMLObject {
     }
 }
 
-class KMLListStyle: KMLSubStyle {
+open class KMLListStyle: KMLSubStyle {
     
     @objc(KMLListItemType) enum ListItemType: Int {
         case radioFolder
@@ -173,12 +181,12 @@ class KMLListStyle: KMLSubStyle {
     }
 }
 
-class KMLPolyStyle: KMLColorStyle {
+open class KMLPolyStyle: KMLColorStyle {
     @objc var fill = true
     @objc var outline = true
 }
 
-class KMLIconStyle: KMLColorStyle {
+open class KMLIconStyle: KMLColorStyle {
     @objc var scale: Double = 1.0
     @objc var heading: Double = 0.0
     @objc var icon: KMLIcon?
@@ -195,10 +203,45 @@ class KMLIconStyle: KMLColorStyle {
     
 }
 
-class KMLStyleMap: KMLStyleSelector {
+open class KMLStyleRef: NSObject, KMLStyleSelector {
+    @objc open var styleUrl: URL
     
-    @objc var pairs: [String:URL] = [:]
+    public init(styleUrl: URL) {
+        self.styleUrl = styleUrl
+        super.init()
+    }
     
+}
+
+open class KMLStyleMap: KMLObject, KMLStyleSelector {
+    @objc var pairs: [String:KMLStyleSelector] = [:]
+}
+
+extension KMLStyleMap: Sequence {
+
+    public typealias Element = (key: String, value: KMLStyleSelector)
+    public typealias Iterator = Dictionary<String, KMLStyleSelector>.Iterator
+    
+    public func makeIterator() -> Iterator {
+        return pairs.makeIterator()
+    }
+
+}
+
+// Pseudo-dictionary interface
+extension KMLStyleMap {
+    
+    subscript(key: String) -> KMLStyleSelector? {
+        return pairs[key]
+    }
+    
+    public var keys: Dictionary<String, KMLStyleSelector>.Keys {
+        return pairs.keys
+    }
+    
+    public var values: Dictionary<String, KMLStyleSelector>.Values {
+        return pairs.values
+    }
 }
 
 

@@ -81,32 +81,45 @@ open class KMLParser: NSObject, XMLParserDelegate {
         return try kmlParser.parse(data: data)
     }
     
+    open func parse(file: URL) throws -> KMLRoot {
+        let data = try Data(contentsOf: file)
+        return try parse(data: data)
+    }
+    
     open func parse(data: Data) throws -> KMLRoot {
         let xmlParser = XMLParser(data: data)
         xmlParser.delegate = self
         xmlParser.shouldProcessNamespaces = true
         xmlParser.parse()
-        
-        if let error = error {
-            throw error
+
+        if strict {
+            if let error = errors.first {
+                throw error
+            }
         }
         
         guard let root = self.root else {
-            throw ParsingError.missingElement("kml")
+            throw ParsingError.missingElement("kml", line: xmlParser.lineNumber)
         }
         
         return root
     }
     
-    let xalNamespace = "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
-    let supportedNamespaces = ["http://www.opengis.net/kml/2.2",
+    private let kmlNamespace = "http://www.opengis.net/kml/2.2"
+    private let xalNamespace = "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
+    private let supportedNamespaces = ["http://earth.google.com/kml/2.0",
+                               "http://earth.google.com/kml/2.1",
+                               "http://earth.google.com/kml/2.2",
+                               "http://www.opengis.net/kml/2.2",
                                "http://www.google.com/kml/ext/2.2",
                                "http://www.w3.org/2005/Atom",
                                "urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"]
     
-    
+
+    public var strict = true
+    public var errors: [Error] = []
+
     private var root: KMLRoot?
-    var error: Error?
     
     private var buffer = ""
     private var stack: [NSObject] = []
@@ -172,7 +185,8 @@ open class KMLParser: NSObject, XMLParserDelegate {
             return
         }
         
-        guard supportedNamespaces.contains(namespaceURI ?? "") else {
+        let ns = namespaceURI ?? kmlNamespace
+        guard ns.isEmpty || supportedNamespaces.contains(ns) else {
             return
         }
         
@@ -201,6 +215,12 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLCamera(attrs))
             case "Change":
                 push(KMLChange())
+            case "Create":
+                push(KMLCreate())
+            case "Data":
+                push(KMLData())
+            case "Delete":
+                push(KMLDelete())
             case "Document":
                 push(KMLDocument(attrs))
             case "ExtendedData":
@@ -231,6 +251,8 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLLineStyle(attrs))
             case "LookAt":
                 push(KMLLookAt(attrs))
+            case "Metadata":
+                push(NSMutableDictionary(dictionary:attrs))
             case "Orientation":
                 push(KMLOrientation(attrs))
             case "Pair":
@@ -266,6 +288,8 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 push(KMLMultiGeometry(attrs))
             case "MultiTrack":
                 push(KMLMultiTrack(attrs))
+            case "NetworkLink":
+                push(KMLNetworkLink(attrs))
             case "NetworkLinkControl":
                 push(KMLNetworkLinkControl())
             case "option":
@@ -354,6 +378,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                  "coord",
                  "coordinates",
                  "delayedStart",
+                 "displayMode",
                  "displayName",
                  "drawOrder",
                  "duration",
@@ -368,6 +393,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                  "horizFov",
                  "href",
                  "httpQuery",
+                 "interpolate",
                  "key",
                  "latitude",
                  "leftFov",
@@ -424,16 +450,18 @@ open class KMLParser: NSObject, XMLParserDelegate {
                  "west",
                  "when",
                  "width",
-                 "x", "y", "z":
+                 "w", "h", "x", "y", "z":
                 break
                 
             default:
-                throw ParsingError.unsupportedElement(elementName: elementName)
+                throw ParsingError.unsupportedElement(elementName: elementName, line: parser.lineNumber)
             }
             
         } catch {
-            self.error = error
-            parser.abortParsing()
+            self.errors.append(error)
+            if strict {
+                parser.abortParsing()
+            }
         }
         
     }
@@ -450,7 +478,8 @@ open class KMLParser: NSObject, XMLParserDelegate {
             }
         }
         
-        guard supportedNamespaces.contains(namespaceURI ?? "") else {
+        let ns = namespaceURI ?? kmlNamespace
+        guard ns.isEmpty || supportedNamespaces.contains(ns) else {
             return
         }
 
@@ -469,7 +498,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 case let parentDict as NSMutableDictionary:
                     parentDict.setValue(dict, forKey: elementName)
                 default:
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName, line: parser.lineNumber)
                 }
                 return
             }
@@ -481,11 +510,11 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "Alias":
                 let dict = try pop(NSDictionary.self, forElement: elementName)
                 
-                guard let targetHref = dict.value(forKey: "targetHref") as? URL else { throw ParsingError.missingElement("targetHref") }
-                guard let sourceHref = dict.value(forKey: "sourceHref") as? URL else { throw ParsingError.missingElement("sourceHref") }
+                guard let targetHref = dict.value(forKey: "targetHref") as? URL else { return }
+                guard let sourceHref = dict.value(forKey: "sourceHref") as? URL else { return }
 
                 guard let resourceMap = stack.last as? NSMutableDictionary else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName, line: parser.lineNumber)
                 }
                 resourceMap.setValue(targetHref.description, forKey: sourceHref.description)
                 
@@ -509,10 +538,22 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 let child = try pop(KMLChange.self, forElement: elementName)
                 stack.last?.mutableArrayValue(forKey: "items").add(child)
                 
+            case "Create":
+                let child = try pop(KMLCreate.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "items").add(child)
+
+            case "Data":
+                let child = try pop(KMLData.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "data").add(child)
+                
+            case "Delete":
+                let child = try pop(KMLDelete.self, forElement: elementName)
+                stack.last?.mutableArrayValue(forKey: "items").add(child)
+                
             case "Document":
                 let child = try pop(KMLDocument.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
                 
@@ -527,14 +568,14 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "Folder":
                 let child = try pop(KMLFolder.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
 
             case "GroundOverlay":
                 let child = try pop(KMLGroundOverlay.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
 
@@ -576,12 +617,16 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 
             case "LinearRing":
                 let child = try pop(KMLLinearRing.self, forElement: elementName)
-                stack.last?.setValue(child, forKey: "linearRing")
+                if let collection = stack.last as? KMLGeometryCollection {
+                    collection.add(geometry: child)
+                } else {
+                    stack.last?.setValue(child, forKey: "linearRing")
+                }
                 
             case "LineString":
                 let child = try pop(KMLLineString.self, forElement: elementName)
                 guard let collection = stack.last as? KMLGeometryCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(geometry: child)
 
@@ -619,28 +664,50 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "LookAt":
                 let child = try pop(KMLLookAt.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "view")
+            case "Metadata":
+                let dict = try pop(NSMutableDictionary.self, forElement: elementName) as! [String:Any]
+                guard let feature = stack.last as? KMLFeature else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: dict, elementName: elementName, line: parser.lineNumber)
+                }
+                
+                let dataValues = dict.map { (key: String, value: Any) -> KMLData in
+                    let data = KMLData()
+                    data.displayName = key
+                    data.value = value
+                    return data
+                }
+                feature.extendedData?.data.append(contentsOf: dataValues)
+
                 
             case "Model":
                 let child = try pop(KMLModel.self, forElement: elementName)
-                guard let collection = stack.last as? KMLGeometryCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                switch stack.last {
+                case let track as KMLTrack:
+                    track.model = child
+                case let collection as KMLGeometryCollection:
+                    collection.add(geometry: child)
+                default:
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
-                collection.add(geometry: child)
                 
             case "MultiGeometry":
                 let child = try pop(KMLMultiGeometry.self, forElement: elementName)
                 guard let collection = stack.last as? KMLGeometryCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(geometry: child)
                 
             case "MultiTrack":
                 let child = try pop(KMLMultiTrack.self, forElement: elementName)
                 guard let collection = stack.last as? KMLGeometryCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(geometry: child)
 
+            case "NetworkLink":
+                let child = try pop(KMLNetworkLink.self, forElement: elementName)
+                stack.last?.setValue(child, forKey: "link")
+                
             case "NetworkLinkControl":
                 let child = try pop(KMLNetworkLinkControl.self, forElement: elementName)
                 stack.last?.setValue(child, forKey: "networkLinkControl")
@@ -648,7 +715,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "option":
                 let child = try pop(KMLAbstractView.ViewOption.self, forElement: elementName)
                 guard let options = stack.last as? NSMutableArray else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 options.add(child)
                 
@@ -666,16 +733,24 @@ open class KMLParser: NSObject, XMLParserDelegate {
 
             case "Pair":
                 let child = try pop(KeyValuePair.self, forElement: elementName)
-                guard let key = child.key,
-                      let styleUrl = child.values.first as? URL,
-                      let map = stack.last as? KMLStyleMap
-                else { return }
-                map.pairs[key] = styleUrl
+                guard let key = child.key else { return }
+                guard let map = stack.last as? KMLStyleMap else {
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
+                }
+                
+                switch child.values.first {
+                case let style as KMLStyleSelector:
+                    map.pairs[key] = style
+                case let url as URL:
+                    map.pairs[key] = KMLStyleRef(styleUrl: url)
+                default:
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
+                }
                 
             case "Polygon":
                 let child = try pop(KMLPolygon.self, forElement: elementName)
                 guard let collection = stack.last as? KMLGeometryCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(geometry: child)
 
@@ -686,14 +761,14 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "PhotoOverlay":
                 let child = try pop(KMLPhotoOverlay.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
                 
             case "Placemark":
                 let child = try pop(KMLPlacemark.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
 
@@ -709,7 +784,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 case let collection as KMLGeometryCollection:
                     collection.add(geometry: child)
                 default:
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 
             case "Region":
@@ -740,17 +815,17 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "ScreenOverlay":
                 let child = try pop(KMLScreenOverlay.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
                 
             case "SimpleArrayData":
                 let child = try pop(KeyValuePair.self, forElement: elementName)
                 guard let key = child.key else {
-                    throw ParsingError.missingElement("key")
+                    throw ParsingError.missingElement("key", line: parser.lineNumber)
                 }
                 guard let schemaData = stack.last as? KMLSchemaData else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 schemaData.data[key] = child.values
 
@@ -761,13 +836,12 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "SimpleData":
                 let child = try pop(KeyValuePair.self, forElement: elementName)
                 guard let key = child.key else {
-                    throw ParsingError.missingElement("key")
+                    throw ParsingError.missingElement("key", line: parser.lineNumber)
                 }
-                guard let value = child.values.first else {
-                    throw ParsingError.missingElement("key")
-                }
+                
+                let value = child.values.first as? String ?? buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 guard let schemaData = stack.last as? KMLSchemaData else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 schemaData.data[key] = value
                 
@@ -781,15 +855,20 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 
             case "Style":
                 let child = try pop(KMLStyle.self, forElement: elementName)
-                guard let feature = stack.last as? KMLFeature else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                switch stack.last {
+                case let pair as KeyValuePair:
+                    pair.values.append(child)
+                case let feature as KMLFeature:
+                    feature.styleSelector.append(child)
+                default:
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
-                feature.styleSelector.append(child)
+                
                 
             case "StyleMap":
                 let child = try pop(KMLStyleMap.self, forElement: elementName)
                 guard let feature = stack.last as? KMLFeature else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 feature.styleSelector.append(child)
                 
@@ -804,7 +883,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
             case "Tour":
                 let child = try pop(KMLTour.self, forElement: elementName)
                 guard let collection = stack.last as? KMLFeatureCollection else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
                 collection.add(feature: child)
                 
@@ -820,7 +899,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 case let collection as KMLGeometryCollection:
                     collection.add(geometry: child)
                 default:
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: child, elementName: elementName, line: parser.lineNumber)
                 }
 
             case "Update":
@@ -871,10 +950,10 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 
             case "coord":
                 guard let value = parseCoordinates(buffer).first else {
-                    throw ParsingError.missingElement("coord")
+                    throw ParsingError.missingElement("coord", line: parser.lineNumber)
                 }
                 guard let track = stack.last as? KMLTrack else {
-                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: value, elementName: elementName)
+                    throw ParsingError.unsupportedRelationship(parent: stack.last, child: value, elementName: elementName, line: parser.lineNumber)
                 }
                 coordIndex += 1
                 if coordIndex < track.coordinates.endIndex {
@@ -899,6 +978,10 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
                 stack.last?.setValue(value, forKey: "featureDescription")
 
+            case "displayMode":
+                let value = KMLBalloonStyle.DisplayMode(buffer)
+                stack.last?.setValue(value, forKey: elementName)
+                
             case "east":
                 let value = CLLocationDegrees(buffer) ?? 0
                 stack.last?.setValue(value, forKey: elementName)
@@ -1055,7 +1138,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
                 
-            case "x", "y", "z":
+            case "w", "h", "x", "y", "z":
                 let value = Double(buffer) ?? 1.0
                 stack.last?.setValue(value, forKey: elementName)
 
@@ -1072,7 +1155,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 stack.last?.setValue(value, forKey: elementName)
 
             // MARK: - Boolean scalars
-            case "balloonVisibility", "extrude", "fill", "open", "outline", "tessellate", "visibility":
+            case "balloonVisibility", "extrude", "fill", "interpolate", "open", "outline", "tessellate", "visibility":
                 let value = (buffer as NSString).boolValue
                 stack.last?.setValue(value, forKey: elementName)
             
@@ -1097,7 +1180,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
 
                 
             default:
-                throw ParsingError.unsupportedElement(elementName: elementName)
+                throw ParsingError.unsupportedElement(elementName: elementName, line: parser.lineNumber)
             }
             
             buffer = ""
@@ -1107,16 +1190,39 @@ open class KMLParser: NSObject, XMLParserDelegate {
             if let change = parent as? KMLChange,
                let child = child as? KMLObject {
                 change.objects.append(child)
-                
+
+            } else if let delete = parent as? KMLDelete,
+                      let child = child as? KMLFeature {
+                delete.features.append(child)
+
+            } else if let delete = parent as? KMLDelete,
+                      let child = child as? KMLGeometry {
+                delete.geometry.append(child)
+
+            } else if let create = parent as? KMLCreate,
+                      let child = child as? KMLContainer {
+                create.containers.append(child)
+
+            } else if let create = parent as? KMLCreate,
+                      let child = child as? KMLMultiTrack {
+                create.multiTracks.append(child)
+
+            } else if let create = parent as? KMLCreate,
+                      let child = child as? KMLMultiGeometry {
+                create.multiGeometry.append(child)
+
             } else {
-                self.error = ParsingError.unsupportedRelationship(parent: parent, child: child, elementName: elementName, line: line)
-                parser.abortParsing()
+                self.errors.append(ParsingError.unsupportedRelationship(parent: parent, child: child, elementName: elementName, line: line))
+                if strict {
+                    parser.abortParsing()
+                }
             }
             
         } catch {
-            
-            self.error = error
-            parser.abortParsing()
+            self.errors.append(error)
+            if strict {
+                parser.abortParsing()
+            }
         }
         
     }

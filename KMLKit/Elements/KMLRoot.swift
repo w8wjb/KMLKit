@@ -50,3 +50,20 @@ open class KMLRoot: NSObject, KMLFeatureCollection {
     
     
 }
+
+#if os(macOS)
+extension KMLRoot: KMLWriterNode {
+    static let elementName = "kml"
+    
+    func toElement() -> XMLElement {
+        let element = XMLElement(name: type(of: self).elementName)
+        let ns = XMLNode.namespace(withName: "", stringValue: "http://www.opengis.net/kml/2.2") as! XMLNode
+        element.addNamespace(ns)
+        
+        addChild(to: element, child: self.networkLinkControl)
+        addChild(to: element, child: self.feature)
+
+        return element
+    }
+}
+#endif

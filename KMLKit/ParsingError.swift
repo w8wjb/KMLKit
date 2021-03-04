@@ -11,9 +11,9 @@ enum ParsingError: Error {
     case unsupportedFormat(_ extension: String)
     case unsupportedDateFormat(_ dateString: String)
     case failedToReadFile(_ url: URL)
-    case unsupportedElement(elementName: String, line: Int = #line)
-    case unsupportedRelationship(parent: Any?, child: Any?, elementName: String, line: Int = #line)
-    case unexpectedElement(expected: String, line: Int = #line)
+    case unsupportedElement(elementName: String, line: Int)
+    case unsupportedRelationship(parent: Any?, child: Any?, elementName: String, line: Int)
+    case unexpectedElement(expected: String, line: Int? = nil)
     case missingAttribute(_ name: String)
-    case missingElement(_ name: String)
+    case missingElement(_ name: String, line: Int)
 }

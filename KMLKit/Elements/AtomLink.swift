@@ -7,9 +7,9 @@
 
 import Foundation
 
-open class AtomLink: NSObject {
+open class AtomLink: NSObject, KMLAbstractLink {
     
-    @objc open var href: URL
+    @objc open var href: URL?
     @objc open var rel: String?
     @objc open var type: String?
     @objc open var hreflang: String?

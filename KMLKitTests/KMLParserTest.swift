@@ -673,11 +673,22 @@ class KMLParserTest: XCTestCase {
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
         let styleMap = document.styleSelector.compactMap({ $0 as? KMLStyleMap }).first!
         
-        let expectedPairs = ["normal": URL(string: "#normalState"),
-                             "highlight": URL(string: "#highlightState"),]
         
-        XCTAssertEqual(expectedPairs, styleMap.pairs)
-        
+        for (key, value) in styleMap {
+            guard let styleRef = value as? KMLStyleRef else {
+                XCTFail("Got an unexpected value \(value)")
+                continue
+            }
+            
+            switch key {
+            case "normal":
+                XCTAssertEqual("normalState", styleRef.styleUrl.fragment)
+            case "highlight":
+                XCTAssertEqual("highlightState", styleRef.styleUrl.fragment)
+            default:
+                XCTFail("Unexpected key \(key)")
+            }
+        }
     }
     
     func testParse_timespan_example() throws {
@@ -934,5 +945,6 @@ class KMLParserTest: XCTestCase {
         let multiTrack = geometry.geometry.removeFirst() as! KMLMultiTrack
         XCTAssertEqual(2, multiTrack.tracks.count)
     }
+    
     
 }

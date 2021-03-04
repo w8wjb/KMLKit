@@ -23,7 +23,7 @@ open class KMLAbstractView: KMLObject {
         }
     }
     
-    @objc var time: KMLTimePrimitive?
-    @objc var options: [ViewOption] = []
+    @objc open var time: KMLTimePrimitive?
+    @objc open var options: [ViewOption] = []
 }
 

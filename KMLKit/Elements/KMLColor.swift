@@ -10,7 +10,7 @@ import Foundation
 import MapKit
 #if os(iOS)
 import UIKit
-open typealias KMLColor = UIColor
+public typealias KMLColor = UIColor
 
 #elseif os(macOS)
 

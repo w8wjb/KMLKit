@@ -12,13 +12,14 @@ open class KMLFeature: KMLObject {
     @objc open var balloonVisibility = true
     @objc open var open = false
     @objc open var author: AtomAuthor?
-    @objc open var link: AtomLink?
+    @objc open var link: KMLAbstractLink?
     @objc open var address: String?
     @objc open var addressDetails: [String:Any] = [:]
     @objc open var phoneNumber: String?
     @objc open var snippets: [KMLSnippet] = []
     @objc open var featureDescription: String?
     @objc open var view: KMLAbstractView?
+    @objc open var time: KMLTimePrimitive?
     @objc open var styleUrl: URL?
     @objc open var styleSelector: [KMLStyleSelector] = []
     @objc open var region: KMLRegion?
