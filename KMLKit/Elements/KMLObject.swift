@@ -7,6 +7,9 @@
 
 import Foundation
 
+/**
+ This is an abstract base class and cannot be used directly in a KML file. It provides the **id** attribute, which allows unique identification of a KML element, and the **targetId** attribute, which is used to reference objects that have already been loaded into Google Earth. The id attribute must be assigned if the &lt;Update&gt; mechanism is to be used.
+ */
 open class KMLObject: NSObject {
     @objc open var id: String?
     @objc open var name: String?
@@ -30,11 +33,11 @@ open class KMLObject: NSObject {
         return String(className)
     }
     
-    internal func toElement() -> XMLElement {
+    internal func toElement(in doc: XMLDocument) -> XMLElement {
         let element = XMLElement(name: type(of: self).elementName)
         addAttribute(to: element, withName: "id", value: id)
-        addAttribute(to: element, withName: "name", value: name)
         addAttribute(to: element, withName: "targetId", value: targetId)
+        addSimpleChild(to: element, withName: "name", value: name)
         return element
     }
 }

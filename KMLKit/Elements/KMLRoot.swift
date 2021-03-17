@@ -10,6 +10,7 @@ import Foundation
 open class KMLRoot: NSObject, KMLFeatureCollection {
     
     @objc open var name: String?
+    /** The hint attribute is used as a signal to Google Earth to display the file as celestial data. */
     @objc open var hint: String?
     @objc open var networkLinkControl: KMLNetworkLinkControl?
     @objc open var feature: KMLFeature?
@@ -55,13 +56,14 @@ open class KMLRoot: NSObject, KMLFeatureCollection {
 extension KMLRoot: KMLWriterNode {
     static let elementName = "kml"
     
-    func toElement() -> XMLElement {
+    func toElement(in doc: XMLDocument) -> XMLElement {
         let element = XMLElement(name: type(of: self).elementName)
         let ns = XMLNode.namespace(withName: "", stringValue: "http://www.opengis.net/kml/2.2") as! XMLNode
         element.addNamespace(ns)
+        doc.addChild(element)
         
-        addChild(to: element, child: self.networkLinkControl)
-        addChild(to: element, child: self.feature)
+        addChild(to: element, child: self.networkLinkControl, in: doc)
+        addChild(to: element, child: self.feature, in: doc)
 
         return element
     }

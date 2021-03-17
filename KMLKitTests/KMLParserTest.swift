@@ -82,7 +82,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual("t4856505", style.id)
         
         let labelStyle = style.labelStyle!
-        XCTAssertEqual("#ffa8ff00", labelStyle.color.hexRGBaColor)
+        XCTAssertEqual("ffa8ff00", labelStyle.color.hexRGBaColor)
         XCTAssertEqual(0.75, labelStyle.scale)
         
         let iconStyle = style.iconStyle!
@@ -92,12 +92,12 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(URL(string: "files/sym/f24/p6ap6a.png"), icon.href)
 
         let lineStyle = style.lineStyle!
-        XCTAssertEqual("#fffc00ff", lineStyle.color.hexRGBaColor)
+        XCTAssertEqual("fffc00ff", lineStyle.color.hexRGBaColor)
         XCTAssertEqual(.normal, lineStyle.colorMode)
         XCTAssertEqual(2, lineStyle.width)
         
         let polyStyle = style.polyStyle!
-        XCTAssertEqual("#7f00ff00", polyStyle.color.hexRGBaColor)
+        XCTAssertEqual("7f00ff00", polyStyle.color.hexRGBaColor)
         
         let placemark = document.features.first as! KMLPlacemark
         XCTAssertEqual("W8AGT-9", placemark.name)
@@ -241,7 +241,7 @@ class KMLParserTest: XCTestCase {
         let style = document.styleSelector.first as! KMLStyle
         let balloonStyle = style.balloonStyle
         
-        XCTAssertEqual("#ffffffbb", balloonStyle?.bgColor?.hexRGBaColor)
+        XCTAssertEqual("ffffffbb", balloonStyle?.bgColor?.hexRGBaColor)
         XCTAssertEqual("<b><font color=\"#CC0000\" size=\"+3\">$[name]</font></b>\n      <br/><br/>\n      <font face=\"Courier\">$[description]</font>\n      <br/><br/>\n      Extra text that will appear in the description balloon\n      <br/><br/>\n      <!-- insert the to/from hyperlinks -->\n      $[geDirections]", balloonStyle?.text)
         
         
@@ -347,7 +347,7 @@ class KMLParserTest: XCTestCase {
         let groundOverlay = kml.findFirstFeature(ofType: KMLGroundOverlay.self)!
 
         XCTAssertEqual("GroundOverlay.kml", groundOverlay.name)
-        XCTAssertEqual("#7fffffff", groundOverlay.color?.hexRGBaColor)
+        XCTAssertEqual("7fffffff", groundOverlay.color?.hexRGBaColor)
         XCTAssertEqual(1, groundOverlay.drawOrder)
         
         let icon = groundOverlay.icon!
@@ -375,7 +375,7 @@ class KMLParserTest: XCTestCase {
         let style = document.findStyle(withId: "randomColorIcon")!
         let iconStyle = style.iconStyle!
         
-        XCTAssertEqual("#ff00ff00", iconStyle.color.hexRGBaColor)
+        XCTAssertEqual("ff00ff00", iconStyle.color.hexRGBaColor)
         XCTAssertEqual(.random, iconStyle.colorMode)
         XCTAssertEqual(1.1, iconStyle.scale)
         
@@ -396,7 +396,7 @@ class KMLParserTest: XCTestCase {
         let labelStyle = style.labelStyle!
 
         
-        XCTAssertEqual("#ff0000cc", labelStyle.color.hexRGBaColor)
+        XCTAssertEqual("ff0000cc", labelStyle.color.hexRGBaColor)
         XCTAssertEqual(.random, labelStyle.colorMode)
         XCTAssertEqual(1.5, labelStyle.scale)
 
@@ -517,7 +517,7 @@ class KMLParserTest: XCTestCase {
             
             switch style.id {
             case "bgColorExample":
-                XCTAssertEqual("#ff336699", listStyle.bgColor.hexRGBaColor)
+                XCTAssertEqual("ff336699", listStyle.bgColor.hexRGBaColor)
             case "checkHideChildrenExample":
                 XCTAssertEqual(.checkHideChildren, listStyle.listItemType)
             case "radioFolderExample":
@@ -629,7 +629,7 @@ class KMLParserTest: XCTestCase {
         
         let style = document.findStyle(withId: "examplePolyStyle")!
         let polyStyle = style.polyStyle!
-        XCTAssertEqual("#ff0000cc", polyStyle.color.hexRGBaColor)
+        XCTAssertEqual("ff0000cc", polyStyle.color.hexRGBaColor)
         XCTAssertEqual(.random, polyStyle.colorMode)
         
     }
@@ -865,7 +865,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertTrue(style.polyStyle!.fill)
         XCTAssertFalse(style.polyStyle!.outline)
         
-        XCTAssertEqual("#ff0000ff", style.balloonStyle?.textColor?.hexRGBaColor)
+        XCTAssertEqual("ff0000ff", style.balloonStyle?.textColor?.hexRGBaColor)
 
         
         let photoOverlay = document.findFirstFeature(ofType: KMLPhotoOverlay.self)!

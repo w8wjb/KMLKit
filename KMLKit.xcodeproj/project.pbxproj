@@ -34,7 +34,6 @@
 		AD55D51B25E991390069A6CE /* KMLOrientation.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE196DD25E829CE00935306 /* KMLOrientation.swift */; };
 		AD55D51F25E9914A0069A6CE /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
 		AD55D52125E9914A0069A6CE /* ParsingError.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1965025E7F58500935306 /* ParsingError.swift */; };
-		AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1972125E9652100935306 /* KMLWriter.swift */; };
 		AD55D52825E991780069A6CE /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = AD55D52725E991780069A6CE /* ZIPFoundation */; };
 		AD55D54025E997200069A6CE /* KmlColorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D53F25E997200069A6CE /* KmlColorTest.swift */; };
 		AD55D56025E9CD600069A6CE /* stylemap_example.kml in Resources */ = {isa = PBXBuildFile; fileRef = AD55D54425E9CD5F0069A6CE /* stylemap_example.kml */; };
@@ -600,7 +599,6 @@
 				AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */,
 				AD55D50925E991390069A6CE /* KMLAltitudeMode.swift in Sources */,
 				AD55D5F325EC625E0069A6CE /* KMLDocument.swift in Sources */,
-				AD55D52225E9914A0069A6CE /* KMLWriter.swift in Sources */,
 				AD55D50C25E991390069A6CE /* KMLCamera.swift in Sources */,
 				AD55D60E25ED44890069A6CE /* KMLSimpleData.swift in Sources */,
 				AD55D51225E991390069A6CE /* KMLNetworkLinkControl.swift in Sources */,

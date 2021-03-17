@@ -127,30 +127,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
     private var whenIndex = -1
     private var coordIndex = -1
     
-    private let gYearFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy"
-        return formatter
-    }()
-    
-    private let gYearMonthFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM"
-        return formatter
-    }()
-    
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-    
-    private let dateTimeFormatter: ISO8601DateFormatter = {
-        let formatter = ISO8601DateFormatter()
-        formatter.formatOptions = .withInternetDateTime
-        return formatter
-    }()
-    
+
     private func push(_ element: NSObject) {
         self.stack.append(element)
     }
@@ -1229,13 +1206,13 @@ open class KMLParser: NSObject, XMLParserDelegate {
 
     func parseDateTime(_ input: String) throws -> Date {
                 
-        if let date = gYearFormatter.date(from: input) {
+        if let date = KMLTimeStamp.gYearFormatter.date(from: input) {
             return date
-        } else if let date = gYearMonthFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.gYearMonthFormatter.date(from: input) {
             return date
-        } else if let date = dateFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.dateFormatter.date(from: input) {
             return date
-        } else if let date = dateTimeFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.dateTimeFormatter.date(from: input) {
             return date
         }
         throw ParsingError.unsupportedDateFormat(input)
@@ -1243,13 +1220,13 @@ open class KMLParser: NSObject, XMLParserDelegate {
     
     func parseDateTimeAsComponents(_ input: String) throws -> DateComponents {
                 
-        if let date = gYearFormatter.date(from: input) {
+        if let date = KMLTimeStamp.gYearFormatter.date(from: input) {
             return Calendar.current.dateComponents([.year], from: date)
-        } else if let date = gYearMonthFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.gYearMonthFormatter.date(from: input) {
             return Calendar.current.dateComponents([.year, .month], from: date)
-        } else if let date = dateFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.dateFormatter.date(from: input) {
             return Calendar.current.dateComponents([.year, .month, .day], from: date)
-        } else if let date = dateTimeFormatter.date(from: input) {
+        } else if let date = KMLTimeStamp.dateTimeFormatter.date(from: input) {
             return Calendar.current.dateComponents(in: TimeZone.current, from: date)
         }
         throw ParsingError.unsupportedDateFormat(input)
@@ -1297,13 +1274,13 @@ open class KMLParser: NSObject, XMLParserDelegate {
         return coordinates
     }
     
-    func parsePoint(attrs: [String:String]) -> NSPoint {
+    func parsePoint(attrs: [String:String]) -> CGPoint {
         let x = Double(attrs["x"] ?? "1.0") ?? 1.0
         let y = Double(attrs["y"] ?? "1.0") ?? 1.0
-        return NSPoint(x: x, y: y)
+        return CGPoint(x: x, y: y)
     }
     
-    func parseSize(attrs: [String:String]) -> NSSize {
+    func parseSize(attrs: [String:String]) -> CGSize {
         let width = Double(attrs["x"] ?? "1.0") ?? 1.0
         let height = Double(attrs["y"] ?? "1.0") ?? 1.0
         return CGSize(width: width, height: height)

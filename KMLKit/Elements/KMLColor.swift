@@ -27,19 +27,23 @@ extension KMLColor {
         var g:CGFloat = 0
         var b:CGFloat = 0
         var a:CGFloat = 0
+        #if os(macOS)
+        usingColorSpace(.sRGB)!.getRed(&r, green: &g, blue: &b, alpha: &a)
+        #else
         getRed(&r, green: &g, blue: &b, alpha: &a)
+        #endif
         return (r,g,b,a)
     }
     
     var hexRGBColor: String {
-        return String(format: "#%02x%02x%02x",
+        return String(format: "%02x%02x%02x",
                       Int(rgbComponents.red * 255),
                       Int(rgbComponents.green * 255),
                       Int(rgbComponents.blue * 255))
     }
     
     var hexRGBaColor: String {
-        return String(format: "#%02x%02x%02x%02x",
+        return String(format: "%02x%02x%02x%02x",
                       Int(rgbComponents.red * 255),
                       Int(rgbComponents.green * 255),
                       Int(rgbComponents.blue * 255),

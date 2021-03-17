@@ -19,3 +19,20 @@ open class KMLSnippet: NSObject {
         self.maxLines =  Int(attributes["maxLines"] ?? "2") ?? 2
     }
 }
+
+#if os(macOS)
+extension KMLSnippet: KMLWriterNode {
+    static let elementName = "Snippet"
+    
+    func toElement(in doc: XMLDocument) -> XMLElement {
+        let element = XMLElement(name: Swift.type(of: self).elementName)
+        
+        if maxLines != 2 {
+            let attr = XMLNode.attribute(withName: "maxLines", stringValue: String(maxLines)) as! XMLNode
+            element.addAttribute(attr)
+        }
+        element.setStringValue(value ?? "", resolvingEntities: false)        
+        return element
+    }
+}
+#endif

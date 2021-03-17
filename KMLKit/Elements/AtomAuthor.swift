@@ -33,3 +33,26 @@ open class AtomAuthor: NSObject {
     }
     
 }
+
+#if os(macOS)
+extension AtomAuthor: KMLWriterNode {
+    static let elementName = "atom:author"
+    
+    func toElement(in doc: XMLDocument) -> XMLElement {
+        let element = XMLElement(name: type(of: self).elementName)
+        element.addNamespace(XMLNode.namespace(withName: "atom", stringValue: "http://www.w3.org/2005/Atom") as! XMLNode)
+        
+        for child in name {
+            addSimpleChild(to: element, withName: "atom:name", value: child)
+        }
+        for child in email {
+            addSimpleChild(to: element, withName: "atom:email", value: child)
+        }
+        for child in uri {
+            addSimpleChild(to: element, withName: "atom:uri", value: child)
+        }
+
+        return element
+    }
+}
+#endif

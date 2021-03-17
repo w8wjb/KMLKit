@@ -10,18 +10,17 @@ import XCTest
 
 class KMLWriterTest: XCTestCase {
 
-    func testWrite() throws {
+    let bundle = Bundle(for: KMLWriterTest.self)
+    
+    func getSampleFile(_ resource: String, type: String) throws -> URL {
+        let path = bundle.path(forResource: resource, ofType: type)!
+        return URL(fileURLWithPath: path)
+    }
+    
+    func testWrite_KML_Samples() throws {
         
-        let kml = KMLRoot()
-        kml.name = "root name"
-        kml.hint = "root hint"
-        
-        let networkLinkControl = KMLNetworkLinkControl()
-        kml.networkLinkControl = networkLinkControl
-        
-        let doc = KMLDocument()
-        kml.feature = doc
-        doc.id = "root-document"
+        let kmlFile = try getSampleFile("KML_Samples", type: "kml")
+        let kml = try KMLParser.parse(file: kmlFile)
         
         let writer = KMLWriter()
         

@@ -15,6 +15,9 @@ public protocol KMLFeatureCollection {
 }
 
 
+/**
+ This is an abstract element and cannot be used directly in a KML file. A Container element holds one or more Features and allows the creation of nested hierarchies.
+ */
 open class KMLContainer: KMLFeature, KMLFeatureCollection {
 
     var features: [KMLFeature] = []
@@ -75,5 +78,21 @@ extension KMLContainer: Collection {
     public func makeIterator() -> Iterator { return features.makeIterator() }
 }
 
+#if os(macOS)
+extension KMLContainer {
+
+    override func toElement(in doc: XMLDocument) -> XMLElement {
+        let element = super.toElement(in: doc)
+        for child in features {
+            addChild(to: element, child: child, in: doc)
+        }
+        return element
+    }
+}
+#endif
+
+/**
+ A Folder is used to arrange other Features hierarchically (Folders, Placemarks, NetworkLinks, or Overlays). A Feature is visible only if it and all its ancestors are visible.
+ */
 open class KMLFolder: KMLContainer {
 }
