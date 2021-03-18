@@ -144,6 +144,15 @@ open class KMLParser: NSObject, XMLParserDelegate {
         throw ParsingError.unexpectedElement(expected: elementName)
     }
     
+    private func setStackValue(_ value: Any?, forKey key: String) {
+        let ex = tryBlock {
+            self.stack.last?.setValue(value, forKey: key)
+        }
+        if let ex = ex {
+            self.errors.append(ParsingError.unexpectedError(exception: ex))
+        }
+    }
+    
     open func parser(_ parser: XMLParser, foundCharacters string: String) {
         buffer.append(string)
     }
@@ -899,11 +908,11 @@ open class KMLParser: NSObject, XMLParserDelegate {
 
             case "altitude":
                 let value = CLLocationDistance(buffer) ?? 0.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "altitudeMode":
                 let value = KMLAltitudeMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "angles":
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -911,19 +920,19 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 
             case "begin":
                 let value = try parseDateTimeAsComponents(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "bgColor":
                 let value = KMLColor(hex: buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "color":
                 let value = KMLColor(hex: buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "colorMode":
                 let value = KMLColorMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "coord":
                 guard let value = parseCoordinates(buffer).first else {
@@ -949,7 +958,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 
             case "coordinates":
                 let value = parseCoordinates(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
             
             case "description":
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
@@ -957,131 +966,131 @@ open class KMLParser: NSObject, XMLParserDelegate {
 
             case "displayMode":
                 let value = KMLBalloonStyle.DisplayMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "east":
                 let value = CLLocationDegrees(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "end":
                 let value = try parseDateTimeAsComponents(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "flyToMode":
                 let value = KMLTourFlyTo.FlyToMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "gridOrigin":
                 let value = KMLPhotoOverlay.GridOrigin(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "heading":
                 let value = CLLocationDirection(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "href", "uri":
                 guard let value = URL(string: buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "latitude":
                 guard let value = CLLocationDegrees(buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "longitude":
                 guard let value = CLLocationDegrees(buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "listItemType":
                 let value = KMLListStyle.ListItemType(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "maxSnippetLines":
                 let value = Int(buffer) ?? 2
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "north":
                 let value = CLLocationDegrees(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "overlayXY":
                 let value = try pop(CGPoint.self, forElement: elementName)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "playMode":
                 let value = KMLTourControl.PlayMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "refreshInterval":
                 let value = Double(buffer) ?? 4.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "refreshMode":
                 let value = KMLIcon.KMLRefreshMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "rotationXY":
                 let value = try pop(CGPoint.self, forElement: elementName)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "scale":
                 let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "screenXY":
                 let value = try pop(CGPoint.self, forElement: elementName)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "seaFloorAltitudeMode":
                 let value = KMLSeaFloorAltitudeMode(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "shape":
                 let value = KMLPhotoOverlay.Shape(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "size":
                 let value = try pop(CGSize.self, forElement: elementName)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "south":
                 let value = CLLocationDegrees(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "sourceHref":
                 guard let value = URL(string: buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "state":
                 let value = KMLItemIcon.IconState(buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "styleUrl":
                 guard let value = URL(string: buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "targetHref":
                 guard let value = URL(string: buffer) else { break }
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "textColor":
                 let value = KMLColor(hex: buffer)
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "tileSize":
                 let value = Int(buffer) ?? 256
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "viewBoundScale":
                 let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "viewRefreshTime":
                 let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             case "west":
                 let value = CLLocationDegrees(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "when":
                 switch stack.last {
@@ -1108,33 +1117,33 @@ open class KMLParser: NSObject, XMLParserDelegate {
                     
                 default:
                     let value = try parseDateTimeAsComponents(buffer)
-                    stack.last?.setValue(value, forKey: elementName)
+                    setStackValue(value, forKey: elementName)
                 }
                 
             case "width":
                 let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             case "w", "h", "x", "y", "z":
                 let value = Double(buffer) ?? 1.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             // MARK: - Int scalars, default 0
             case "drawOrder", "maxHeight", "maxSessionLength", "maxWidth":
                 let value = Int(buffer) ?? 0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
                 
             // MARK: - Double scalars, default 0
             case "altitudeOffset", "bottomFov", "delayedStart", "duration", "horizFov", "leftFov", "minAltitude",
                  "maxAltitude", "maxFadeExtent", "maxLodPixels", "minFadeExtent", "minLodPixels", "minRefreshPeriod",
                  "near", "range", "rightFov", "roll", "rotation", "tilt", "topFov" :
                 let value = Double(buffer) ?? 0.0
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
 
             // MARK: - Boolean scalars
             case "balloonVisibility", "extrude", "fill", "interpolate", "open", "outline", "tessellate", "visibility":
                 let value = (buffer as NSString).boolValue
-                stack.last?.setValue(value, forKey: elementName)
+                setStackValue(value, forKey: elementName)
             
             // MARK: - String scalars
             case "address",
@@ -1153,8 +1162,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                  "value",
                  "viewFormat":
                 let value = buffer.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
-                stack.last?.setValue(value, forKey: elementName)
-
+                setStackValue(value, forKey: elementName)
                 
             default:
                 throw ParsingError.unsupportedElement(elementName: elementName, line: parser.lineNumber)

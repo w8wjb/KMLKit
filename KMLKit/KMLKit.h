@@ -13,6 +13,13 @@ FOUNDATION_EXPORT double KMLKitVersionNumber;
 //! Project version string for KMLKit.
 FOUNDATION_EXPORT const unsigned char KMLKitVersionString[];
 
-// In this header, you should import all the public headers of your framework using statements like #import <KMLKit/PublicHeader.h>
 
-
+NS_INLINE NSException * _Nullable tryBlock(void(^_Nonnull tryBlock)(void)) {
+    @try {
+        tryBlock();
+    }
+    @catch (NSException *exception) {
+        return exception;
+    }
+    return nil;
+}

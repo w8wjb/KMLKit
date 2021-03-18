@@ -16,6 +16,7 @@
 		AD2A5A522603BE87001147C3 /* atom-author-link.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */; };
 		AD2A5A532603BE87001147C3 /* kml22gx.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A502603BE87001147C3 /* kml22gx.xsd */; };
 		AD2A5A542603BE87001147C3 /* ogckml23.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A512603BE87001147C3 /* ogckml23.xsd */; };
+		AD2A5A8426041C72001147C3 /* testdata in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A8326041C72001147C3 /* testdata */; };
 		AD55D4F425E990E20069A6CE /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD55D4F225E990E20069A6CE /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */; };
 		AD55D50225E991390069A6CE /* KMLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KMLObject.swift */; };
@@ -149,6 +150,7 @@
 		AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "atom-author-link.xsd"; sourceTree = "<group>"; };
 		AD2A5A502603BE87001147C3 /* kml22gx.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = kml22gx.xsd; sourceTree = "<group>"; };
 		AD2A5A512603BE87001147C3 /* ogckml23.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ogckml23.xsd; sourceTree = "<group>"; };
+		AD2A5A8326041C72001147C3 /* testdata */ = {isa = PBXFileReference; lastKnownFileType = folder; name = testdata; path = libkml/testdata; sourceTree = "<group>"; };
 		AD55D4F025E990E20069A6CE /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD55D4F225E990E20069A6CE /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		AD55D4F325E990E20069A6CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -326,12 +328,13 @@
 		ADE1962C25E7F2CB00935306 /* KMLKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				AD2A5A4E2603BE63001147C3 /* schema */,
-				ADE1965725E7F70E00935306 /* Sample Data */,
-				ADE1964425E7F4E400935306 /* KMLParserTest.swift */,
+				AD2A5A8326041C72001147C3 /* testdata */,
 				ADE1962F25E7F2CB00935306 /* Info.plist */,
 				AD55D53F25E997200069A6CE /* KmlColorTest.swift */,
+				ADE1964425E7F4E400935306 /* KMLParserTest.swift */,
 				AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */,
+				ADE1965725E7F70E00935306 /* Sample Data */,
+				AD2A5A4E2603BE63001147C3 /* schema */,
 			);
 			path = KMLKitTests;
 			sourceTree = "<group>";
@@ -518,6 +521,7 @@
 					};
 					ADE1962725E7F2CB00935306 = {
 						CreatedOnToolsVersion = 12.4;
+						LastSwiftMigration = 1240;
 					};
 				};
 			};
@@ -569,6 +573,7 @@
 			files = (
 				AD55D56D25E9CD600069A6CE /* balloonstyle_example.kml in Resources */,
 				AD55D57025E9CD600069A6CE /* lookat_example.kml in Resources */,
+				AD2A5A8426041C72001147C3 /* testdata in Resources */,
 				AD55D57625E9CD600069A6CE /* placemark_example.kml in Resources */,
 				AD2A5A522603BE87001147C3 /* atom-author-link.xsd in Resources */,
 				AD55D57525E9CD600069A6CE /* author_example.kml in Resources */,
@@ -949,6 +954,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX25C7QZ85;
@@ -961,6 +967,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -969,6 +977,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = EX25C7QZ85;
@@ -981,6 +990,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

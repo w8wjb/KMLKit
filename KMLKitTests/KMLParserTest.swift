@@ -10,17 +10,17 @@ import XCTest
 
 @testable import KMLKit
 class KMLParserTest: XCTestCase {
-
+    
     let bundle = Bundle(for: KMLParserTest.self)
     
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
-
+    
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
+    
     
     func getSampleFile(_ resource: String, type: String) throws -> URL {
         let path = bundle.path(forResource: resource, ofType: type)!
@@ -44,13 +44,13 @@ class KMLParserTest: XCTestCase {
         components = try parser.parseDateTimeAsComponents("1997-07")
         XCTAssertEqual(1997, components.year)
         XCTAssertEqual(7, components.month)
-
+        
         components = try parser.parseDateTimeAsComponents("1997-07-16")
         XCTAssertEqual(1997, components.year)
         XCTAssertEqual(7, components.month)
         XCTAssertEqual(16, components.day)
         
-
+        
         var tz = TimeZone(identifier: "UTC")
         var expectedComponents = DateComponents(timeZone: tz, year: 1997, month: 07, day: 16, hour: 7, minute: 30, second: 15)
         var expectedDate = Calendar.current.date(from: expectedComponents)
@@ -58,7 +58,7 @@ class KMLParserTest: XCTestCase {
         components = try parser.parseDateTimeAsComponents("1997-07-16T07:30:15Z")
         var date = Calendar.current.date(from: components)
         XCTAssertEqual(expectedDate, date)
-
+        
         tz = TimeZone(secondsFromGMT: 3 * 60 * 60)
         expectedComponents = DateComponents(timeZone: tz, year: 1997, month: 07, day: 16, hour: 10, minute: 30, second: 15)
         expectedDate = Calendar.current.date(from: expectedComponents)
@@ -66,7 +66,7 @@ class KMLParserTest: XCTestCase {
         components = try parser.parseDateTimeAsComponents("1997-07-16T10:30:15+03:00")
         date = Calendar.current.date(from: components)
         XCTAssertEqual(expectedDate, date)
-
+        
     }
     
     func testParseKMZ() throws {
@@ -90,7 +90,7 @@ class KMLParserTest: XCTestCase {
         
         let icon = iconStyle.icon!
         XCTAssertEqual(URL(string: "files/sym/f24/p6ap6a.png"), icon.href)
-
+        
         let lineStyle = style.lineStyle!
         XCTAssertEqual("fffc00ff", lineStyle.color.hexRGBaColor)
         XCTAssertEqual(.normal, lineStyle.colorMode)
@@ -133,31 +133,31 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(CLLocationDegrees(43.03250), pt1.coordinate.latitude)
         XCTAssertEqual(CLLocationDegrees(-85.62483), pt1.coordinate.longitude)
         XCTAssertEqual(CLLocationDistance(220.00), pt1.altitude)
-
+        
         let pt2 = coordinates.last!
         XCTAssertEqual(CLLocationDegrees(42.78217), pt2.coordinate.latitude)
         XCTAssertEqual(CLLocationDegrees(-85.66333), pt2.coordinate.longitude)
         XCTAssertEqual(CLLocationDistance(249.00), pt2.altitude)
-
-
+        
+        
     }
     
     func testParse_address_example() throws {
         
         let kmlFile = try getSampleFile("address_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let placemark = kml.feature as! KMLPlacemark
         XCTAssertEqual("123 Any Str.", placemark.address)
-
+        
         
     }
     
     func testParse_altitudemode_reference() throws {
         
         let kmlFile = try getSampleFile("altitudemode_reference", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let placemark = kml.feature as! KMLPlacemark
@@ -166,15 +166,15 @@ class KMLParserTest: XCTestCase {
         
         let lineString = placemark.geometry as! KMLLineString
         XCTAssertEqual(.relativeToSeaFloor, lineString.altitudeMode)
-
+        
     }
     
     func testParse_animatedupdate_example() throws {
-
+        
         let kmlFile = try getSampleFile("animatedupdate_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let tour = kml.findFeatures(ofType: KMLTour.self).first!
         
         XCTAssertEqual(3, tour.playlist.items.count)
@@ -204,11 +204,11 @@ class KMLParserTest: XCTestCase {
             
         }
     }
-
+    
     func testParse_author_example() throws {
         
         let kmlFile = try getSampleFile("author_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
@@ -221,20 +221,20 @@ class KMLParserTest: XCTestCase {
         let hogwartsPoint = hogwarts.geometry as! KMLPoint
         XCTAssertEqual(1, hogwartsPoint.location.coordinate.latitude)
         XCTAssertEqual(1, hogwartsPoint.location.coordinate.longitude)
-
+        
         let littleHangleton = document.features[1] as! KMLPlacemark
         XCTAssertEqual("Little Hangleton", littleHangleton.name)
         let littleHangletonPoint = littleHangleton.geometry as! KMLPoint
         XCTAssertEqual(1, littleHangletonPoint.location.coordinate.longitude)
         XCTAssertEqual(2, littleHangletonPoint.location.coordinate.latitude)
-
+        
         
     }
     
     func testParse_balloonstyle_example() throws {
         
         let kmlFile = try getSampleFile("balloonstyle_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
@@ -255,16 +255,16 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(-122.370533, point.location.coordinate.longitude)
         XCTAssertEqual(37.823842, point.location.coordinate.latitude)
         XCTAssertEqual(0, point.location.altitude)
-
+        
         
     }
     
     func testParse_balloonvisibility_example() throws {
         
         let kmlFile = try getSampleFile("balloonvisibility_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         
         let placemark = kml.feature as! KMLPlacemark
         XCTAssertTrue(placemark.balloonVisibility)
@@ -274,7 +274,7 @@ class KMLParserTest: XCTestCase {
     func testParse_balloonvisibility_tourexample() throws {
         
         let kmlFile = try getSampleFile("balloonvisibility_tourexample", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let tour = kml.findFeatures(ofType: KMLTour.self).first!
@@ -293,7 +293,7 @@ class KMLParserTest: XCTestCase {
         
         let balloonVisibilityCount = placemarkChanges.reduce(0, { $0 + ($1.balloonVisibility as NSNumber).intValue })
         XCTAssertEqual(3, balloonVisibilityCount)
-
+        
         let placemarks = kml.findFeatures(ofType: KMLPlacemark.self)
         
         let placemarkIds = placemarks.map { $0.id }
@@ -304,9 +304,9 @@ class KMLParserTest: XCTestCase {
     func testParse_document_example() throws {
         
         let kmlFile = try getSampleFile("document_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let document = kml.findFirstFeature(ofType: KMLDocument.self)
         XCTAssertNotNil(document)
     }
@@ -314,9 +314,9 @@ class KMLParserTest: XCTestCase {
     func testParse_embedded_video_sample() throws {
         
         let kmlFile = try getSampleFile("embedded_video_sample", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
-     
+        
         let placemark = kml.findFirstFeature(ofType: KMLPlacemark.self)!
         
         XCTAssert(placemark.featureDescription!.contains("application/x-shockwave-flash"))
@@ -324,9 +324,9 @@ class KMLParserTest: XCTestCase {
     }
     
     func testParse_folder_example() throws {
-
+        
         let kmlFile = try getSampleFile("folder_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let folder = kml.findFirstFeature(ofType: KMLFolder.self)!
@@ -334,18 +334,18 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual("Folder.kml", folder.name)
         XCTAssertEqual("A folder is a container that can hold multiple other objects", folder.featureDescription)
         XCTAssertTrue(folder.open)
-
+        
     }
     
     
     func testParse_groundoverlay_example() throws {
         
         let kmlFile = try getSampleFile("groundoverlay_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let groundOverlay = kml.findFirstFeature(ofType: KMLGroundOverlay.self)!
-
+        
         XCTAssertEqual("GroundOverlay.kml", groundOverlay.name)
         XCTAssertEqual("7fffffff", groundOverlay.color?.hexRGBaColor)
         XCTAssertEqual(1, groundOverlay.drawOrder)
@@ -362,13 +362,13 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(-122.373033, box.east)
         XCTAssertEqual(-122.373724, box.west)
         XCTAssertEqual(45, box.rotation)
-
+        
     }
-
+    
     func testParse_iconstyle_example() throws {
         
         let kmlFile = try getSampleFile("iconstyle_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
         
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
@@ -381,25 +381,25 @@ class KMLParserTest: XCTestCase {
         
         let icon = iconStyle.icon!
         XCTAssertEqual(URL(string: "http://maps.google.com/mapfiles/kml/pal3/icon21.png"), icon.href)
-
+        
         
     }
     
     func testParse_labelstyle_example() throws {
-     
+        
         let kmlFile = try getSampleFile("labelstyle_example", type: "kml")
-
+        
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
         let style = document.findStyle(withId: "randomLabelColor")!
         let labelStyle = style.labelStyle!
-
+        
         
         XCTAssertEqual("ff0000cc", labelStyle.color.hexRGBaColor)
         XCTAssertEqual(.random, labelStyle.colorMode)
         XCTAssertEqual(1.5, labelStyle.scale)
-
+        
     }
     
     func testParse_latlonquad_example() throws {
@@ -427,7 +427,7 @@ class KMLParserTest: XCTestCase {
         let expectedLatitudes = expectedCoords.compactMap { $0.coordinate.latitude }
         let parsedLatitudes = latlonquad.coordinates.compactMap { $0.coordinate.latitude }
         XCTAssertEqual(expectedLatitudes, parsedLatitudes)
-
+        
         
     }
     
@@ -444,12 +444,12 @@ class KMLParserTest: XCTestCase {
         let expectedLongitudes: [CLLocationDegrees] = [-122.365662, -122.365202, -122.364581, -122.365038, -122.365662]
         let parsedLongitudes = linearRing.coordinates.compactMap { $0.coordinate.longitude }
         XCTAssertEqual(expectedLongitudes, parsedLongitudes)
-
+        
         
         let expectedLatitudes: [CLLocationDegrees] = [37.826988, 37.826302, 37.82655, 37.827237, 37.826988]
         let parsedLatitudes = linearRing.coordinates.compactMap { $0.coordinate.latitude }
         XCTAssertEqual(expectedLatitudes, parsedLatitudes)
-
+        
     }
     
     func testParse_linestring_example() throws {
@@ -457,7 +457,7 @@ class KMLParserTest: XCTestCase {
         let kmlFile = try getSampleFile("linestring_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let lineStrings = kml.findFeatures(ofType: KMLPlacemark.self).compactMap({ $0.geometry as? KMLLineString })
         XCTAssertEqual(2, lineStrings.count)
         
@@ -494,7 +494,7 @@ class KMLParserTest: XCTestCase {
         }
         
     }
-
+    
     func testParse_liststyle_example() throws {
         
         let kmlFile = try getSampleFile("liststyle_example", type: "kml")
@@ -530,7 +530,7 @@ class KMLParserTest: XCTestCase {
     }
     
     func testParse_lookat_example() throws {
-                
+        
         let kmlFile = try getSampleFile("lookat_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
@@ -539,7 +539,7 @@ class KMLParserTest: XCTestCase {
         
         let expectedDate = Date(timeIntervalSince1970: 757400400)
         XCTAssertEqual(expectedDate, placemark.view?.time?.asDate())
-
+        
         let lookAt = placemark.view as! KMLLookAt
         XCTAssertEqual(37.81, lookAt.latitude)
         XCTAssertEqual(-122.363, lookAt.longitude)
@@ -548,7 +548,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(45, lookAt.tilt)
         XCTAssertEqual(0, lookAt.heading)
         XCTAssertEqual(.relativeToGround, lookAt.altitudeMode)
-
+        
     }
     
     func testParse_networklinkcontrol_example() throws {
@@ -556,7 +556,7 @@ class KMLParserTest: XCTestCase {
         let kmlFile = try getSampleFile("networklinkcontrol_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let networkLinkControl = kml.networkLinkControl!
         XCTAssertEqual("This is a pop-up message. You will only see this once", networkLinkControl.message)
         XCTAssertEqual("cookie=sometext", networkLinkControl.cookie)
@@ -587,7 +587,7 @@ class KMLParserTest: XCTestCase {
     }
     
     func testParse_placemark_example() throws {
-
+        
         let kmlFile = try getSampleFile("placemark_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
@@ -610,7 +610,7 @@ class KMLParserTest: XCTestCase {
         let kmlFile = try getSampleFile("polygon_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let placemark = kml.findFirstFeature(ofType: KMLPlacemark.self)!
         let polygon = placemark.geometry as! KMLPolygon
         
@@ -641,7 +641,7 @@ class KMLParserTest: XCTestCase {
         let kml = try KMLParser.parse(file: kmlFile)
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
         let schema = document.schema!
-
+        
         XCTAssertEqual("TrailHeadType", schema.name)
         XCTAssertEqual("TrailHeadTypeId", schema.id)
         
@@ -651,25 +651,25 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual("string", field.type)
         XCTAssertEqual("TrailHeadName", field.name)
         XCTAssertEqual("<b>Trail Head Name</b>", field.displayName)
-
+        
         field = schema.fields[1]
         XCTAssertEqual("double", field.type)
         XCTAssertEqual("TrailLength", field.name)
         XCTAssertEqual("<i>The length in miles</i>", field.displayName)
-
+        
         field = schema.fields[2]
         XCTAssertEqual("int", field.type)
         XCTAssertEqual("ElevationGain", field.name)
         XCTAssertEqual("<i>change in altitude</i>", field.displayName)
-
+        
     }
     
     func testParse_stylemap_example() throws {
-
+        
         let kmlFile = try getSampleFile("stylemap_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let document = kml.findFirstFeature(ofType: KMLDocument.self)!
         let styleMap = document.styleSelector.compactMap({ $0 as? KMLStyleMap }).first!
         
@@ -692,14 +692,14 @@ class KMLParserTest: XCTestCase {
     }
     
     func testParse_timespan_example() throws {
-                
+        
         let kmlFile = try getSampleFile("timespan_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
         
         let placeMarks = kml.findFeatures(ofType: KMLPlacemark.self)
         XCTAssertEqual(2, placeMarks.count)
-
+        
         let cameras = placeMarks.compactMap({ $0.view as? KMLCamera })
         XCTAssertEqual(2, cameras.count)
         
@@ -713,15 +713,15 @@ class KMLParserTest: XCTestCase {
         expectedDate = dateFormatter.date(from: "2002-07-09T19:00:00-08:00")!
         parsedDate = cameras[1].time!.asDate()
         XCTAssertEqual(expectedDate, parsedDate)
-
+        
     }
     
     func testParse_tourprimitive_example() throws {
-
+        
         let kmlFile = try getSampleFile("tourprimitive_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         
         let tour = kml.findFirstFeature(ofType: KMLTour.self)!
         
@@ -743,10 +743,10 @@ class KMLParserTest: XCTestCase {
         let kmlFile = try getSampleFile("track_example", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let placemark = kml.findFirstFeature(ofType: KMLPlacemark.self)!
         let track = placemark.geometry as! KMLTrack
-
+        
         let ss = [9, 35, 44, 53, 54, 55, 56]
         let dist: [CLLocationDistance] = [0, 241.451, 115.104, 123.119, 13.469, 13.58, 13.580, 13.580]
         
@@ -778,7 +778,7 @@ class KMLParserTest: XCTestCase {
         
         XCTAssertEqual("GPS device", document.name)
         XCTAssertEqual("Created Wed Jun 2 15:33:39 2010", document.snippets.first?.value)
-
+        
         
         var expectedIds = ["track_n", "track_h", "multiTrack_n", "multiTrack_h", "waypoint_n", "waypoint_h", "lineStyle"]
         
@@ -788,7 +788,7 @@ class KMLParserTest: XCTestCase {
         expectedIds = ["track", "multiTrack", "waypoint"]
         let styleMapIds = document.styleSelector.compactMap({ ($0 as? KMLStyleMap)?.id })
         XCTAssertEqual(expectedIds, styleMapIds)
-
+        
         
         var expectedKeys = [String]()
         
@@ -828,10 +828,10 @@ class KMLParserTest: XCTestCase {
         
         let heartrateData = (schemaData.data["heartrate"] as! [String]).compactMap(Int.init)
         XCTAssertEqual(1225, heartrateData.reduce(0, +))
-
+        
         let powerData = (schemaData.data["power"] as! [String]).compactMap(Double.init)
         XCTAssertEqual(1371.0, powerData.reduce(0, +))
-
+        
     }
     
     func testParse_kitchen_sink() throws {
@@ -840,7 +840,7 @@ class KMLParserTest: XCTestCase {
         let kmlFile = try getSampleFile("kitchen_sink", type: "kml")
         
         let kml = try KMLParser.parse(file: kmlFile)
-
+        
         let networkLinkControl = kml.networkLinkControl!
         XCTAssertEqual("Link Snippet", networkLinkControl.linkSnippet)
         XCTAssertEqual(60, networkLinkControl.maxSessionLength)
@@ -858,15 +858,15 @@ class KMLParserTest: XCTestCase {
         let style = document.styleSelector.first as! KMLStyle
         
         XCTAssertEqual(CGPoint(x: 3, y: 4), style.iconStyle?.hotSpot)
-
+        
         XCTAssertEqual(3, style.listStyle!.maxSnippetLines)
         XCTAssertEqual(.open, style.listStyle?.itemIcon.first?.state)
-
+        
         XCTAssertTrue(style.polyStyle!.fill)
         XCTAssertFalse(style.polyStyle!.outline)
         
         XCTAssertEqual("ff0000ff", style.balloonStyle?.textColor?.hexRGBaColor)
-
+        
         
         let photoOverlay = document.findFirstFeature(ofType: KMLPhotoOverlay.self)!
         XCTAssertEqual("(555) 867-5309", photoOverlay.phoneNumber)
@@ -918,7 +918,7 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(1, camera.options.count)
         XCTAssertEqual("zoom", camera.options.first?.name)
         XCTAssertEqual(true, camera.options.first?.enabled)
-
+        
         
         let geometry = placemark.geometry as! KMLMultiGeometry
         
@@ -946,5 +946,40 @@ class KMLParserTest: XCTestCase {
         XCTAssertEqual(2, multiTrack.tracks.count)
     }
     
+    func testParseLibKMLExamples() throws {
+        
+        let kmlParser = KMLParser()
+        kmlParser.strict = false // Turn off strict so that the unknown elements do not result in errors
+
+        let subdirs = try XCTUnwrap(bundle.urls(forResourcesWithExtension: nil, subdirectory: "testdata"))
+
+        var filesParsed = 0
+        
+        for subdir in subdirs {
+            
+            guard subdir.hasDirectoryPath else { continue }
+            
+            let kmls = bundle.urls(forResourcesWithExtension: "kml", subdirectory: "testdata/\(subdir.lastPathComponent)") ?? []
+            
+            for kmlFile in kmls {
+                do {
+                    let xml = try String(contentsOf: kmlFile)
+                    
+                    // Make sure it's not a fragment
+                    guard xml.contains("<kml") else {
+                        continue
+                    }
+                    
+                    XCTAssertNoThrow(try kmlParser.parse(file: kmlFile), "Error in \(kmlFile)")
+                    filesParsed += 1
+                } catch {
+                    XCTFail("Failed to parse \(kmlFile): \(error)")
+                }
+            }
+        }
+        
+        XCTAssertEqual(59, filesParsed)
+        
+    }
     
 }

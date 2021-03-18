@@ -16,4 +16,5 @@ enum ParsingError: Error {
     case unexpectedElement(expected: String, line: Int? = nil)
     case missingAttribute(_ name: String)
     case missingElement(_ name: String, line: Int)
+    case unexpectedError(exception: NSException)
 }

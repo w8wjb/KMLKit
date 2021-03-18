@@ -1,0 +1,3 @@
+[submodule "KMLKitTests/libkml"]
+	path = KMLKitTests/libkml
+	url = https://github.com/google/libkml.git
