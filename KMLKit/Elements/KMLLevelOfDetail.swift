@@ -30,13 +30,13 @@ open class KMLLevelOfDetail: KMLObject {
 #if os(macOS)
 extension KMLLevelOfDetail {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "minLodPixels", value: minLodPixels, default: 0.0)
         addSimpleChild(to: element, withName: "maxLodPixels", value: maxLodPixels, default: -1.0)
         addSimpleChild(to: element, withName: "minFadeExtent", value: minFadeExtent, default: 0.0)
         addSimpleChild(to: element, withName: "maxFadeExtent", value: maxFadeExtent, default: 0.0)
-        return element
     }
+
 }
 #endif

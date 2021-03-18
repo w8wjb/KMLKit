@@ -74,9 +74,9 @@ open class KMLTimeStamp: KMLObject, KMLTimePrimitive {
 #if os(macOS)
 extension KMLTimeStamp {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
+
         if let when = self.when, let date = Calendar.current.date(from: when) {
             var formatted: String? = nil
             if when.minute != nil {
@@ -91,7 +91,6 @@ extension KMLTimeStamp {
             addSimpleChild(to: element, withName: "when", value: formatted)
         }
         
-        return element
     }
 }
 #endif
@@ -129,9 +128,9 @@ open class KMLTimeSpan: KMLObject, KMLTimePrimitive {
 #if os(macOS)
 extension KMLTimeSpan {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
+
         if let begin = self.begin, let date = Calendar.current.date(from: begin) {
             var formatted: String? = nil
             if begin.minute != nil {
@@ -160,7 +159,6 @@ extension KMLTimeSpan {
             addSimpleChild(to: element, withName: "end", value: formatted)
         }
         
-        return element
     }
 }
 #endif

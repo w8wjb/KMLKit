@@ -13,6 +13,9 @@
 		AD2A5A1926037537001147C3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A1526037537001147C3 /* LICENSE */; };
 		AD2A5A1A26037537001147C3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A1526037537001147C3 /* LICENSE */; };
 		AD2A5A1B26037537001147C3 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A1526037537001147C3 /* LICENSE */; };
+		AD2A5A522603BE87001147C3 /* atom-author-link.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */; };
+		AD2A5A532603BE87001147C3 /* kml22gx.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A502603BE87001147C3 /* kml22gx.xsd */; };
+		AD2A5A542603BE87001147C3 /* ogckml23.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD2A5A512603BE87001147C3 /* ogckml23.xsd */; };
 		AD55D4F425E990E20069A6CE /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = AD55D4F225E990E20069A6CE /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AD55D4FE25E991260069A6CE /* KMLAbstractView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1966D25E7FC0F00935306 /* KMLAbstractView.swift */; };
 		AD55D50225E991390069A6CE /* KMLObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1967125E7FD3E00935306 /* KMLObject.swift */; };
@@ -143,6 +146,9 @@
 /* Begin PBXFileReference section */
 		AD2A5A1426037537001147C3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		AD2A5A1526037537001147C3 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "atom-author-link.xsd"; sourceTree = "<group>"; };
+		AD2A5A502603BE87001147C3 /* kml22gx.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = kml22gx.xsd; sourceTree = "<group>"; };
+		AD2A5A512603BE87001147C3 /* ogckml23.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ogckml23.xsd; sourceTree = "<group>"; };
 		AD55D4F025E990E20069A6CE /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD55D4F225E990E20069A6CE /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		AD55D4F325E990E20069A6CE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -255,6 +261,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AD2A5A4E2603BE63001147C3 /* schema */ = {
+			isa = PBXGroup;
+			children = (
+				AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */,
+				AD2A5A502603BE87001147C3 /* kml22gx.xsd */,
+				AD2A5A512603BE87001147C3 /* ogckml23.xsd */,
+			);
+			path = schema;
+			sourceTree = "<group>";
+		};
 		AD55D4F125E990E20069A6CE /* KMLKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -310,6 +326,7 @@
 		ADE1962C25E7F2CB00935306 /* KMLKitTests */ = {
 			isa = PBXGroup;
 			children = (
+				AD2A5A4E2603BE63001147C3 /* schema */,
 				ADE1965725E7F70E00935306 /* Sample Data */,
 				ADE1964425E7F4E400935306 /* KMLParserTest.swift */,
 				ADE1962F25E7F2CB00935306 /* Info.plist */,
@@ -553,6 +570,7 @@
 				AD55D56D25E9CD600069A6CE /* balloonstyle_example.kml in Resources */,
 				AD55D57025E9CD600069A6CE /* lookat_example.kml in Resources */,
 				AD55D57625E9CD600069A6CE /* placemark_example.kml in Resources */,
+				AD2A5A522603BE87001147C3 /* atom-author-link.xsd in Resources */,
 				AD55D57525E9CD600069A6CE /* author_example.kml in Resources */,
 				AD55D57A25E9CD600069A6CE /* track_extended_example.kml in Resources */,
 				AD55D57425E9CD600069A6CE /* simplefield_example.kml in Resources */,
@@ -573,6 +591,7 @@
 				AD55D56F25E9CD600069A6CE /* polystyle_example.kml in Resources */,
 				AD55D56625E9CD600069A6CE /* polygon_example.kml in Resources */,
 				AD55D56525E9CD600069A6CE /* latlonquad_example.kml in Resources */,
+				AD2A5A542603BE87001147C3 /* ogckml23.xsd in Resources */,
 				AD55D57B25E9CD600069A6CE /* linestring_example.kml in Resources */,
 				AD55D56425E9CD600069A6CE /* iconstyle_example.kml in Resources */,
 				AD55D63525EDAE730069A6CE /* photooverlay_example.kml in Resources */,
@@ -584,6 +603,7 @@
 				ADE1965A25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml in Resources */,
 				AD55D56825E9CD600069A6CE /* animatedupdate_example.kml in Resources */,
 				AD55D57125E9CD600069A6CE /* tourprimitive_example.kml in Resources */,
+				AD2A5A532603BE87001147C3 /* kml22gx.xsd in Resources */,
 				AD55D56225E9CD600069A6CE /* altitudemode_reference.kml in Resources */,
 				AD55D56325E9CD600069A6CE /* linestyle_example.kml in Resources */,
 			);
@@ -938,6 +958,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -957,6 +978,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
 				PRODUCT_BUNDLE_IDENTIFIER = com.w8wjb.KMLKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

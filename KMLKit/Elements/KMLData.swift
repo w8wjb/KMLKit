@@ -33,9 +33,9 @@ open class KMLData: KMLObject {
 
 #if os(macOS)
 extension KMLData {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         
         if let name = self.name {
             let nameAttr = XMLNode.attribute(withName: "name", stringValue: name) as! XMLNode
@@ -52,8 +52,8 @@ extension KMLData {
             addSimpleChild(to: element, withName: "value", value: "\(value)")
         }
 
-        return element
     }
+
 }
 #endif
 

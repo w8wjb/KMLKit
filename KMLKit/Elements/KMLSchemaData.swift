@@ -22,9 +22,9 @@ open class KMLSchemaData: KMLObject, KMLSimpleData {
 #if os(macOS)
 extension KMLSchemaData {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
+
         for (key, value) in data {
             
             let nameAttr = XMLNode.attribute(withName: "name", stringValue: key) as! XMLNode
@@ -44,7 +44,6 @@ extension KMLSchemaData {
             }
         }
         
-        return element
     }
 }
 #endif

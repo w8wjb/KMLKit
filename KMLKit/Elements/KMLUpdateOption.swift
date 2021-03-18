@@ -12,12 +12,16 @@ open class KMLUpdateOption: NSObject {
 }
 
 #if os(macOS)
-extension KMLUpdateOption: KMLWriterNode {
+@objc extension KMLUpdateOption: KMLWriterNode {
     
     class var elementName: String { fatalError("override in subclass") }
-
-    func toElement(in doc: XMLDocument) -> XMLElement {
+    
+    internal func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+    }
+    
+    internal func toElement(in doc: XMLDocument) -> XMLElement {
         let element = XMLElement(name: type(of: self).elementName)
+        addChildNodes(to: element, in: doc)
         return element
     }
 }
@@ -83,9 +87,9 @@ open class KMLCreate: KMLUpdateOption {
 extension KMLCreate {
     class override var elementName: String { "#KMLUpdateOption#" }
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
+
         for child in containers {
             addChild(to: element, child: child, in: doc)
         }
@@ -98,7 +102,6 @@ extension KMLCreate {
             addChild(to: element, child: child, in: doc)
         }
 
-        return element
     }
 }
 #endif
@@ -156,9 +159,9 @@ open class KMLDelete: KMLUpdateOption {
 extension KMLDelete {
     class override var elementName: String { "Delete" }
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
+
         for child in features {
             addChild(to: element, child: child, in: doc)
         }
@@ -166,8 +169,6 @@ extension KMLDelete {
         for child in geometry {
             addChild(to: element, child: child, in: doc)
         }
-
-        return element
     }
 }
 #endif

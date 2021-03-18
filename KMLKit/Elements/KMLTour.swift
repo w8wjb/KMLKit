@@ -22,10 +22,9 @@ open class KMLTour: KMLFeature {
 #if os(macOS)
 extension KMLTour {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addChild(to: element, child: playlist, in: doc)
-        return element
     }
 }
 #endif
@@ -37,12 +36,11 @@ open class KMLPlaylist: KMLObject {
 #if os(macOS)
 extension KMLPlaylist {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         for item in items {
             addChild(to: element, child: item, in: doc)
         }
-        return element
     }
 }
 #endif

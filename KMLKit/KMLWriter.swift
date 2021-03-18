@@ -124,13 +124,14 @@ internal extension KMLWriterNode {
 
 open class KMLWriter {
     
-    open func write(kml: KMLRoot, to: URL) {
+    open func write(kml: KMLRoot, to outputFile: URL) throws {
         
         let doc = XMLDocument()
         let root = kml.toElement(in: doc)
+        doc.setRootElement(root)
         
-        
-        print(doc.xmlString(options: .nodePrettyPrint))
+        let data = doc.xmlData(options: .nodePrettyPrint)
+        try data.write(to: outputFile)
         
     }
     

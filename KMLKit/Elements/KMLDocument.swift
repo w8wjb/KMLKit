@@ -25,11 +25,11 @@ open class KMLDocument: KMLContainer {
 
 #if os(macOS)
 extension KMLDocument {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addChild(to: element, child: schema, in: doc)
-        return element
     }
+
 }
 #endif

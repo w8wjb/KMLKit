@@ -40,11 +40,11 @@ open class KMLBasicLink: KMLObject, KMLAbstractLink {
 #if os(macOS)
 extension KMLBasicLink {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "href", value: href?.description)
-        return element
     }
+
 }
 #endif
 
@@ -224,9 +224,9 @@ open class KMLLink: KMLBasicLink {
 
 #if os(macOS)
 extension KMLLink {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "refreshMode", value: refreshMode.description, default: "onChange")
         addSimpleChild(to: element, withName: "refreshInterval", value: refreshInterval, default: 4.0)
         addSimpleChild(to: element, withName: "viewRefreshMode", value: viewRefreshMode.description, default: "never")
@@ -234,7 +234,6 @@ extension KMLLink {
         addSimpleChild(to: element, withName: "viewBoundScale", value: viewBoundScale, default: 1.0)
         addSimpleChild(to: element, withName: "viewFormat", value: viewFormat)
         addSimpleChild(to: element, withName: "httpQuery", value: httpQuery)
-        return element
     }
 }
 #endif
@@ -267,17 +266,15 @@ open class KMLIcon: KMLLink {
 #if os(macOS)
 extension KMLIcon {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         if frame != CGRect() {
             addSimpleChild(to: element, withName: "x", value: frame.origin.x)
             addSimpleChild(to: element, withName: "y", value: frame.origin.y)
             addSimpleChild(to: element, withName: "w", value: frame.size.width)
             addSimpleChild(to: element, withName: "h", value: frame.size.height)
         }
-        
-        return element
     }
+
 }
 #endif

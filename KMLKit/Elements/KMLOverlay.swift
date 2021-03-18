@@ -27,13 +27,13 @@ open class KMLOverlay: KMLFeature {
 #if os(macOS)
 extension KMLOverlay {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "color", value: color?.hexRGBaColor)
         addSimpleChild(to: element, withName: "drawOrder", value: drawOrder, default: 0)
         addChild(to: element, child: icon, in: doc)
-        return element
     }
+
 }
 #endif
 
@@ -62,12 +62,11 @@ open class KMLGroundOverlay: KMLOverlay {
 #if os(macOS)
 extension KMLGroundOverlay {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "altitude", value: altitude, default: 0)
         addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
         addChild(to: element, child: extent, in: doc)
-        return element
     }
 }
 #endif
@@ -209,14 +208,13 @@ open class KMLPhotoOverlay: KMLOverlay {
 #if os(macOS)
 extension KMLPhotoOverlay {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "rotation", value: rotation, default: 0)
         addChild(to: element, child: viewVolume, in: doc)
         addChild(to: element, child: imagePyramid, in: doc)
         addChild(to: element, child: point, in: doc)
         addSimpleChild(to: element, withName: "gridOrigin", value: shape.description, default: "rectangle")
-        return element
     }
 }
 
@@ -305,14 +303,13 @@ open class KMLScreenOverlay: KMLOverlay {
 #if os(macOS)
 extension KMLScreenOverlay {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "overlayXY", value: overlayXY)
         addSimpleChild(to: element, withName: "screenXY", value: screenXY)
         addSimpleChild(to: element, withName: "rotationXY", value: rotationXY)
         addSimpleChild(to: element, withName: "size", value: size)
         addSimpleChild(to: element, withName: "rotation", value: rotation, default: 0)
-        return element
     }
 }
 #endif

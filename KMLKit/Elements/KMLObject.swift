@@ -33,11 +33,15 @@ open class KMLObject: NSObject {
         return String(className)
     }
     
-    internal func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = XMLElement(name: type(of: self).elementName)
+    internal func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         addAttribute(to: element, withName: "id", value: id)
         addAttribute(to: element, withName: "targetId", value: targetId)
         addSimpleChild(to: element, withName: "name", value: name)
+    }
+    
+    internal func toElement(in doc: XMLDocument) -> XMLElement {
+        let element = XMLElement(name: type(of: self).elementName)
+        addChildNodes(to: element, in: doc)
         return element
     }
 }

@@ -12,20 +12,47 @@ class KMLWriterTest: XCTestCase {
 
     let bundle = Bundle(for: KMLWriterTest.self)
     
-    func getSampleFile(_ resource: String, type: String) throws -> URL {
+
+    func getFile(_ resource: String, type: String) throws -> URL {
         let path = bundle.path(forResource: resource, ofType: type)!
         return URL(fileURLWithPath: path)
     }
     
+    func validateFile(_ fileToValidate: URL) throws {
+        let ogckml23File = try getFile("ogckml23", type: "xsd")
+        
+        let doc = try XMLDocument(contentsOf: fileToValidate, options: [])
+        
+        let namespaceLocations = ["http://www.opengis.net/kml/2.2", ogckml23File.description]
+        
+        let namespaceLocation = XMLNode.attribute(withName: "xsi:schemaLocation", stringValue: namespaceLocations.joined(separator: " ")) as! XMLNode
+        
+        let root = doc.rootElement()!
+        root.addAttribute(namespaceLocation)
+        
+        try doc.validate()
+    }
+    
     func testWrite_KML_Samples() throws {
         
-        let kmlFile = try getSampleFile("KML_Samples", type: "kml")
+        let kmlFile = try getFile("KML_Samples", type: "kml")
         let kml = try KMLParser.parse(file: kmlFile)
         
         let writer = KMLWriter()
         
-        writer.write(kml: kml, to: URL(fileURLWithPath: "~/tmp/test.kml"))
+        let outFile = FileManager.default.temporaryDirectory.appendingPathComponent("KML_Samples.out.kml")
+        try writer.write(kml: kml, to: outFile)
         
+        XCTAssertTrue(FileManager.default.fileExists(atPath: outFile.path))
+
+        do {
+            try validateFile(outFile)
+        } catch {
+            print(try String(contentsOf: outFile, encoding: .utf8))
+            throw error
+        }
+        
+        try FileManager.default.removeItem(at: outFile)
     }
 
 }

@@ -24,12 +24,10 @@ open class KMLNetworkLink: KMLFeature {
 
 #if os(macOS)
 extension KMLNetworkLink {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "refreshVisibility", value: refreshVisibility, default: false)
         addSimpleChild(to: element, withName: "flyToView", value: flyToView, default: false)
-        return element
     }
 }
 #endif

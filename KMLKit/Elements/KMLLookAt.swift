@@ -44,9 +44,8 @@ open class KMLLookAt: KMLAbstractView {
 
 #if os(macOS)
 extension KMLLookAt {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "longitude", value: longitude, default: 0)
         addSimpleChild(to: element, withName: "latitude", value: latitude, default: 0)
         addSimpleChild(to: element, withName: "altitude", value: altitude, default: 0)
@@ -55,7 +54,7 @@ extension KMLLookAt {
         addSimpleChild(to: element, withName: "range", value: range, default: 0)
         addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
         addSimpleChild(to: element, withName: "horizFov", value: horizFov, default: 0)
-        return element
     }
+
 }
 #endif

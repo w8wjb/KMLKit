@@ -72,8 +72,8 @@ open class KMLTrack: KMLGeometry {
 #if os(macOS)
 extension KMLTrack {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "extrude", value: extrude, default: false)
         addSimpleChild(to: element, withName: "tessellate", value: tessellate, default: false)
         
@@ -90,8 +90,6 @@ extension KMLTrack {
         }
         addChild(to: element, child: model, in: doc)
         addChild(to: element, child: extendedData, in: doc)
-        
-        return element
     }
 }
 #endif
@@ -112,13 +110,12 @@ open class KMLMultiTrack: KMLGeometry {
 #if os(macOS)
 extension KMLMultiTrack {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "interpolate", value: interpolate, default: false)
         for track in tracks {
             addChild(to: element, child: track, in: doc)
         }
-        return element
     }
 }
 #endif

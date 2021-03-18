@@ -23,10 +23,6 @@
   <import namespace="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0"
     schemaLocation="http://docs.oasis-open.org/election/external/xAL.xsd"/>
 
-  <defaultOpenContent mode="interleave">
-    <any namespace="##other" processContents="lax"/>
-  </defaultOpenContent>
-
   <!-- KML field types (simple content) -->
 
   <simpleType name="anglepos90Type">
@@ -405,12 +401,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="z" type="double" default="1.0"/>
   
   <group name="AltitudeModeGroup">
-    <all>
+    <sequence>
       <element ref="kml:altitudeMode" minOccurs="0"/>
       <element ref="kml:seaFloorAltitudeMode" minOccurs="0"/>
       <element ref="kml:AltitudeModeSimpleExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:AltitudeModeObjectExtensionGroup" minOccurs="0" maxOccurs="unbounded"/>
-    </all>
+    </sequence>
   </group>  
   <element name="AltitudeModeSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="AltitudeModeObjectExtensionGroup" abstract="true"
@@ -419,10 +415,10 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="AbstractObjectGroup" type="kml:AbstractObjectType"
     abstract="true"/>
   <complexType name="AbstractObjectType" abstract="true">
-    <all>
+    <sequence>
       <element ref="kml:ObjectSimpleExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <attributeGroup ref="kml:idAttributes"/>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
@@ -439,7 +435,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractFeatureType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:name" minOccurs="0"/>
           <element ref="kml:visibility" minOccurs="0"/>
           <element ref="kml:balloonVisibility" minOccurs="0"/>
@@ -462,7 +458,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractFeatureObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -490,13 +486,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractViewType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractTimePrimitiveGroup" minOccurs="0"/>
           <element ref="kml:AbstractViewSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractViewObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -510,7 +506,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LookAtType" final="#all">
     <complexContent>
       <extension base="kml:AbstractViewType">
-        <all>
+        <sequence>
           <element ref="kml:longitude" minOccurs="0"/>
           <element ref="kml:latitude" minOccurs="0"/>
           <element ref="kml:altitude" minOccurs="0"/>
@@ -523,7 +519,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LookAtObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -537,7 +533,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="CameraType" final="#all">
     <complexContent>
       <extension base="kml:AbstractViewType">
-        <all>
+        <sequence>
           <element ref="kml:longitude" minOccurs="0"/>
           <element ref="kml:latitude" minOccurs="0"/>
           <element ref="kml:altitude" minOccurs="0"/>
@@ -550,7 +546,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:CameraObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -568,20 +564,20 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     <annotation>
       <documentation>kml:MetadataType was deprecated in KML 2.2</documentation>
     </annotation>
-    <all>
+    <sequence>
       <any namespace="##any" processContents="lax" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
   </complexType>
 
   <element name="ExtendedData" type="kml:ExtendedDataType" substitutionGroup="kml:AbstractExtendedDataGroup"/>
   <complexType name="ExtendedDataType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:Data" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:SchemaData" minOccurs="0" maxOccurs="unbounded"/>
       <any namespace="##other" processContents="lax" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
@@ -590,12 +586,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="SchemaDataType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:SimpleData" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:SimpleArrayData" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:SchemaDataExtension" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
         <attribute name="schemaUrl" type="anyURI"/>
         <anyAttribute namespace="##other" processContents="lax"/>
       </extension>
@@ -617,10 +613,10 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="SimpleArrayDataType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:value" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:SimpleArrayDataExtension" minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
         <attribute name="name" type="string"/>
       </extension>
     </complexContent>
@@ -632,11 +628,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="DataType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:displayName" minOccurs="0"/>
           <element ref="kml:value"/>
           <element ref="kml:DataExtension" minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
         <attribute name="name" type="string"/>
         <attribute name="uom" type="anyURI">
           <annotation>
@@ -654,12 +650,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractContainerType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractFeatureType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractContainerSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractContainerObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -673,12 +669,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractGeometryType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractGeometrySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractGeometryObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -692,7 +688,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractOverlayType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractFeatureType">
-        <all>
+        <sequence>
           <element ref="kml:color" minOccurs="0"/>
           <element ref="kml:drawOrder" minOccurs="0"/>
           <element ref="kml:Icon" minOccurs="0"/>
@@ -700,7 +696,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -715,12 +711,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractStyleSelectorType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractStyleSelectorSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractStyleSelectorObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -735,12 +731,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractTimePrimitiveType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractTimePrimitiveSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractTimePrimitiveObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -755,179 +751,17 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
     </annotation>
   </element>
   <complexType name="KmlType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:NetworkLinkControl" minOccurs="0"/>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"/>
       <element ref="kml:KmlSimpleExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <element ref="kml:KmlObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <attribute name="hint" type="string"/>
     <attribute name="version" type="kml:kmlVersionType" default="2.2"/>
     <anyAttribute namespace="##other" processContents="lax"/>
-    <!-- TODO(sean): Make sure these are all the parent elements we care about. -->
-    <assert test="if (.//kml:Track)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:Track is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:MultiTrack)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:MultiTrack is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:Tour)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:Tour is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:LatLonQuad)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:LatLonQuad is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:seaFloorAltitudeMode)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:seaFloorAltitudeMode is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:altitudeOffset)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:altitudeOffset is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:balloonVisibility)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:balloonVisibility is not allowed in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:Camera/kml:TimeStamp)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:TimeStamp is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:Camera/kml:TimeSpan)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:TimeSpan is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:LookAt/kml:TimeStamp)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:TimeStamp is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-    <assert test="if (.//kml:LookAt/kml:TimeSpan)
-      then starts-with(@version,'2.3')
-      else true()">
-      <annotation>
-        <documentation>kml:LookAt is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
-      </annotation>
-    </assert>
-   <assert test="if (.//kml:SimpleArrayField)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:SimpleArrayField is not allowed in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:SimpleField/@uom)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>Attribute 'uom' is not a valid child of kml:SimpleField in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Data/@uom)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>Attribute 'uom' is not a valid child of kml:Data in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Camera/kml:horizFov)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:horizFov is not a valid child of kml:Camera in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:LookAt/kml:horizFov)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:horizFov is not a valid child of kml:LookAt in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Create/kml:MultiGeometry)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:MultiGeometry is not a valid child of kml:Create in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:MultiGeometry)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:MultiGeometry is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:Point)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:Point is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:LineString)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:LineString is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:LinearRing)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:LinearRing is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:Polygon)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:Polygon is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
-   <assert test="if (.//kml:Delete/kml:Model)
-    then starts-with(@version,'2.3')
-    else true()">
-    <annotation>
-     <documentation>kml:Model is not a valid child of kml:Delete in versions of KML prior to 2.3.0.</documentation>
-    </annotation>
-   </assert>   
   </complexType>
   <element name="KmlSimpleExtensionGroup" abstract="true" type="anySimpleType"/>
   <element name="KmlObjectExtensionGroup" abstract="true"
@@ -935,7 +769,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
 
   <element name="NetworkLinkControl" type="kml:NetworkLinkControlType"/>
   <complexType name="NetworkLinkControlType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:minRefreshPeriod" minOccurs="0"/>
       <element ref="kml:maxSessionLength" minOccurs="0"/>
       <element ref="kml:cookie" minOccurs="0"/>
@@ -950,7 +784,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
         maxOccurs="unbounded"/>
       <element ref="kml:NetworkLinkControlObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="NetworkLinkControlSimpleExtensionGroup" abstract="true"
@@ -963,7 +797,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="DocumentType" final="#all">
     <complexContent>
       <extension base="kml:AbstractContainerType">
-        <all>
+        <sequence>
           <element ref="kml:Schema" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractFeatureGroup" minOccurs="0"
             maxOccurs="unbounded"/>
@@ -971,7 +805,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:DocumentObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -982,11 +816,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
 
   <element name="Schema" type="kml:SchemaType"/>
   <complexType name="SchemaType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:SimpleField" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:SimpleArrayField" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:SchemaExtension" minOccurs="0" maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <attribute name="name" type="string"/>
     <attribute name="id" type="ID"/>
     <anyAttribute namespace="##other" processContents="lax"/>
@@ -995,11 +829,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
 
   <element name="SimpleField" type="kml:SimpleFieldType"/>
   <complexType name="SimpleFieldType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:displayName" minOccurs="0"/>
       <element ref="kml:SimpleFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>    
     <attribute name="uom" type="anyURI">
@@ -1013,11 +847,11 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
 
   <element name="SimpleArrayField" type="kml:SimpleArrayFieldType"/>
   <complexType name="SimpleArrayFieldType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:displayName" minOccurs="0"/>
       <element ref="kml:SimpleArrayFieldExtension" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <attribute name="type" type="string"/>
     <attribute name="name" type="string"/>
     <attribute name="uom" type="anyURI">
@@ -1034,14 +868,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="FolderType" final="#all">
     <complexContent>
       <extension base="kml:AbstractContainerType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractFeatureGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:FolderSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:FolderObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1055,13 +889,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="PlacemarkType" final="#all">
     <complexContent>
       <extension base="kml:AbstractFeatureType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractGeometryGroup" minOccurs="0"/>
           <element ref="kml:PlacemarkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:PlacemarkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1075,7 +909,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="NetworkLinkType" final="#all">
     <complexContent>
       <extension base="kml:AbstractFeatureType">
-        <all>
+        <sequence>
           <element ref="kml:refreshVisibility" minOccurs="0"/>
           <element ref="kml:flyToView" minOccurs="0"/>
           <element ref="kml:AbstractLinkGroup" minOccurs="0"/>
@@ -1083,7 +917,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:NetworkLinkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>     
+        </sequence>     
       </extension>
     </complexContent>
   </complexType>
@@ -1097,24 +931,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="RegionType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractExtentGroup" minOccurs="0"/>
           <element ref="kml:Lod" minOccurs="0"/>
           <element ref="kml:RegionSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:RegionObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
-        <assert test="not(./kml:LatLonBox) ">
-          <annotation>
-            <documentation>kml:LatLonBox is prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
-          </annotation>
-        </assert>
-        <assert test="not(./kml:LatLonQuad) ">
-          <annotation>
-            <documentation>kml:LatLonQuad is prohibited in kml:Region. Use kml:LatLonAltBox instead.</documentation>
-          </annotation>
-        </assert>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1128,7 +952,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LatLonAltBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
-        <all>
+        <sequence>
           <element ref="kml:minAltitude" minOccurs="0"/>
           <element ref="kml:maxAltitude" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
@@ -1136,7 +960,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LatLonAltBoxObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1150,7 +974,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LodType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:minLodPixels" minOccurs="0"/>
           <element ref="kml:maxLodPixels" minOccurs="0"/>
           <element ref="kml:minFadeExtent" minOccurs="0"/>
@@ -1159,7 +983,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LodObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1180,7 +1004,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LinkType" final="#all">
     <complexContent>
       <extension base="kml:BasicLinkType">
-        <all>
+        <sequence>
           <element ref="kml:abstractRefreshMode" minOccurs="0"/>
           <element ref="kml:refreshInterval" minOccurs="0"/>
           <element ref="kml:abstractViewRefreshMode" minOccurs="0"/>
@@ -1192,7 +1016,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LinkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1206,14 +1030,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="MultiGeometryType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractGeometryGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:MultiGeometrySimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:MultiGeometryObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1227,7 +1051,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="PointType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:coordinates" minOccurs="0"/>
@@ -1235,7 +1059,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:PointObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1249,7 +1073,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LineStringType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
@@ -1259,7 +1083,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LineStringObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1273,7 +1097,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LinearRingType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
@@ -1283,7 +1107,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LinearRingObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1297,7 +1121,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="PolygonType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
@@ -1308,7 +1132,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:PolygonObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1320,13 +1144,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <element name="outerBoundaryIs" type="kml:BoundaryType"/>
   <element name="innerBoundaryIs" type="kml:BoundaryType"/>
   <complexType name="BoundaryType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:LinearRing" minOccurs="0"/>
       <element ref="kml:BoundarySimpleExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <element ref="kml:BoundaryObjectExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="BoundarySimpleExtensionGroup" abstract="true"
@@ -1339,7 +1163,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="ModelType" final="#all">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:Location" minOccurs="0"/>
           <element ref="kml:Orientation" minOccurs="0"/>
@@ -1350,7 +1174,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:ModelObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1364,7 +1188,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="TrackType">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <element ref="kml:extrude" minOccurs="0"/>
           <element ref="kml:tessellate" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
@@ -1377,17 +1201,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:TrackObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
-        <assert test="count(./kml:when) = count(./kml:coord)">
-          <annotation>
-            <documentation>kml:Track must have an equal number of kml:when and kml:coord elements.</documentation>
-          </annotation>
-        </assert>
-        <assert test="if(./kml:angles) then count(./kml:angles) = count(./kml:when) else true()">
-          <annotation>
-            <documentation>If kml:angles appears in kml:Track there must be an equal number of kml:angles and kml:when elements.</documentation>
-          </annotation>
-        </assert>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1402,7 +1216,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="MultiTrackType">
     <complexContent>
       <extension base="kml:AbstractGeometryType">
-        <all>
+        <sequence>
           <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:interpolate" minOccurs="0"/>
           <element ref="kml:Track" minOccurs="0" maxOccurs="unbounded"/>
@@ -1410,7 +1224,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:MultiTrackObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1424,7 +1238,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LocationType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:longitude" minOccurs="0"/>
           <element ref="kml:latitude" minOccurs="0"/>
           <element ref="kml:altitude" minOccurs="0"/>
@@ -1432,7 +1246,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:LocationObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1446,7 +1260,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="OrientationType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:heading" minOccurs="0"/>
           <element ref="kml:tilt" minOccurs="0"/>
           <element ref="kml:roll" minOccurs="0"/>
@@ -1454,7 +1268,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:OrientationObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1468,7 +1282,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="ScaleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:x" minOccurs="0"/>
           <element ref="kml:y" minOccurs="0"/>
           <element ref="kml:z" minOccurs="0"/>
@@ -1476,7 +1290,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:ScaleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1490,13 +1304,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="ResourceMapType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:Alias" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:ResourceMapSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:ResourceMapObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1510,14 +1324,14 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AliasType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:targetHref" minOccurs="0"/>
           <element ref="kml:sourceHref" minOccurs="0"/>
           <element ref="kml:AliasSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AliasObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1531,7 +1345,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="GroundOverlayType" final="#all">
     <complexContent>
       <extension base="kml:AbstractOverlayType">
-        <all>
+        <sequence>
           <element ref="kml:altitude" minOccurs="0"/>
           <group ref="kml:AltitudeModeGroup"/>
           <element ref="kml:AbstractExtentGroup" minOccurs="0"/>
@@ -1539,12 +1353,7 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
             maxOccurs="unbounded"/>
           <element ref="kml:GroundOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
-        <assert test="not(./kml:LatLonAltBox)">
-          <annotation>
-            <documentation>kml:LatLonAltBox is prohibited in kml:GroundOverlay. Use kml:LatLonBox or kml:LatLonQuad instead.</documentation>
-          </annotation>
-        </assert>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1558,12 +1367,12 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="AbstractExtentType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractExtentSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractExtentObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1577,13 +1386,13 @@ Specifies the south latitude value in decimal degrees in the interval: -180 ≤ 
   <complexType name="LatLonQuadType" final="#all">
     <complexContent>
       <extension base="kml:AbstractExtentType">
-        <all>
+        <sequence>
           <element ref="kml:coordinates" minOccurs="0"/>
           <element ref="kml:LatLonQuadSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:LatLonQuadObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1608,7 +1417,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
    </annotation>
    <complexContent>
       <extension base="kml:AbstractExtentType">
-        <all>
+        <sequence>
           <element ref="kml:north" minOccurs="0"/>
           <element ref="kml:south" minOccurs="0"/>
           <element ref="kml:east" minOccurs="0"/>
@@ -1617,7 +1426,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractLatLonBoxObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1631,13 +1440,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="LatLonBoxType" final="#all">
     <complexContent>
       <extension base="kml:AbstractLatLonBoxType">
-        <all>
+        <sequence>
           <element ref="kml:rotation" minOccurs="0"/>
           <element ref="kml:LatLonBoxSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LatLonBoxObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1651,7 +1460,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="ScreenOverlayType" final="#all">
     <complexContent>
       <extension base="kml:AbstractOverlayType">
-        <all>
+        <sequence>
           <element ref="kml:overlayXY" minOccurs="0"/>
           <element ref="kml:screenXY" minOccurs="0"/>
           <element ref="kml:rotationXY" minOccurs="0"/>
@@ -1661,7 +1470,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:ScreenOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1675,7 +1484,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="PhotoOverlayType" final="#all">
     <complexContent>
       <extension base="kml:AbstractOverlayType">
-        <all>
+        <sequence>
           <element ref="kml:rotation" minOccurs="0"/>
           <element ref="kml:ViewVolume" minOccurs="0"/>
           <element ref="kml:ImagePyramid" minOccurs="0"/>
@@ -1685,7 +1494,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:PhotoOverlayObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1699,7 +1508,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="ViewVolumeType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:leftFov" minOccurs="0"/>
           <element ref="kml:rightFov" minOccurs="0"/>
           <element ref="kml:bottomFov" minOccurs="0"/>
@@ -1709,7 +1518,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:ViewVolumeObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1723,7 +1532,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="ImagePyramidType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:tileSize" minOccurs="0"/>
           <element ref="kml:maxWidth" minOccurs="0"/>
           <element ref="kml:maxHeight" minOccurs="0"/>
@@ -1732,7 +1541,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:ImagePyramidObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1746,7 +1555,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="StyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractStyleSelectorType">
-        <all>
+        <sequence>
           <element ref="kml:IconStyle" minOccurs="0"/>
           <element ref="kml:LabelStyle" minOccurs="0"/>
           <element ref="kml:LineStyle" minOccurs="0"/>
@@ -1757,7 +1566,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:StyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1771,13 +1580,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="StyleMapType" final="#all">
     <complexContent>
       <extension base="kml:AbstractStyleSelectorType">
-        <all>
+        <sequence>
           <element ref="kml:Pair" minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:StyleMapSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:StyleMapObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1791,7 +1600,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="PairType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:abstractKey" minOccurs="0"/>
           <element ref="kml:styleUrl" minOccurs="0"/>
           <element ref="kml:AbstractStyleSelectorGroup" minOccurs="0"/>
@@ -1799,7 +1608,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:PairObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1813,12 +1622,12 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="AbstractSubStyleType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractSubStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractSubStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1832,14 +1641,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="AbstractColorStyleType" abstract="true">
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
-        <all>
+        <sequence>
           <element ref="kml:color" minOccurs="0"/>
           <element ref="kml:abstractColorMode" minOccurs="0"/>
           <element ref="kml:AbstractColorStyleSimpleExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
           <element ref="kml:AbstractColorStyleObjectExtensionGroup"
             minOccurs="0" maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1853,7 +1662,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="IconStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractColorStyleType">
-        <all>
+        <sequence>
           <element ref="kml:scale" minOccurs="0"/>
           <element ref="kml:heading" minOccurs="0"/>
           <element name="Icon" type="kml:BasicLinkType" minOccurs="0"/>
@@ -1862,7 +1671,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:IconStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1874,13 +1683,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="BasicLinkType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:href" minOccurs="0"/>
           <element ref="kml:BasicLinkSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:BasicLinkObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1894,13 +1703,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="LabelStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractColorStyleType">
-        <all>
+        <sequence>
           <element ref="kml:scale" minOccurs="0"/>
           <element ref="kml:LabelStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LabelStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1914,13 +1723,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="LineStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractColorStyleType">
-        <all>
+        <sequence>
           <element ref="kml:width" minOccurs="0"/>
           <element ref="kml:LineStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:LineStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1934,14 +1743,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="PolyStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractColorStyleType">
-        <all>
+        <sequence>
           <element ref="kml:fill" minOccurs="0"/>
           <element ref="kml:outline" minOccurs="0"/>
           <element ref="kml:PolyStyleSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:PolyStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1955,7 +1764,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="BalloonStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractBgColorGroup" minOccurs="0">
             <annotation>
               <documentation>kml:color was deprecated in the context of BalloonStyle in KML 2.1</documentation>
@@ -1968,7 +1777,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:BalloonStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -1982,7 +1791,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="ListStyleType" final="#all">
     <complexContent>
       <extension base="kml:AbstractSubStyleType">
-        <all>
+        <sequence>
           <element ref="kml:abstractListItemType" minOccurs="0"/>
           <element ref="kml:bgColor" minOccurs="0"/>
           <element ref="kml:ItemIcon" minOccurs="0" maxOccurs="unbounded"/>
@@ -1991,7 +1800,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:ListStyleObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2005,14 +1814,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="ItemIconType" final="#all">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:abstractState" minOccurs="0"/>
           <element ref="kml:href" minOccurs="0"/>
           <element ref="kml:ItemIconSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:ItemIconObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2026,13 +1835,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="TimeStampType" final="#all">
     <complexContent>
       <extension base="kml:AbstractTimePrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:when" minOccurs="0"/>
           <element ref="kml:TimeStampSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:TimeStampObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2046,14 +1855,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="TimeSpanType" final="#all">
     <complexContent>
       <extension base="kml:AbstractTimePrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:begin" minOccurs="0"/>
           <element ref="kml:end" minOccurs="0"/>
           <element ref="kml:TimeSpanSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:TimeSpanObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2064,45 +1873,45 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
 
   <element name="Update" type="kml:UpdateType"/>
   <complexType name="UpdateType" final="#all">
-    <all>
+    <sequence>
       <element ref="kml:targetHref"/>
       <element ref="kml:AbstractUpdateOptionGroup" minOccurs="1" maxOccurs="unbounded"/>
       <element ref="kml:UpdateExtensionGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
   <element name="UpdateExtensionGroup" abstract="true"/>
 
   <element name="Create" type="kml:CreateType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
   <complexType name="CreateType">
-    <all>
+    <sequence>
       <element ref="kml:AbstractContainerGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <!-- TODO(sean): Get Earth to support Create for MultiGeometry. -->
       <element ref="kml:MultiTrack" minOccurs="0" maxOccurs="unbounded"/>
       <element ref="kml:MultiGeometry" minOccurs="0" maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Delete" type="kml:DeleteType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
   <complexType name="DeleteType">
-    <all>
+    <sequence>
       <element ref="kml:AbstractFeatureGroup" minOccurs="0"
         maxOccurs="unbounded"/>
       <!-- TODO(sean): Make sure Earth support deleting geometries from geom containers. -->
       <element ref="kml:AbstractGeometryGroup" minOccurs="0" maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
   <element name="Change" type="kml:ChangeType" substitutionGroup="kml:AbstractUpdateOptionGroup"/>
   <complexType name="ChangeType">
-    <all>
+    <sequence>
       <element ref="kml:AbstractObjectGroup" minOccurs="0"
         maxOccurs="unbounded"/>
-    </all>
+    </sequence>
     <anyAttribute namespace="##other" processContents="lax"/>
   </complexType>
 
@@ -2111,12 +1920,12 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="AbstractTourPrimitiveType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractTourPrimitiveSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:AbstractTourPrimitiveObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2130,7 +1939,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="AnimatedUpdateType">
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:duration" minOccurs="0"/>
           <element ref="kml:Update" minOccurs="0"/>
           <element ref="kml:delayedStart" minOccurs="0"/>
@@ -2138,7 +1947,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:AnimatedUpdateObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2152,7 +1961,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="FlyToType">
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:duration" minOccurs="0"/>
           <element ref="kml:abstractFlyToMode" minOccurs="0"/>
           <element ref="kml:AbstractViewGroup" minOccurs="0"/>
@@ -2160,7 +1969,7 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
             maxOccurs="unbounded"/>
           <element ref="kml:FlyToObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2174,14 +1983,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="PlaylistType">
     <complexContent>
       <extension base="kml:AbstractObjectType">
-        <all>
+        <sequence>
           <element ref="kml:AbstractTourPrimitiveGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:PlaylistSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:PlaylistObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2195,14 +2004,14 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="SoundCueType">
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:href" minOccurs="0"/>
           <element ref="kml:delayedStart" minOccurs="0"/>
           <element ref="kml:SoundCueSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:SoundCueObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2216,13 +2025,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="TourType">
     <complexContent>
       <extension base="kml:AbstractFeatureType">
-        <all>
+        <sequence>
           <element ref="kml:Playlist" minOccurs="0"/>
           <element ref="kml:TourSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:TourObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2236,13 +2045,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="TourControlType">
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:abstractPlayMode" minOccurs="0"/>
           <element ref="kml:TourControlSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:TourControlObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>
@@ -2256,13 +2065,13 @@ The constraint C3 ensures that the longitude interval does not overlap itself. T
   <complexType name="WaitType">
     <complexContent>
       <extension base="kml:AbstractTourPrimitiveType">
-        <all>
+        <sequence>
           <element ref="kml:duration" minOccurs="0"/>
           <element ref="kml:WaitSimpleExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
           <element ref="kml:WaitObjectExtensionGroup" minOccurs="0"
             maxOccurs="unbounded"/>
-        </all>
+        </sequence>
       </extension>
     </complexContent>
   </complexType>

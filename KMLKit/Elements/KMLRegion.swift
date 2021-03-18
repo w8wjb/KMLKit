@@ -23,11 +23,10 @@ open class KMLRegion: KMLObject {
 #if os(macOS)
 extension KMLRegion {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addChild(to: element, child: extent, in: doc)
         addChild(to: element, child: lod, in: doc)
-        return element
     }
 }
 #endif

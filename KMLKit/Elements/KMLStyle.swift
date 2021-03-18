@@ -32,15 +32,14 @@ open class KMLStyle: KMLObject, KMLStyleSelector {
 #if os(macOS)
 extension KMLStyle {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addChild(to: element, child: iconStyle, in: doc)
         addChild(to: element, child: labelStyle, in: doc)
         addChild(to: element, child: lineStyle, in: doc)
         addChild(to: element, child: polyStyle, in: doc)
         addChild(to: element, child: balloonStyle, in: doc)
         addChild(to: element, child: listStyle, in: doc)
-        return element
     }
 }
 #endif
@@ -105,11 +104,10 @@ open class KMLColorStyle: KMLSubStyle {
 #if os(macOS)
 extension KMLColorStyle {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "color", value: color.hexRGBaColor, default: "ffffffff")
         addSimpleChild(to: element, withName: "colorMode", value: colorMode.description, default: "normal")
-        return element
     }
 }
 #endif
@@ -177,13 +175,12 @@ open class KMLBalloonStyle: KMLColorStyle {
 #if os(macOS)
 extension KMLBalloonStyle {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "bgColor", value: bgColor?.hexRGBaColor, default: "ffffffff")
         addSimpleChild(to: element, withName: "textColor", value: textColor?.hexRGBaColor, default: "ffffffff")
         addSimpleChild(to: element, withName: "text", value: text, default: "")
         addSimpleChild(to: element, withName: "displayMode", value: displayMode.description, default: "default")
-        return element
     }
 }
 #endif

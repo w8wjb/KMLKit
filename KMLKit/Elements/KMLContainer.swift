@@ -81,13 +81,13 @@ extension KMLContainer: Collection {
 #if os(macOS)
 extension KMLContainer {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         for child in features {
             addChild(to: element, child: child, in: doc)
         }
-        return element
     }
+
 }
 #endif
 

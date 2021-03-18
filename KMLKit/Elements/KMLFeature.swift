@@ -180,8 +180,8 @@ open class KMLFeature: KMLObject {
 #if os(macOS)
 extension KMLFeature {
     
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         
         addSimpleChild(to: element, withName: "visibility", value: visibility, numeric: true, default: true)
         addSimpleChild(to: element, withName: "balloonVisibility", value: balloonVisibility, default: true)
@@ -206,7 +206,7 @@ extension KMLFeature {
         addChild(to: element, child: region, in: doc)
         addChild(to: element, child: extendedData, in: doc)
         
-        return element
     }
+
 }
 #endif

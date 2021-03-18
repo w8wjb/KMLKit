@@ -38,12 +38,12 @@ open class KMLAbstractView: KMLObject {
 #if os(macOS)
 extension KMLAbstractView {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)        
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         if let child = time as? KMLWriterNode {
             addChild(to: element, child: child, in: doc)
         }
-        return element
     }
+    
 }
 #endif

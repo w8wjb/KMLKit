@@ -32,11 +32,11 @@ open class KMLGeometry: KMLObject {
 #if os(macOS)
 extension KMLGeometry {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
-        return element
     }
+    
 }
 #endif
 
@@ -76,12 +76,12 @@ open class KMLPoint: KMLGeometry {
 #if os(macOS)
 extension KMLPoint {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         addSimpleChild(to: element, withName: "extrude", value: extrude, numeric: true, default: false)
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "coordinates", value: formatAsLonLatAlt(location))
-        return element
     }
+
 }
 #endif
 
@@ -135,10 +135,9 @@ open class KMLModel: KMLGeometry {
 
 #if os(macOS)
 extension KMLModel {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
-        
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         let locationElem = XMLElement(name: "Location")
         addSimpleChild(to: locationElem, withName: "longitude", value: location.coordinate.longitude)
         addSimpleChild(to: locationElem, withName: "latitude", value: location.coordinate.latitude)
@@ -160,19 +159,19 @@ extension KMLModel {
             }
             element.addChild(resourceMapElem)
         }
-        
-        return element
     }
+
 }
 
 extension KMLModel.KMLScale {
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "x", value: x)
         addSimpleChild(to: element, withName: "y", value: y)
         addSimpleChild(to: element, withName: "z", value: z)
-        return element
     }
+    
 }
 
 #endif
@@ -192,13 +191,13 @@ open class KMLMultiGeometry: KMLGeometry, KMLGeometryCollection {
 #if os(macOS)
 extension KMLMultiGeometry {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         for child in geometry {
             addChild(to: element, child: child, in: doc)
         }
-        return element
     }
+
 }
 #endif
 
@@ -219,14 +218,14 @@ open class KMLLineString: KMLGeometry {
 #if os(macOS)
 extension KMLLineString {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         addSimpleChild(to: element, withName: "extrude", value: extrude, numeric: true, default: false)
         addSimpleChild(to: element, withName: "tessellate", value: tessellate, numeric: true, default: false)
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "coordinates", value: formatAsLonLatAlt(coordinates))
         addSimpleChild(to: element, withName: "altitudeOffset", value: altitudeOffset, default: 0.0)
-        return element
     }
+    
 }
 #endif
 
@@ -245,14 +244,14 @@ open class KMLLinearRing: KMLGeometry {
 
 #if os(macOS)
 extension KMLLinearRing {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "extrude", value: extrude, numeric: true, default: false)
         addSimpleChild(to: element, withName: "tessellate", value: tessellate, numeric: true, default: false)
         addSimpleChild(to: element, withName: "coordinates", value: formatAsLonLatAlt(coordinates))
-        return element
     }
+
 }
 #endif
 
@@ -279,11 +278,11 @@ open class KMLPolygon: KMLGeometry {
 
 #if os(macOS)
 extension KMLPolygon {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         addSimpleChild(to: element, withName: "extrude", value: extrude, numeric: true, default: false)
         addSimpleChild(to: element, withName: "tessellate", value: tessellate, numeric: true, default: false)
+        super.addChildNodes(to: element, in: doc)
 
         
         let outerBoundaryIsElem = XMLElement(name: "outerBoundaryIs")
@@ -296,7 +295,7 @@ extension KMLPolygon {
             element.addChild(innerBoundaryIsElem)
         }
         
-        return element
     }
+
 }
 #endif

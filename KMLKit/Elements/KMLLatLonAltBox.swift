@@ -25,15 +25,15 @@ open class KMLAbstractLatLonBox: KMLAbstractExtent {
 
 #if os(macOS)
 extension KMLAbstractLatLonBox {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "north", value: north)
         addSimpleChild(to: element, withName: "south", value: south)
         addSimpleChild(to: element, withName: "east", value: east)
         addSimpleChild(to: element, withName: "west", value: west)
-        return element
     }
+
 }
 #endif
 
@@ -48,11 +48,11 @@ open class KMLLatLonBox: KMLAbstractLatLonBox {
 #if os(macOS)
 extension KMLLatLonBox {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "rotation", value: rotation, default: 0.0)
-        return element
     }
+
 }
 #endif
 
@@ -81,15 +81,15 @@ open class KMLLatLonAltBox: KMLAbstractLatLonBox {
 
 #if os(macOS)
 extension KMLLatLonAltBox {
-
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "minAltitude", value: minAltitude, default: 0.0)
         addSimpleChild(to: element, withName: "maxAltitude", value: maxAltitude, default: 0.0)
         addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
         addSimpleChild(to: element, withName: "seaFloorAltitudeMode", value: seaFloorAltitudeMode.description, default: "clampToSeaFloor")
-        return element
     }
+
 }
 #endif
 
@@ -109,10 +109,10 @@ open class KMLLatLonQuad: KMLAbstractExtent {
 #if os(macOS)
 extension KMLLatLonQuad {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "coordinates", value: formatAsLonLatAlt(coordinates))
-        return element
     }
+
 }
 #endif

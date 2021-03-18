@@ -38,10 +38,9 @@ extension KMLTourWait {
 
     override class var elementName: String { "Wait" }
     
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "duration", value: duration, default: 0.0)
-        return element
     }
 }
 #endif
@@ -70,12 +69,11 @@ extension KMLTourAnimatedUpdate {
 
     override class var elementName: String { "AnimatedUpdate" }
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "duration", value: duration, default: 0.0)
         addChild(to: element, child: update, in: doc)
         addSimpleChild(to: element, withName: "delayedStart", value: delayedStart, default: 0.0)
-        return element
     }
 }
 #endif
@@ -120,10 +118,9 @@ open class KMLTourControl: KMLTourPrimitive {
 #if os(macOS)
 extension KMLTourControl {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "playMode", value: mode.description)
-        return element
     }
 }
 #endif
@@ -189,12 +186,11 @@ open class KMLTourFlyTo: KMLTourPrimitive, KMLTourPrimitiveDuration {
 #if os(macOS)
 extension KMLTourFlyTo {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "duration", value: duration, default: 0.0)
         addSimpleChild(to: element, withName: "flyToMode", value: mode.description)
         addChild(to: element, child: view, in: doc)
-        return element
     }
 }
 #endif
@@ -214,11 +210,10 @@ open class KMLTourSoundCue: KMLTourPrimitive {
 #if os(macOS)
 extension KMLTourSoundCue {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "href", value: href?.description)
         addSimpleChild(to: element, withName: "delayedStart", value: delayedStart, default: 0.0)
-        return element
     }
 }
 #endif

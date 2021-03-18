@@ -31,12 +31,11 @@ open class KMLOrientation: KMLObject {
 #if os(macOS)
 extension KMLOrientation {
 
-    override func toElement(in doc: XMLDocument) -> XMLElement {
-        let element = super.toElement(in: doc)
+    override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
+        super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "heading", value: heading)
         addSimpleChild(to: element, withName: "tilt", value: tilt)
         addSimpleChild(to: element, withName: "roll", value: roll)
-        return element
     }
 }
 #endif
