@@ -84,7 +84,7 @@ extension KMLTrack {
         }
         
         for coord in coordinates {
-            addSimpleChild(to: element, withName: "gx:coord", value: formatAsLonLatAlt(coord))
+            addSimpleChild(to: element, withName: "gx:coord", value: formatAsLonLatAlt(coord, separator: " "))
         }
         
         for angle in angles {

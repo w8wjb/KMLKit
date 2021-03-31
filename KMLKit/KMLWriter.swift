@@ -108,16 +108,16 @@ internal extension KMLWriterNode {
     }
     
     
-    func formatAsLonLatAlt(_ location: CLLocation) -> String {
+    func formatAsLonLatAlt(_ location: CLLocation, separator: String = ",") -> String {
         if location.altitude >= 0 {
-            return "\(location.coordinate.longitude),\(location.coordinate.latitude),\(location.altitude)"
+            return "\(location.coordinate.longitude)\(separator)\(location.coordinate.latitude)\(separator)\(location.altitude)"
         } else {
-            return "\(location.coordinate.longitude),\(location.coordinate.latitude)"
+            return "\(location.coordinate.longitude)\(separator)\(location.coordinate.latitude)"
         }
     }
     
     func formatAsLonLatAlt(_ locations: [CLLocation]) -> String {
-        return locations.compactMap(self.formatAsLonLatAlt).joined(separator: " ")
+        return locations.compactMap({ self.formatAsLonLatAlt($0) }).joined(separator: " ")
     }
     
 }
