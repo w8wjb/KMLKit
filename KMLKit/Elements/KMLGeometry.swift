@@ -34,7 +34,7 @@ extension KMLGeometry {
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
-        addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
+        addSimpleChild(to: element, withName: altitudeMode.elementName, value: altitudeMode.description, default: "clampToGround")
     }
     
 }
@@ -236,7 +236,7 @@ extension KMLLineString {
         addSimpleChild(to: element, withName: "tessellate", value: tessellate, numeric: true, default: false)
         super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "coordinates", value: formatAsLonLatAlt(coordinates))
-        addSimpleChild(to: element, withName: "altitudeOffset", value: altitudeOffset, default: 0.0)
+        addSimpleChild(to: element, withName: "gx:altitudeOffset", value: altitudeOffset, default: 0.0)
     }
     
 }

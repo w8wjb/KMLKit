@@ -88,6 +88,8 @@ open class KMLTimeStamp: KMLObject, KMLTimePrimitive {
 #if os(macOS)
 extension KMLTimeStamp {
 
+    override class var elementName: String { "gx:TimeStamp" }
+    
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
 
@@ -141,6 +143,8 @@ open class KMLTimeSpan: KMLObject, KMLTimePrimitive {
 
 #if os(macOS)
 extension KMLTimeSpan {
+
+    override class var elementName: String { "gx:TimeSpan" }
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)

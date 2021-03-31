@@ -269,10 +269,10 @@ extension KMLIcon {
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
         if frame != CGRect() {
-            addSimpleChild(to: element, withName: "x", value: frame.origin.x)
-            addSimpleChild(to: element, withName: "y", value: frame.origin.y)
-            addSimpleChild(to: element, withName: "w", value: frame.size.width)
-            addSimpleChild(to: element, withName: "h", value: frame.size.height)
+            addSimpleChild(to: element, withName: "gx:x", value: frame.origin.x)
+            addSimpleChild(to: element, withName: "gx:y", value: frame.origin.y)
+            addSimpleChild(to: element, withName: "gx:w", value: frame.size.width)
+            addSimpleChild(to: element, withName: "gx:h", value: frame.size.height)
         }
     }
 

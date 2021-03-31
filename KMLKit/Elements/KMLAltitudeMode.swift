@@ -45,6 +45,16 @@ import Foundation
             self = .clampToGround
         }
     }
+    
+    public var elementName: String {
+        switch self {
+        case .relativeToSeaFloor, .clampToSeaFloor:
+            return "gx:altitudeMode"
+        default:
+            return "altitudeMode"
+        }
+    }
+    
     public var description: String {
         switch self {
         case .clampToGround:

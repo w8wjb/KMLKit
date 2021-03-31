@@ -81,8 +81,8 @@ extension KMLCamera {
         addSimpleChild(to: element, withName: "heading", value: heading, default: 0.0)
         addSimpleChild(to: element, withName: "tilt", value: tilt, default: 0.0)
         addSimpleChild(to: element, withName: "roll", value: roll, default: 0.0)
-        addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
-        addSimpleChild(to: element, withName: "horizFov", value: horizFov, default: 0.0)
+        addSimpleChild(to: element, withName: altitudeMode.elementName, value: altitudeMode.description, default: "clampToGround")
+        addSimpleChild(to: element, withName: "gx:horizFov", value: horizFov, default: 0.0)
     }
 
 }

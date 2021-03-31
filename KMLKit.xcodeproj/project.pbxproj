@@ -98,6 +98,7 @@
 		AD55D69925EF12910069A6CE /* KMLNetworkLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */; };
 		AD55D69A25EF12910069A6CE /* KMLNetworkLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */; };
 		AD55D6AD25F02C7F0069A6CE /* KMLWriterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */; };
+		AD9AF45E261503E50023C647 /* ogckml22.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD9AF45D261503E50023C647 /* ogckml22.xsd */; };
 		ADE1962925E7F2CB00935306 /* KMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE1961F25E7F2CB00935306 /* KMLKit.framework */; };
 		ADE1963025E7F2CB00935306 /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE1962225E7F2CB00935306 /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
@@ -197,6 +198,7 @@
 		AD55D64525EEDDD80069A6CE /* AtomLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AtomLink.swift; sourceTree = "<group>"; };
 		AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLNetworkLink.swift; sourceTree = "<group>"; };
 		AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLWriterTest.swift; sourceTree = "<group>"; };
+		AD9AF45D261503E50023C647 /* ogckml22.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ogckml22.xsd; sourceTree = "<group>"; };
 		ADE1961F25E7F2CB00935306 /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE1962225E7F2CB00935306 /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		ADE1962325E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -268,6 +270,7 @@
 			children = (
 				AD2A5A4F2603BE87001147C3 /* atom-author-link.xsd */,
 				AD2A5A502603BE87001147C3 /* kml22gx.xsd */,
+				AD9AF45D261503E50023C647 /* ogckml22.xsd */,
 				AD2A5A512603BE87001147C3 /* ogckml23.xsd */,
 			);
 			path = schema;
@@ -606,6 +609,7 @@
 				AD55D57925E9CD600069A6CE /* labelstyle_example.kml in Resources */,
 				AD55D56E25E9CD600069A6CE /* groundoverlay_example.kml in Resources */,
 				ADE1965A25E7F71F00935306 /* aprsfi_export_W8AGT-9_20210222_122629_20210225_122629.kml in Resources */,
+				AD9AF45E261503E50023C647 /* ogckml22.xsd in Resources */,
 				AD55D56825E9CD600069A6CE /* animatedupdate_example.kml in Resources */,
 				AD55D57125E9CD600069A6CE /* tourprimitive_example.kml in Resources */,
 				AD2A5A532603BE87001147C3 /* kml22gx.xsd in Resources */,

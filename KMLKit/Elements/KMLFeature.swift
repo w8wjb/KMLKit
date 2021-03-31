@@ -184,7 +184,7 @@ extension KMLFeature {
         super.addChildNodes(to: element, in: doc)
         
         addSimpleChild(to: element, withName: "visibility", value: visibility, numeric: true, default: true)
-        addSimpleChild(to: element, withName: "balloonVisibility", value: balloonVisibility, default: true)
+        addSimpleChild(to: element, withName: "gx:balloonVisibility", value: balloonVisibility, default: true)
         addSimpleChild(to: element, withName: "open", value: open, numeric: true, default: false)
         addChild(to: element, child: author, in: doc)
         addChild(to: element, child: link, in: doc)

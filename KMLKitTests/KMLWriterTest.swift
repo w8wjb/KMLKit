@@ -19,11 +19,11 @@ class KMLWriterTest: XCTestCase {
     }
     
     func validateFile(_ fileToValidate: URL) throws {
-        let ogckml23File = try getFile("ogckml23", type: "xsd")
+        let ogckml22File = try getFile("ogckml22", type: "xsd")
         
         let doc = try XMLDocument(contentsOf: fileToValidate, options: [])
         
-        let namespaceLocations = ["http://www.opengis.net/kml/2.2", ogckml23File.description]
+        let namespaceLocations = ["http://www.opengis.net/kml/2.2", ogckml22File.description]
         
         let namespaceLocation = XMLNode.attribute(withName: "xsi:schemaLocation", stringValue: namespaceLocations.joined(separator: " ")) as! XMLNode
         

@@ -62,10 +62,13 @@ extension KMLRoot: KMLWriterNode {
         let nsXSI = XMLNode.namespace(withName: "xsi", stringValue: "http://www.w3.org/2001/XMLSchema-instance") as! XMLNode
         element.addNamespace(nsXSI)
 
-        let ns = XMLNode.namespace(withName: "", stringValue: "http://www.opengis.net/kml/2.2") as! XMLNode
+        var ns = XMLNode.namespace(withName: "", stringValue: "http://www.opengis.net/kml/2.2") as! XMLNode
         element.addNamespace(ns)
         
-        let schemaLocations = XMLNode.attribute(withName: "xsi:schemaLocation", stringValue: "http://www.opengis.net/kml/2.2 http://schemas.opengis.net/kml/2.3/ogckml23.xsd") as! XMLNode
+        ns = XMLNode.namespace(withName: "gx", stringValue: "http://www.google.com/kml/ext/2.2") as! XMLNode
+        element.addNamespace(ns)
+        
+        let schemaLocations = XMLNode.attribute(withName: "xsi:schemaLocation", stringValue: "http://www.opengis.net/kml/2.2 http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd") as! XMLNode
         element.addAttribute(schemaLocations)
         
         doc.addChild(element)

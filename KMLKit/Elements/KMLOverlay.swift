@@ -30,7 +30,7 @@ extension KMLOverlay {
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "color", value: color?.hexRGBaColor)
-        addSimpleChild(to: element, withName: "drawOrder", value: drawOrder, default: 0)
+        addSimpleChild(to: element, withName: "gx:drawOrder", value: drawOrder, default: 0)
         addChild(to: element, child: icon, in: doc)
     }
 
@@ -65,7 +65,7 @@ extension KMLGroundOverlay {
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "altitude", value: altitude, default: 0)
-        addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
+        addSimpleChild(to: element, withName: altitudeMode.elementName, value: altitudeMode.description, default: "clampToGround")
         addChild(to: element, child: extent, in: doc)
     }
 }

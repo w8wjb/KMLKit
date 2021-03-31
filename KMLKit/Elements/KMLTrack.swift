@@ -71,6 +71,8 @@ open class KMLTrack: KMLGeometry {
 
 #if os(macOS)
 extension KMLTrack {
+    
+    override class var elementName: String { "gx:Track" }
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
@@ -82,11 +84,11 @@ extension KMLTrack {
         }
         
         for coord in coordinates {
-            addSimpleChild(to: element, withName: "coord", value: formatAsLonLatAlt(coord))
+            addSimpleChild(to: element, withName: "gx:coord", value: formatAsLonLatAlt(coord))
         }
         
         for angle in angles {
-            addSimpleChild(to: element, withName: "angles", value: angle)
+            addSimpleChild(to: element, withName: "gx:angles", value: angle)
         }
         addChild(to: element, child: model, in: doc)
         addChild(to: element, child: extendedData, in: doc)
@@ -110,9 +112,11 @@ open class KMLMultiTrack: KMLGeometry {
 #if os(macOS)
 extension KMLMultiTrack {
 
+    override class var elementName: String { "gx:MultiTrack" }
+    
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
-        addSimpleChild(to: element, withName: "interpolate", value: interpolate, default: false)
+        addSimpleChild(to: element, withName: "gx:interpolate", value: interpolate, default: false)
         for track in tracks {
             addChild(to: element, child: track, in: doc)
         }

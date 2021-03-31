@@ -21,6 +21,8 @@ open class KMLTour: KMLFeature {
 
 #if os(macOS)
 extension KMLTour {
+    
+    override class var elementName: String { "gx:Tour" }
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
@@ -35,6 +37,8 @@ open class KMLPlaylist: KMLObject {
 
 #if os(macOS)
 extension KMLPlaylist {
+    
+    override class var elementName: String { "gx:Playlist" }
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)

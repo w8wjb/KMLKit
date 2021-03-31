@@ -86,7 +86,7 @@ extension KMLLatLonAltBox {
         super.addChildNodes(to: element, in: doc)
         addSimpleChild(to: element, withName: "minAltitude", value: minAltitude, default: 0.0)
         addSimpleChild(to: element, withName: "maxAltitude", value: maxAltitude, default: 0.0)
-        addSimpleChild(to: element, withName: "altitudeMode", value: altitudeMode.description, default: "clampToGround")
+        addSimpleChild(to: element, withName: altitudeMode.elementName, value: altitudeMode.description, default: "clampToGround")
         addSimpleChild(to: element, withName: "seaFloorAltitudeMode", value: seaFloorAltitudeMode.description, default: "clampToSeaFloor")
     }
 
@@ -108,6 +108,8 @@ open class KMLLatLonQuad: KMLAbstractExtent {
 
 #if os(macOS)
 extension KMLLatLonQuad {
+    
+    override class var elementName: String { "gx:LatLonQuad" }
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
