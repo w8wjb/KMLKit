@@ -22,7 +22,7 @@ open class KMLData: KMLObject {
         super.init()
     }
 
-    public override init(_ attributes: [String:String]) {
+    internal override init(_ attributes: [String:String]) {
         super.init(attributes)
         self.type = attributes["type"]
         if let uom = attributes["uom"] {

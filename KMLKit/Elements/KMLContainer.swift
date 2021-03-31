@@ -20,7 +20,7 @@ public protocol KMLFeatureCollection {
  */
 open class KMLContainer: KMLFeature, KMLFeatureCollection {
 
-    var features: [KMLFeature] = []
+    open var features: [KMLFeature] = []
 
     open func add(feature: KMLFeature) {
         features.append(feature)

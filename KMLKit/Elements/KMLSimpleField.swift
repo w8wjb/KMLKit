@@ -32,7 +32,7 @@ open class KMLSimpleField: NSObject {
         super.init()
     }
     
-    public init(_ attributes: [String:String]) {
+    internal init(_ attributes: [String:String]) {
         self.type = attributes["type"]
         self.name = attributes["name"]
         if let uom = attributes["uom"] {

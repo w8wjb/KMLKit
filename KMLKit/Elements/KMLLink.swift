@@ -30,7 +30,7 @@ open class KMLBasicLink: KMLObject, KMLAbstractLink {
     }
 
 
-    public override init(_ attributes: [String : String]) {
+    internal override init(_ attributes: [String : String]) {
         super.init(attributes)
     }
     
@@ -202,7 +202,7 @@ open class KMLLink: KMLBasicLink {
         super.init(href: href)
     }
     
-    public override init(_ attributes: [String:String]) {
+    internal override init(_ attributes: [String:String]) {
         super.init(attributes)
         if let href = attributes["href"] {
             self.href = URL(string: href)

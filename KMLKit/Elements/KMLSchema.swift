@@ -25,7 +25,7 @@ open class KMLSchema: NSObject {
         super.init()
     }
 
-    public init(_ attributes: [String:String]) {
+    internal init(_ attributes: [String:String]) {
         self.id = attributes["id"]
         self.name = attributes["name"]
     }

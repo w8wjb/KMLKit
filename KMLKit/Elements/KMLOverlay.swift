@@ -87,15 +87,15 @@ open class KMLPhotoOverlay: KMLOverlay {
      */
     open class ViewVolume: NSObject {
         /** Angle, in degrees, between the camera's viewing direction and the left side of the view volume. */
-        @objc var leftFov: Double = 0.0
+        @objc open var leftFov: Double = 0.0
         /** Angle, in degrees, between the camera's viewing direction and the right side of the view volume. */
-        @objc var rightFov: Double = 0.0
+        @objc open var rightFov: Double = 0.0
         /** Angle, in degrees, between the camera's viewing direction and the bottom side of the view volume. */
-        @objc var bottomFov: Double = 0.0
+        @objc open var bottomFov: Double = 0.0
         /** Angle, in degrees, between the camera's viewing direction and the top side of the view volume. */
-        @objc var topFov: Double = 0.0
+        @objc open var topFov: Double = 0.0
         /** Measurement in meters along the viewing direction from the camera viewpoint to the PhotoOverlay shape. */
-        @objc var near: Double = 0.0
+        @objc open var near: Double = 0.0
     }
     
     @objc public enum GridOrigin: Int, CustomStringConvertible {

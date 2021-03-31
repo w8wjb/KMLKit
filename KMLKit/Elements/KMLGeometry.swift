@@ -58,6 +58,19 @@ open class KMLPoint: KMLGeometry {
      */
     @objc open var location = CLLocation()
     
+    public override init() {
+        super.init()
+    }
+    
+    internal override init(_ attributes: [String : String]) {
+        super.init(attributes)
+    }
+    
+    public init(location: CLLocation) {
+        self.location = location
+        super.init()
+    }
+    
     open override func setValue(_ value: Any?, forKey key: String) {
         
         if key == "coordinates",

@@ -56,6 +56,20 @@ open class KMLTimeStamp: KMLObject, KMLTimePrimitive {
      */
     @objc open var when: DateComponents?
     
+    public override init() {
+        super.init()
+    }
+    
+    internal override init(_ attributes: [String : String]) {
+        super.init(attributes)
+    }
+    
+    public init(date: Date) {
+        self.when = Calendar.current.dateComponents(in: TimeZone.current, from: date)
+        super.init()
+    }
+    
+    
     open func asDateComponents() -> DateComponents? {
         return when
     }

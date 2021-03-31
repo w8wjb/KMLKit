@@ -21,12 +21,12 @@ import CoreGraphics
  Use an **id** to refer to the style from a &lt;styleUrl&gt;.
  */
 open class KMLStyle: KMLObject, KMLStyleSelector {
-    @objc var iconStyle: KMLIconStyle?
-    @objc var labelStyle: KMLLabelStyle?
-    @objc var lineStyle: KMLLineStyle?
-    @objc var polyStyle: KMLPolyStyle?
-    @objc var balloonStyle: KMLBalloonStyle?
-    @objc var listStyle: KMLListStyle?
+    @objc open var iconStyle: KMLIconStyle?
+    @objc open var labelStyle: KMLLabelStyle?
+    @objc open var lineStyle: KMLLineStyle?
+    @objc open var polyStyle: KMLPolyStyle?
+    @objc open var balloonStyle: KMLBalloonStyle?
+    @objc open var listStyle: KMLListStyle?
 }
 
 #if os(macOS)
@@ -85,9 +85,9 @@ open class KMLSubStyle: KMLStyle {
 
 /** This is an abstract element and cannot be used directly in a KML file. It provides elements for specifying the color and color mode of extended style types. */
 open class KMLColorStyle: KMLSubStyle {
-    @objc var color = KMLColor.white
+    @objc open var color = KMLColor.white
     
-    @objc var colorMode = KMLColorMode.normal
+    @objc open var colorMode = KMLColorMode.normal
     
     open override func setValue(_ value: Any?, forKey key: String) {
         
@@ -226,7 +226,7 @@ extension KMLLineStyle {
 open class KMLItemIcon: KMLObject {
     
     @objc(KMLItemIconState)
-    enum IconState: Int, CustomStringConvertible {
+    public enum IconState: Int, CustomStringConvertible {
         case `open`
         case closed
         case error
@@ -272,10 +272,10 @@ open class KMLItemIcon: KMLObject {
     }
     
     /** Specifies the current state of the NetworkLink or Folder */
-    @objc var state: IconState = .open
+    @objc open var state: IconState = .open
     
     /** Specifies the URI of the image used in the List View for the Feature. */
-    @objc var href: URL?
+    @objc open var href: URL?
     
     open override func setValue(_ value: Any?, forKey key: String) {
         if key == "state", let state = value as? IconState {
@@ -303,7 +303,7 @@ extension KMLItemIcon {
  */
 open class KMLListStyle: KMLSubStyle {
     
-    @objc(KMLListItemType) enum ListItemType: Int, CustomStringConvertible {
+    @objc(KMLListItemType) public enum ListItemType: Int, CustomStringConvertible {
         /** When specified for a Container, only one of the Container's items is visible at a time */
         case radioFolder
         /** The Feature's visibility is tied to its item's checkbox. */
@@ -343,14 +343,14 @@ open class KMLListStyle: KMLSubStyle {
     }
     
     /** Specifies how a Feature is displayed in the list view */
-    @objc var listItemType = ListItemType.check
+    @objc open var listItemType = ListItemType.check
     
     /** Background color for the Snippet */
-    @objc var bgColor = KMLColor.white
+    @objc open var bgColor = KMLColor.white
     
     /** Icon used in the List view that reflects the state of a Folder or Link fetch. Icons associated with the **open** and **closed** modes are used for Folders and Network Links. Icons associated with the **error** and **fetching0**, **fetching1**, and **fetching2** modes are used for Network Links. */
-    @objc var itemIcon: [KMLItemIcon] = []
-    @objc var maxSnippetLines = 2
+    @objc open var itemIcon: [KMLItemIcon] = []
+    @objc open var maxSnippetLines = 2
     
     
     open override func setValue(_ value: Any?, forKey key: String) {
@@ -385,9 +385,9 @@ extension KMLListStyle {
  */
 open class KMLPolyStyle: KMLColorStyle {
     /** Specifies whether to fill the polygon. */
-    @objc var fill = true
+    @objc open var fill = true
     /** Specifies whether to outline the polygon. Polygon outlines use the current LineStyle. */
-    @objc var outline = true
+    @objc open var outline = true
 }
 
 #if os(macOS)
@@ -407,14 +407,14 @@ extension KMLPolyStyle {
  */
 open class KMLIconStyle: KMLColorStyle {
     /** Resizes the icon. */
-    @objc var scale: Double = 1.0
+    @objc open var scale: Double = 1.0
     /** Direction (that is, North, South, East, West), in degrees. Default=0 (North). Values range from 0 to 360 degrees. */
-    @objc var heading: Double = 0.0
+    @objc open var heading: Double = 0.0
     /** A custom Icon. In &lt;IconStyle&gt;, the only child element of &lt;Icon&gt; is &lt;href&gt;: */
-    @objc var icon: KMLIcon?
+    @objc open var icon: KMLIcon?
     
     /** Specifies the position within the Icon that is "anchored" to the &lt;Point&gt; specified in the Placemark. The x and y values can be specified in three different ways: as pixels ("pixels"), as fractions of the icon ("fraction"), or as inset pixels ("insetPixels"), which is an offset in pixels from the upper right corner of the icon. The x and y positions can be specified in different ways—for example, x can be in pixels and y can be a fraction. The origin of the coordinate system is in the lower left corner of the icon. */
-    var hotSpot = CGPoint()
+    open var hotSpot = CGPoint()
     
     open override func setValue(_ value: Any?, forKey key: String) {
         if key == "hotSpot", let hotSpot = value as? CGPoint {
@@ -479,7 +479,7 @@ open class KMLStyleMap: KMLObject, KMLStyleSelector {
      - **&lt;key&gt;**, which identifies the key
      - **&lt;styleUrl&gt;** or **&lt;Style&gt;**, which references the style. In &lt;styleUrl&gt;, for referenced style elements that are local to the KML document, a simple # referencing is used. For styles that are contained in external files, use a full URL along with # referencing. For example:
      */
-    @objc var pairs: [String:KMLStyleSelector] = [:]
+    @objc open var pairs: [String:KMLStyleSelector] = [:]
 }
 
 #if os(macOS)

@@ -15,7 +15,7 @@ open class KMLSnippet: NSObject {
         super.init()
     }
     
-    init(_ attributes: [String:String]) {
+    internal init(_ attributes: [String:String]) {
         self.maxLines =  Int(attributes["maxLines"] ?? "2") ?? 2
     }
 }

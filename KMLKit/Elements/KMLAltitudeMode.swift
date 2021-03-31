@@ -29,7 +29,7 @@ import Foundation
     /** Interprets the altitude as a value in meters above the sea floor. If the KML feature is above land rather than sea, the altitude will be interpreted as being above the ground. */
     case relativeToSeaFloor
     
-    init(_ value: String) {
+    public init(_ value: String) {
         switch value {
         case "clampToGround":
             self = .clampToGround
@@ -65,7 +65,7 @@ import Foundation
     case clampToSeaFloor
     case relativeToSeaFloor
     
-    init(_ value: String) {
+    public init(_ value: String) {
         switch value {
         case "clampToSeaFloor":
             self = .clampToSeaFloor

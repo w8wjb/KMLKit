@@ -19,7 +19,7 @@ open class KMLObject: NSObject {
         super.init()
     }
 
-    public init(_ attributes: [String:String]) {
+    internal init(_ attributes: [String:String]) {
         self.id = attributes["id"]
         self.targetId = attributes["targetId"]
     }

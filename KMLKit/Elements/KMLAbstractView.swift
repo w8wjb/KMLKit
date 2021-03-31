@@ -22,7 +22,7 @@ open class KMLAbstractView: KMLObject {
             super.init()
         }
         
-        public override init(_ attributes: [String : String]) {
+        internal override init(_ attributes: [String : String]) {
             super.init(attributes)
             self.name = attributes["name"]
             self.enabled = ((attributes["enabled"] ?? "true") as NSString).boolValue
