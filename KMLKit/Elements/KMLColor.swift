@@ -35,35 +35,28 @@ extension KMLColor {
         return (r,g,b,a)
     }
     
-    var hexRGBColor: String {
-        return String(format: "%02x%02x%02x",
-                      Int(rgbComponents.red * 255),
-                      Int(rgbComponents.green * 255),
-                      Int(rgbComponents.blue * 255))
-    }
-    
-    var hexRGBaColor: String {
+    var kmlHex: String {
         return String(format: "%02x%02x%02x%02x",
-                      Int(rgbComponents.red * 255),
-                      Int(rgbComponents.green * 255),
+                      Int(rgbComponents.alpha * 255),
                       Int(rgbComponents.blue * 255),
-                      Int(rgbComponents.alpha * 255))
+                      Int(rgbComponents.green * 255),
+                      Int(rgbComponents.red * 255))
     }
     
-    convenience init(hex: String) {
-        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+    convenience init(kmlHex: String) {
+        let hex = kmlHex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
         let a, r, g, b: UInt64
         switch hex.count {
         case 3: // RGB (12-bit)
-            (r, g, b, a) = ((int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17, 255)
+            (a, b, g, r) = ((int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17, 255)
         case 6: // RGB (24-bit)
-            (r, g, b, a) = (int >> 16, int >> 8 & 0xFF, int & 0xFF, 255)
+            (a, b, g, r) = (int >> 16, int >> 8 & 0xFF, int & 0xFF, 255)
         case 8: // ARGB (32-bit)
-            (r, g, b, a) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (a, b, g, r) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (r, g, b, a) = (1, 1, 1, 1)
+            (a, b, g, r) = (1, 1, 1, 1)
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }

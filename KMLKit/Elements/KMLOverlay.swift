@@ -29,7 +29,7 @@ extension KMLOverlay {
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
-        addSimpleChild(to: element, withName: "color", value: color?.hexRGBaColor)
+        addSimpleChild(to: element, withName: "color", value: color?.kmlHex)
         addSimpleChild(to: element, withName: "gx:drawOrder", value: drawOrder, default: 0)
         addChild(to: element, child: icon, in: doc)
     }

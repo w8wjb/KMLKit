@@ -106,7 +106,7 @@ extension KMLColorStyle {
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
-        addSimpleChild(to: element, withName: "color", value: color.hexRGBaColor, default: "ffffffff")
+        addSimpleChild(to: element, withName: "color", value: color.kmlHex, default: "ffffffff")
         addSimpleChild(to: element, withName: "colorMode", value: colorMode.description, default: "normal")
     }
 }
@@ -177,8 +177,8 @@ extension KMLBalloonStyle {
 
     override func addChildNodes(to element: XMLElement, in doc: XMLDocument) {
         super.addChildNodes(to: element, in: doc)
-        addSimpleChild(to: element, withName: "bgColor", value: bgColor?.hexRGBaColor, default: "ffffffff")
-        addSimpleChild(to: element, withName: "textColor", value: textColor?.hexRGBaColor, default: "ffffffff")
+        addSimpleChild(to: element, withName: "bgColor", value: bgColor?.kmlHex, default: "ffffffff")
+        addSimpleChild(to: element, withName: "textColor", value: textColor?.kmlHex, default: "ffffffff")
         addSimpleChild(to: element, withName: "text", value: text, default: "")
         addSimpleChild(to: element, withName: "displayMode", value: displayMode.description, default: "default")
     }
@@ -370,7 +370,7 @@ extension KMLListStyle {
     override func toElement(in doc: XMLDocument) -> XMLElement {
         let element = super.toElement(in: doc)
         addSimpleChild(to: element, withName: "listItemType", value: listItemType.description)
-        addSimpleChild(to: element, withName: "bgColor", value: bgColor.hexRGBaColor, default: "ffffffff")
+        addSimpleChild(to: element, withName: "bgColor", value: bgColor.kmlHex, default: "ffffffff")
         for child in itemIcon {
             addChild(to: element, child: child, in: doc)
         }

@@ -923,11 +923,11 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 setStackValue(value, forKey: elementName)
 
             case "bgColor":
-                let value = KMLColor(hex: buffer)
+                let value = KMLColor(kmlHex: buffer)
                 setStackValue(value, forKey: elementName)
                 
             case "color":
-                let value = KMLColor(hex: buffer)
+                let value = KMLColor(kmlHex: buffer)
                 setStackValue(value, forKey: elementName)
                 
             case "colorMode":
@@ -1073,7 +1073,7 @@ open class KMLParser: NSObject, XMLParserDelegate {
                 setStackValue(value, forKey: elementName)
 
             case "textColor":
-                let value = KMLColor(hex: buffer)
+                let value = KMLColor(kmlHex: buffer)
                 setStackValue(value, forKey: elementName)
 
             case "tileSize":
