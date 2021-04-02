@@ -416,6 +416,19 @@ open class KMLIconStyle: KMLColorStyle {
     /** Specifies the position within the Icon that is "anchored" to the &lt;Point&gt; specified in the Placemark. The x and y values can be specified in three different ways: as pixels ("pixels"), as fractions of the icon ("fraction"), or as inset pixels ("insetPixels"), which is an offset in pixels from the upper right corner of the icon. The x and y positions can be specified in different ways—for example, x can be in pixels and y can be a fraction. The origin of the coordinate system is in the lower left corner of the icon. */
     open var hotSpot = CGPoint()
     
+    public override init() {
+        super.init()
+    }
+    
+    public init(_ icon: KMLIcon?) {
+        self.icon = icon
+        super.init()
+    }
+    
+    override internal init(_ attributes: [String : String]) {
+        super.init(attributes)
+    }
+    
     open override func setValue(_ value: Any?, forKey key: String) {
         if key == "hotSpot", let hotSpot = value as? CGPoint {
             self.hotSpot = hotSpot
