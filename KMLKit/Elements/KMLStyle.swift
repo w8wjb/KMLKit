@@ -451,6 +451,15 @@ open class KMLStyleRef: NSObject, KMLStyleSelector {
         super.init()
     }
     
+    public init(styleUrlFragment fragment: String) {
+        if fragment.hasPrefix("#") {
+            self.styleUrl = URL(string: fragment)!
+        } else {
+            self.styleUrl = URL(string: "#\(fragment)")!
+        }
+        super.init()
+    }
+    
 }
 
 #if os(macOS)

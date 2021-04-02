@@ -142,6 +142,22 @@ open class KMLFeature: KMLObject {
     /** URL of a &lt;Style&gt; or &lt;StyleMap&gt; defined in a Document. If the style is in the same file, use a # reference. If the style is defined in an external file, use a full URL along with # referencing. Examples are */
     @objc open var styleUrl: URL?
     
+    @objc open var styleUrlFragment: String? {
+        get {
+            styleUrl?.fragment
+        }
+        set {
+            guard var fragment = newValue else {
+                styleUrl = nil
+                return
+            }
+            if !fragment.hasPrefix("#") {
+                fragment.insert("#", at: fragment.startIndex)
+            }
+            styleUrl = URL(string: fragment)
+        }
+    }
+    
     /** One or more Styles and StyleMaps can be defined to customize the appearance of any element derived from Feature or of the Geometry in a Placemark. (See &amp;lt;BalloonStyle&amp;gt;, &amp;lt;ListStyle&amp;gt;, &amp;lt;StyleSelector&amp;gt;, and the styles derived from &amp;lt;ColorStyle&amp;gt;.) A style defined within a Feature is called an "inline style" and applies only to the Feature that contains it. A style defined as the child of a &amp;lt;Document&amp;gt; is called a "shared style." A shared style must have an id defined for it. This id is referenced by one or more Features within the &amp;lt;Document&amp;gt;. In cases where a style element is defined both in a shared style and in an inline style for a Feature—that is, a Folder, GroundOverlay, NetworkLink, Placemark, or ScreenOverlay—the value for the Feature's inline style takes precedence over the value for the shared style. */
     @objc open var styleSelector: [KMLStyleSelector] = []
     
