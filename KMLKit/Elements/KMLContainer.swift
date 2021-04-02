@@ -21,6 +21,23 @@ public protocol KMLFeatureCollection {
 open class KMLContainer: KMLFeature, KMLFeatureCollection {
 
     open var features: [KMLFeature] = []
+    
+    public override init() {
+        super.init()
+    }
+    
+    public override init(id: String) {
+        super.init(id: id)
+    }
+    
+    public convenience init(name: String) {
+        self.init()
+        self.name = name
+    }
+    
+    internal override init(_ attributes: [String : String]) {
+        super.init(attributes)
+    }
 
     open func add(feature: KMLFeature) {
         features.append(feature)
