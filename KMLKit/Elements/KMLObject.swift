@@ -18,6 +18,11 @@ open class KMLObject: NSObject {
     public override init() {
         super.init()
     }
+    
+    public init(id: String) {
+        self.id = id
+        super.init()
+    }
 
     internal init(_ attributes: [String:String]) {
         self.id = attributes["id"]
