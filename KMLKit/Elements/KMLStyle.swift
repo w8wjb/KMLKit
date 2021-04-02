@@ -217,7 +217,7 @@ open class KMLLineStyle: KMLColorStyle {
         super.init(attributes)
     }
     
-    convenience init(width: Double, color: KMLColor) {
+    public convenience init(width: Double, color: KMLColor) {
         self.init()
         self.width = width
         self.color = color
