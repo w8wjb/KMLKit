@@ -208,6 +208,21 @@ extension KMLLabelStyle {
  Specifies the drawing style (color, color mode, and line width) for all line geometry. Line geometry includes the outlines of outlined polygons and the extruded "tether" of Placemark icons (if extrusion is enabled).
  */
 open class KMLLineStyle: KMLColorStyle {
+    
+    public override init() {
+        super.init()
+    }
+    
+    override init(_ attributes: [String : String]) {
+        super.init(attributes)
+    }
+    
+    convenience init(width: Double, color: KMLColor) {
+        self.init()
+        self.width = width
+        self.color = color
+    }
+    
     /** Width of the line, in pixels. */
     @objc open var width: Double = 1.0
 }
