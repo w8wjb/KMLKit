@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 
-@objc internal protocol KMLWriterNode: class {
+@objc internal protocol KMLWriterNode: AnyObject {
     
     static var elementName: String { get }
     

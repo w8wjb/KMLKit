@@ -8,7 +8,7 @@
 import Foundation
 import CoreGraphics
 
-@objc public protocol KMLAbstractLink: class {
+@objc public protocol KMLAbstractLink: AnyObject {
     var href: URL? { get set }
 }
 

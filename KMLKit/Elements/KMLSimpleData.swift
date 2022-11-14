@@ -7,6 +7,6 @@
 
 import Foundation
 
-@objc public protocol KMLSimpleData: class {
+@objc public protocol KMLSimpleData: AnyObject {
     var data: [String: Any] { get set }
 }
