@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -99,6 +99,8 @@
 		AD55D69A25EF12910069A6CE /* KMLNetworkLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */; };
 		AD55D6AD25F02C7F0069A6CE /* KMLWriterTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */; };
 		AD9AF45E261503E50023C647 /* ogckml22.xsd in Resources */ = {isa = PBXBuildFile; fileRef = AD9AF45D261503E50023C647 /* ogckml22.xsd */; };
+		ADD67AF32CECC1EA002DE533 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD67AF22CECC1EA002DE533 /* Package.swift */; };
+		ADD67AF52CECC1EA002DE533 /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD67AF22CECC1EA002DE533 /* Package.swift */; };
 		ADE1962925E7F2CB00935306 /* KMLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ADE1961F25E7F2CB00935306 /* KMLKit.framework */; };
 		ADE1963025E7F2CB00935306 /* KMLKit.h in Headers */ = {isa = PBXBuildFile; fileRef = ADE1962225E7F2CB00935306 /* KMLKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		ADE1963E25E7F4D500935306 /* KMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADE1963C25E7F4D500935306 /* KMLParser.swift */; };
@@ -199,6 +201,7 @@
 		AD55D69825EF12910069A6CE /* KMLNetworkLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLNetworkLink.swift; sourceTree = "<group>"; };
 		AD55D6AC25F02C7E0069A6CE /* KMLWriterTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KMLWriterTest.swift; sourceTree = "<group>"; };
 		AD9AF45D261503E50023C647 /* ogckml22.xsd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = ogckml22.xsd; sourceTree = "<group>"; };
+		ADD67AF22CECC1EA002DE533 /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 		ADE1961F25E7F2CB00935306 /* KMLKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = KMLKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ADE1962225E7F2CB00935306 /* KMLKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KMLKit.h; sourceTree = "<group>"; };
 		ADE1962325E7F2CB00935306 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -282,7 +285,8 @@
 				AD55D4F225E990E20069A6CE /* KMLKit.h */,
 				AD55D4F325E990E20069A6CE /* Info.plist */,
 			);
-			path = KMLKit;
+			name = KMLKit;
+			path = Sources/KMLKit;
 			sourceTree = "<group>";
 		};
 		AD55D52625E991780069A6CE /* Frameworks */ = {
@@ -295,6 +299,7 @@
 		ADE1961525E7F2CB00935306 = {
 			isa = PBXGroup;
 			children = (
+				ADD67AF22CECC1EA002DE533 /* Package.swift */,
 				AD2A5A1526037537001147C3 /* LICENSE */,
 				AD2A5A1426037537001147C3 /* README.md */,
 				ADE1962125E7F2CB00935306 /* KMLKit */,
@@ -325,7 +330,8 @@
 				ADE1972125E9652100935306 /* KMLWriter.swift */,
 				ADE1965025E7F58500935306 /* ParsingError.swift */,
 			);
-			path = KMLKit;
+			name = KMLKit;
+			path = Sources/KMLKit;
 			sourceTree = "<group>";
 		};
 		ADE1962C25E7F2CB00935306 /* KMLKitTests */ = {
@@ -339,7 +345,8 @@
 				ADE1965725E7F70E00935306 /* Sample Data */,
 				AD2A5A4E2603BE63001147C3 /* schema */,
 			);
-			path = KMLKitTests;
+			name = KMLKitTests;
+			path = Tests/KMLKitTests;
 			sourceTree = "<group>";
 		};
 		ADE1965725E7F70E00935306 /* Sample Data */ = {
@@ -657,6 +664,7 @@
 				AD55D50225E991390069A6CE /* KMLObject.swift in Sources */,
 				AD55D51525E991390069A6CE /* KMLStyle.swift in Sources */,
 				AD55D51425E991390069A6CE /* KMLLink.swift in Sources */,
+				ADD67AF52CECC1EA002DE533 /* Package.swift in Sources */,
 				AD55D51A25E991390069A6CE /* KMLOverlay.swift in Sources */,
 				AD55D51B25E991390069A6CE /* KMLOrientation.swift in Sources */,
 				AD55D5FC25ED40400069A6CE /* KMLData.swift in Sources */,
@@ -672,6 +680,7 @@
 				ADE196B825E8112100935306 /* KMLOverlay.swift in Sources */,
 				AD55D5E025EBE6590069A6CE /* KMLTimeStamp.swift in Sources */,
 				ADE1966E25E7FC0F00935306 /* KMLAbstractView.swift in Sources */,
+				ADD67AF32CECC1EA002DE533 /* Package.swift in Sources */,
 				ADE196FE25E84A3F00935306 /* KMLPlacemark.swift in Sources */,
 				ADE196CE25E8167B00935306 /* KMLGeometry.swift in Sources */,
 				ADE1967225E7FD3E00935306 /* KMLObject.swift in Sources */,
